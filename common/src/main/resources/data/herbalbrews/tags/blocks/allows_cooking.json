@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "herbalbrews:stove",
+    "#forge:allows_cooking",
+    "#c:allows_cooking"
+  ]
+}

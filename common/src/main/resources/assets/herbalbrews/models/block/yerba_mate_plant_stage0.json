@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "herbalbrews:block/yerba_mate_plant_stage0"
+  }
+}

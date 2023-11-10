@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "herbalbrews",
+  "version": "${version}",
+  "name": "Herbal Brews",
+  "description": "New Flowers, new crafting Stations, Tea",
+  "authors": [
+    "satisfy"
+  ],
+  "contact": {
+    "sources": "https://github.com/satisfyu/HerbalBrews"
+  },
+  "license": "ARR",
+  "icon": "assets/herbalbrews/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "satisfyu.herbalbrews.fabric.HerbalBrewsFabric"
+    ],
+    "client": [
+      "satisfyu.herbalbrews.fabric.client.HerbalbrewsClientFabric"
+    ],
+    "doapi": [
+      "satisfyu.herbalbrews.util.DoApiImpl"
+    ],
+    "rei_client": [
+      "satisfyu.herbalbrews.fabric.rei.HerbalbrewsREIClientPluginFabric"
+    ],
+    "jei_mod_plugin": [
+      "satisfyu.herbalbrews.compat.jei.HerbalbrewsJEIPlugin"
+    ]
+  },
+  "depends": {
+    "fabric": "*",
+    "minecraft": ">=1.20",
+    "architectury": ">=9.0.8",
+    "doapi": ">=1.2.8"
+  }
+}

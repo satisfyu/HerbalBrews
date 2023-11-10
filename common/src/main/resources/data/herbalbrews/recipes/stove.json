@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:campfire"
+    },
+    "X": {
+      "tag": "minecraft:stone_tool_materials"
+    },
+    "B": {
+      "item": "minecraft:iron_nugget"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "XXX",
+    "X#X"
+  ],
+  "result": {
+    "item": "herbalbrews:stove"
+  }
+}

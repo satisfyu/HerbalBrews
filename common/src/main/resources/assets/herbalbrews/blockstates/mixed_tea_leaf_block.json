@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "drying=0": [
+      { "model": "herbalbrews:block/mixed_tea_leaf0" }
+    ],
+    "drying=1": [
+      { "model": "herbalbrews:block/mixed_tea_leaf1" }
+    ],
+    "drying=2": [
+      { "model": "herbalbrews:block/mixed_tea_leaf2" }
+    ],
+    "drying=3": [
+      { "model": "herbalbrews:block/mixed_tea_leaf3" }
+    ],
+    "drying=4": [
+      { "model": "herbalbrews:block/mixed_tea_leaf4" }
+    ]
+  }
+}

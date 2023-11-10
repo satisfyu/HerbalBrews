@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": {
+      "item": "minecraft:stick"
+    },
+    "B": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    "  X",
+    "BBX",
+    "BB "
+  ],
+  "result": {
+    "item": "herbalbrews:tea_kettle"
+  }
+}
