@@ -76,7 +76,7 @@ public class TeaKettleRecipeBook extends PrivateRecipeBookWidget {
     }
 
     static {
-        TOGGLE_COOKABLE_TEXT = Component.translatable("gui.beachparty.recipebook.toggleRecipes.shakeable");
+        TOGGLE_COOKABLE_TEXT = Component.translatable("gui.herbalbrews.recipebook.toggleRecipes.cookable");
     }
     @Override
     public void setFocused(boolean bl) {

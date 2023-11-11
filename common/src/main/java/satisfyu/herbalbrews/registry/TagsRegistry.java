@@ -10,7 +10,6 @@ import satisfyu.herbalbrews.util.HerbalBrewsIdentifier;
 public class TagsRegistry {
 
     public static final TagKey<Block> ALLOWS_COOKING = TagKey.create(Registries.BLOCK, new HerbalBrewsIdentifier("allows_cooking"));
-    public static final TagKey<Item> CONTAINER = TagKey.create(Registries.ITEM, new HerbalBrewsIdentifier("container"));
     public static final TagKey<Item> SHOVEL = TagKey.create(Registries.ITEM, new HerbalBrewsIdentifier("shovel"));
 
 }

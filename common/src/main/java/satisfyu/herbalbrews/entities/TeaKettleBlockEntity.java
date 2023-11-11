@@ -6,8 +6,10 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -21,6 +23,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import satisfyu.herbalbrews.blocks.TeaKettleBlock;
 import satisfyu.herbalbrews.client.gui.handler.TeaKettleGuiHandler;
@@ -43,9 +46,8 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
     public static final int BOTTLE_INPUT_SLOT = 7;
     public static final int OUTPUT_SLOT = 0;
     private static final int INGREDIENTS_AREA = 2 * 3;
-
+    protected float experience;
     private boolean isBeingBurned;
-
     private final ContainerData delegate;
 
     public TeaKettleBlockEntity(BlockPos pos, BlockState state) {
@@ -84,11 +86,16 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
         } else return new int[]{BOTTLE_INPUT_SLOT};
     }
 
+    public void dropExperience(ServerLevel world, Vec3 pos) {
+        ExperienceOrb.award(world, pos, (int) experience);
+    }
+
     @Override
     public void load(CompoundTag nbt) {
         super.load(nbt);
         ContainerHelper.loadAllItems(nbt, this.inventory);
         this.cookingTime = nbt.getInt("CookingTime");
+        this.experience = nbt.getFloat("Experience");
     }
 
     @Override
@@ -96,6 +103,7 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
         super.saveAdditional(nbt);
         ContainerHelper.saveAllItems(nbt, this.inventory);
         nbt.putInt("CookingTime", this.cookingTime);
+        nbt.putFloat("Experience", this.experience);
     }
 
     public boolean isBeingBurned() {
@@ -220,9 +228,9 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
             this.cookingTime = 0;
         }
         if (canCraft) {
-            world.setBlock(pos, this.getBlockState().getBlock().defaultBlockState().setValue(TeaKettleBlock.COOKING, true).setValue(CookingPotBlock.LIT, true), Block.UPDATE_ALL);
+            world.setBlock(pos, this.getBlockState().getBlock().defaultBlockState().setValue(TeaKettleBlock.COOKING, true).setValue(TeaKettleBlock.LIT, true), Block.UPDATE_ALL);
         } else if (state.getValue(TeaKettleBlock.COOKING)) {
-            world.setBlock(pos, this.getBlockState().getBlock().defaultBlockState().setValue(TeaKettleBlock.COOKING, false).setValue(CookingPotBlock.LIT, true), Block.UPDATE_ALL);
+            world.setBlock(pos, this.getBlockState().getBlock().defaultBlockState().setValue(TeaKettleBlock.COOKING, false).setValue(TeaKettleBlock.LIT, true), Block.UPDATE_ALL);
         } else if (state.getValue(TeaKettleBlock.LIT) != isBeingBurned) {
             world.setBlock(pos, state.setValue(TeaKettleBlock.LIT, isBeingBurned), Block.UPDATE_ALL);
         }

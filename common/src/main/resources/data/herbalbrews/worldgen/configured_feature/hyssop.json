@@ -8,10 +8,7 @@
           "to_place": {
             "type": "minecraft:simple_state_provider",
             "state": {
-              "Name": "herbalbrews:cardinal",
-              "Properties": {
-                "half": "lower"
-              }
+              "Name": "herbalbrews:hyssop"
             }
           }
         }
@@ -26,7 +23,7 @@
         }
       ]
     },
-    "tries": 44,
+    "tries": 32,
     "xz_spread": 7,
     "y_spread": 3
   }

@@ -34,17 +34,6 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> BLACK_TEA_LEAF_BLOCK = registerWithItem("black_tea_leaf_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.ACACIA_LEAVES)));
     public static final RegistrySupplier<Block> MIXED_TEA_LEAF_BLOCK = registerWithItem("mixed_tea_leaf_block", () -> new TeaLeafBlock(BlockBehaviour.Properties.copy(Blocks.ACACIA_LEAVES)));
     public static final RegistrySupplier<Block> OOLONG_TEA_LEAF_BLOCK = registerWithItem("oolong_tea_leaf_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.ACACIA_LEAVES)));
-
-    /**
-    1x Tea Leaves -> Green Tea
-    9x Tea Leaves -> Green Tea Leaves Block
-
-    Dry Green Tea Leaves Block -> Black Tea Leaf Block -> 3x Dried Green Tea, drop
-    Black Tea Leaf Block -> Black Tea
-    4x Green Tea & 4x Black Tea -> Mixed Tea Leaf Block
-    Mixed Tea Leaf Block -> Oolong Tea Leaf Block
-     **/
-
     public static final RegistrySupplier<Block> WILD_COFFEE_PLANT = registerWithItem("wild_coffee_plant", () -> new FlowerBlock(MobEffects.HEAL, 1, BlockBehaviour.Properties.copy(Blocks.DANDELION)));
     public static final RegistrySupplier<Block> COFFEE_PLANT = registerWithoutItem("coffee_plant", () -> new CoffeeCropBlock(BlockBehaviour.Properties.copy(Blocks.SWEET_BERRY_BUSH)));
     public static final RegistrySupplier<Block> WILD_ROOIBOS_PLANT = registerWithItem("wild_rooibos_plant", () -> new FlowerBlock(MobEffects.HEAL, 1, BlockBehaviour.Properties.copy(Blocks.DANDELION)));
@@ -140,7 +129,7 @@ public class ObjectRegistry {
     }
 
     private static Item.Properties getFoodItemSettings(int nutrition, float saturationMod, MobEffect effect, int duration) {
-        return getFoodItemSettings(nutrition, saturationMod, effect, duration, false, false);
+        return getFoodItemSettings(nutrition, saturationMod, effect, duration, true, false);
     }
 
     private static Item.Properties getFoodItemSettings(int nutrition, float saturationMod, MobEffect effect, int duration, boolean alwaysEat, boolean fast) {

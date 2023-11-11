@@ -5,6 +5,7 @@ import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import satisfyu.herbalbrews.HerbalBrews;
+import satisfyu.herbalbrews.entities.TeaKettleBlockEntity;
 
 import java.util.function.Supplier;
 
@@ -12,7 +13,7 @@ public class BlockEntityRegistry {
 
     private static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(HerbalBrews.MOD_ID, Registries.BLOCK_ENTITY_TYPE);
 
-    public static final RegistrySupplier<BlockEntityType<TeaKettleBlockEntity>> TEA_KETTLE_BLOCK_ENTITY = create("tea_kettle", () -> BlockEntityType.Builder.of(TeaKettleBlockEntity::new, ObjectRegistry.TEA_KETTLE.get()).build(null));
+    public static final RegistrySupplier<BlockEntityType<TeaKettleBlockEntity>> TEA_KETTLE_BLOCK_ENTITY = create("tea_kettle", () -> BlockEntityType.Builder.of(TeaKettleBlockEntity::new, ObjectRegistry.TEA_KETTLE.get(), ObjectRegistry.COPPER_TEA_KETTLE.get()).build(null));
 
 
     private static <T extends BlockEntityType<?>> RegistrySupplier<T> create(final String path, final Supplier<T> type) {

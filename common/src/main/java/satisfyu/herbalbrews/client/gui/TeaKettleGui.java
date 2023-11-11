@@ -1,6 +1,8 @@
 package satisfyu.herbalbrews.client.gui;
 
 import de.cristelknight.doapi.client.recipebook.screen.AbstractRecipeBookGUIScreen;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -9,14 +11,28 @@ import satisfyu.herbalbrews.client.gui.handler.TeaKettleGuiHandler;
 import satisfyu.herbalbrews.client.recipebook.TeaKettleRecipeBook;
 import satisfyu.herbalbrews.util.HerbalBrewsIdentifier;
 
+@Environment(EnvType.CLIENT)
 public class TeaKettleGui extends AbstractRecipeBookGUIScreen<TeaKettleGuiHandler> {
-    public static final ResourceLocation BG = new HerbalBrewsIdentifier("textures/gui/tea_kettle.png");
+    public static final ResourceLocation BACKGROUND;
 
-    public static final int ARROW_Y = 45;
-    public static final int ARROW_X = 94;
+    public static final int ARROW_X = 95;
+    public static final int ARROW_Y = 14;
 
-    public TeaKettleGui(TeaKettleGuiHandler handler, Inventory inventory, Component title) {
-        super(handler, inventory, title, new TeaKettleRecipeBook(), BG);
+    public TeaKettleGui(TeaKettleGuiHandler handler, Inventory playerInventory, Component title) {
+        super(handler, playerInventory, title, new TeaKettleRecipeBook(), BACKGROUND);
+    }
+
+    @Override
+    public void renderProgressArrow(GuiGraphics guiGraphics) {
+        int progress = this.menu.getScaledProgress(18);
+        guiGraphics.blit(BACKGROUND, this.leftPos + ARROW_X, this.topPos + ARROW_Y, 178, 15, progress, 30);
+    }
+
+    @Override
+    public void renderBurnIcon(GuiGraphics guiGraphics, int posX, int posY) {
+        if (menu.isBeingBurned()) {
+            guiGraphics.blit(BACKGROUND, posX + 124, posY + 56, 176, 0, 17, 15);
+        }
     }
 
     @Override
@@ -26,17 +42,8 @@ public class TeaKettleGui extends AbstractRecipeBookGUIScreen<TeaKettleGuiHandle
         super.init();
     }
 
-    @Override
-    public void renderBurnIcon(GuiGraphics guiGraphics, int posX, int posY) {
-        if (menu.isBeingBurned()) {
-            guiGraphics.blit(BG, posX + 124, posY + 56, 176, 0, 17, 15);
-        }
-    }
-
-
-    protected void renderProgressArrow(GuiGraphics guiGraphics) {
-        final int progressX = this.menu.getShakeXProgress();
-        guiGraphics.blit(BG, leftPos + ARROW_X, topPos + ARROW_Y, 177, 26, progressX, 10);
+    static {
+        BACKGROUND = new HerbalBrewsIdentifier("textures/gui/tea_kettle.png");
     }
 }
 

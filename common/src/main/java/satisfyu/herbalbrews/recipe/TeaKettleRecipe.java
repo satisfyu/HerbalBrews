@@ -22,30 +22,32 @@ public class TeaKettleRecipe implements Recipe<Container> {
 
     final ResourceLocation id;
     private final NonNullList<Ingredient> inputs;
+    private final ItemStack container;
     private final ItemStack output;
 
-    public TeaKettleRecipe(ResourceLocation id, NonNullList<Ingredient> inputs, ItemStack output) {
+    public TeaKettleRecipe(ResourceLocation id, NonNullList<Ingredient> inputs, ItemStack container, ItemStack output) {
         this.id = id;
         this.inputs = inputs;
+        this.container = container;
         this.output = output;
     }
 
     @Override
     public boolean matches(Container inventory, Level world) {
-        return GeneralUtil.matchesRecipe(inventory, inputs, 1, 2);
+        return GeneralUtil.matchesRecipe(inventory, inputs, 1, 7);
     }
 
     @Override
-    public ItemStack assemble(Container inventory, RegistryAccess registryAccess) {
+    public ItemStack assemble(Container container, RegistryAccess registryAccess) {
         return ItemStack.EMPTY;
     }
+
 
     @Override
     public boolean canCraftInDimensions(int width, int height) {
         return true;
     }
 
-    @Override
     public ItemStack getResultItem(RegistryAccess registryAccess) {
         return this.output.copy();
     }
@@ -70,6 +72,10 @@ public class TeaKettleRecipe implements Recipe<Container> {
         return this.inputs;
     }
 
+    public ItemStack getContainer() {
+        return container;
+    }
+
     @Override
     public boolean isSpecial() {
         return true;
@@ -81,28 +87,26 @@ public class TeaKettleRecipe implements Recipe<Container> {
         public TeaKettleRecipe fromJson(ResourceLocation id, JsonObject json) {
             final var ingredients = GeneralUtil.deserializeIngredients(GsonHelper.getAsJsonArray(json, "ingredients"));
             if (ingredients.isEmpty()) {
-                throw new JsonParseException("No ingredients for Mini Fridge Recipe");
-            } else if (ingredients.size() > 2) {
-                throw new JsonParseException("Too many ingredients for Mini Fridge Recipe");
+                throw new JsonParseException("No ingredients for Tea Kettle Recipe");
+            } else if (ingredients.size() > 6) {
+                throw new JsonParseException("Too many ingredients for Tea Kettle Recipe");
             } else {
-                return new TeaKettleRecipe(id, ingredients, ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result")));
+                return new TeaKettleRecipe(id, ingredients, ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "container")), ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result")));
             }
         }
 
         @Override
         public TeaKettleRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
-            final var ingredients  = NonNullList.withSize(buf.readVarInt(), Ingredient.EMPTY);
+            final var ingredients = NonNullList.withSize(buf.readVarInt(), Ingredient.EMPTY);
             ingredients.replaceAll(ignored -> Ingredient.fromNetwork(buf));
-            return new TeaKettleRecipe(id, ingredients, buf.readItem());
+            return new TeaKettleRecipe(id, ingredients, buf.readItem(), buf.readItem());
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf buf, TeaKettleRecipe recipe) {
             buf.writeVarInt(recipe.inputs.size());
-            for (Ingredient ingredient : recipe.inputs) {
-                ingredient.toNetwork(buf);
-            }
-
+            recipe.inputs.forEach(entry -> entry.toNetwork(buf));
+            buf.writeItem(recipe.getContainer());
             buf.writeItem(recipe.output);
         }
     }

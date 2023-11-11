@@ -41,6 +41,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import satisfyu.herbalbrews.entities.TeaKettleBlockEntity;
 import satisfyu.herbalbrews.registry.BlockEntityRegistry;
 import satisfyu.herbalbrews.registry.SoundEventRegistry;
 import satisfyu.herbalbrews.util.GeneralUtil;
@@ -178,7 +179,6 @@ public class TeaKettleBlock extends BaseEntityBlock {
         tooltip.add(Component.translatable("tooltip.herbalbrews.tea_kettle").withStyle(ChatFormatting.WHITE));
         tooltip.add(Component.empty());
         tooltip.add(Component.translatable("tooltip.herbalbrews.canbeplaced").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
-
 
     }
 }

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "herbalbrews:yerba_mate_plant"
+    }
+  ],
+  "result": {
+    "item": "herbalbrews:yerba_mate_leaf"
+  }
+}

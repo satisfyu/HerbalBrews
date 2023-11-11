@@ -15,6 +15,7 @@ public class HerbalbrewsPlacedFeature {
     public static final ResourceKey<PlacedFeature> CHAMOMILE_FLOWER_PATCH_CHANCE_KEY = registerKey("chamomile_flower_chance");
     public static final ResourceKey<PlacedFeature> BIRD_OF_PARADISE_FLOWER_PATCH_CHANCE_KEY = registerKey("bird_of_paradise_flower_chance");
     public static final ResourceKey<PlacedFeature> WHITE_ORCHID_FLOWER_PATCH_CHANCE_KEY = registerKey("white_orchid_flower_chance");
+    public static final ResourceKey<PlacedFeature> HYSSOP_FLOWER_PATCH_CHANCE_KEY = registerKey("hyssop_flower_chance");
 
     public static final ResourceKey<PlacedFeature> YERBA_MATE_PLANT_PATCH_CHANCE_KEY = registerKey("yerba_mate_chance");
     public static final ResourceKey<PlacedFeature> ROOIBOS_PLANT_PATCH_CHANCE_KEY = registerKey("rooibos_chance");

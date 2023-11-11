@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": {
+      "item": "herbalbrews:green_tea_leaf"
+    }
+  },
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "result": {
+    "item": "herbalbrews:green_tea_leaf_block"
+  }
+}

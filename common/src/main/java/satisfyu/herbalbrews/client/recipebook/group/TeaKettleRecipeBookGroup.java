@@ -16,10 +16,10 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 public enum TeaKettleRecipeBookGroup implements IRecipeBookGroup {
     SEARCH(new ItemStack(Items.COMPASS)),
-    JAM(new ItemStack(ObjectRegistry.TEA_KETTLE.get())),
-    CHOCOLATE(new ItemStack(ObjectRegistry.TEA_KETTLE.get()));
+    SWEET(new ItemStack(Items.SUGAR)),
+    MIXTURES(new ItemStack(ObjectRegistry.TEA_KETTLE.get()));
 
-    public static final List<IRecipeBookGroup> POT_GROUPS = ImmutableList.of(SEARCH, JAM, CHOCOLATE);
+    public static final List<IRecipeBookGroup> POT_GROUPS = ImmutableList.of(SEARCH, SWEET, MIXTURES);
 
     private final List<ItemStack> icons;
 
@@ -30,10 +30,10 @@ public enum TeaKettleRecipeBookGroup implements IRecipeBookGroup {
     public boolean fitRecipe(Recipe<? extends Container> recipe, RegistryAccess registryAccess) {
         return switch (this) {
             case SEARCH -> true;
-            case JAM ->
-                    recipe.getIngredients().stream().anyMatch((ingredient) -> ingredient.test(ObjectRegistry.TEA_KETTLE.get().asItem().getDefaultInstance()));
-            case CHOCOLATE ->
-                    recipe.getIngredients().stream().anyMatch((ingredient) -> ingredient.test(Items.MILK_BUCKET.getDefaultInstance()));
+            case SWEET ->
+                    recipe.getIngredients().stream().anyMatch((ingredient) -> ingredient.test(Items.SUGAR.getDefaultInstance()));
+            case MIXTURES ->
+                    recipe.getIngredients().stream().anyMatch((ingredient) -> ingredient.test(ObjectRegistry.GREEN_TEA_LEAF.get().getDefaultInstance()));
         };
     }
 

@@ -18,11 +18,12 @@ import net.minecraft.world.item.crafting.Ingredient;
 import satisfyu.herbalbrews.HerbalBrews;
 import satisfyu.herbalbrews.client.gui.TeaKettleGui;
 import satisfyu.herbalbrews.compat.jei.HerbalbrewsJEIPlugin;
+import satisfyu.herbalbrews.entities.TeaKettleBlockEntity;
 import satisfyu.herbalbrews.recipe.TeaKettleRecipe;
 import satisfyu.herbalbrews.registry.ObjectRegistry;
 
 public class TeaKettleCategory implements IRecipeCategory<TeaKettleRecipe> {
-    public static final RecipeType<TeaKettleRecipe> TEA_KETTLE = RecipeType.create(HerbalBrews.MOD_ID, "tea_kettle_cooking", TeaKettleRecipe.class);
+    public static final RecipeType<TeaKettleRecipe> TEA_KETTLE = RecipeType.create(HerbalBrews.MOD_ID, "tea_brewing", TeaKettleRecipe.class);
     public static final int WIDTH = 124;
     public static final int HEIGHT = 60;
     public static final int WIDTH_OF = 26;
@@ -33,13 +34,32 @@ public class TeaKettleCategory implements IRecipeCategory<TeaKettleRecipe> {
     private final Component localizedName;
 
     public TeaKettleCategory(IGuiHelper helper) {
-        this.background = helper.createDrawable(TeaKettleGui.BG, WIDTH_OF, HEIGHT_OF, WIDTH, HEIGHT);
-        this.arrow = helper.drawableBuilder(TeaKettleGui.BG, 177, 26, 22, 10)
-                .buildAnimated(50, IDrawableAnimated.StartDirection.LEFT, false);
+        this.background = helper.createDrawable(TeaKettleGui.BACKGROUND, WIDTH_OF, HEIGHT_OF, WIDTH, HEIGHT);
+        this.arrow = helper.drawableBuilder(TeaKettleGui.BACKGROUND, 178, 15, 18, 30)
+                .buildAnimated(TeaKettleBlockEntity.MAX_COOKING_TIME, IDrawableAnimated.StartDirection.LEFT, false);
         this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, ObjectRegistry.TEA_KETTLE.get().asItem().getDefaultInstance());
         this.localizedName = Component.translatable("rei.herbalbrews.tea_kettle_category");
     }
 
+
+    @Override
+    public void setRecipe(IRecipeLayoutBuilder builder, TeaKettleRecipe recipe, IFocusGroup focuses) {
+
+        // Wine input
+        NonNullList<Ingredient> ingredients = recipe.getIngredients();
+        int s = ingredients.size();
+
+        builder.addSlot(RecipeIngredientRole.INPUT, 95 - WIDTH_OF, 55 - HEIGHT_OF).addItemStack(recipe.getContainer());
+
+        for (int row = 0; row < 2; row++) {
+            for (int slot = 0; slot < 3; slot++) {
+                int current = slot + row + (row * 2);
+                if(s - 1 < current) break;
+                HerbalbrewsJEIPlugin.addSlot(builder,30 + (slot * 18) - WIDTH_OF, 17 + (row * 18) - HEIGHT_OF, ingredients.get(current));
+            }
+        }
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 124 - WIDTH_OF,  28 - HEIGHT_OF).addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
+    }
 
     @Override
     public void draw(TeaKettleRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
@@ -64,16 +84,5 @@ public class TeaKettleCategory implements IRecipeCategory<TeaKettleRecipe> {
     @Override
     public IDrawable getIcon() {
         return this.icon;
-    }
-
-    @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, TeaKettleRecipe recipe, IFocusGroup focuses) {
-        NonNullList<Ingredient> ingredients = recipe.getIngredients();
-        int s = ingredients.size();
-
-        if(s > 0) HerbalbrewsJEIPlugin.addSlot(builder, 46 - WIDTH_OF, 27 - HEIGHT_OF, ingredients.get(0));
-        if(s > 1) HerbalbrewsJEIPlugin.addSlot(builder, 59 - WIDTH_OF, 43 - HEIGHT_OF, ingredients.get(1));
-
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 128 - WIDTH_OF,  42 - HEIGHT_OF).addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
     }
 }
