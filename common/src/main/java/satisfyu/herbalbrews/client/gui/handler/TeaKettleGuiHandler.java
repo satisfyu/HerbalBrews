@@ -12,6 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import satisfyu.herbalbrews.client.gui.handler.slot.ExtendedSlot;
 import satisfyu.herbalbrews.client.recipebook.group.TeaKettleRecipeBookGroup;
 import satisfyu.herbalbrews.entities.TeaKettleBlockEntity;
@@ -23,9 +24,10 @@ import java.util.List;
 public class TeaKettleGuiHandler extends AbstractRecipeBookGUIScreenHandler {
     private final ContainerData propertyDelegate;
     private static final int INPUTS = 7;
+    private static final int HEATABLE_SLOT_INDEX = 8;
 
     public TeaKettleGuiHandler(int syncId, Inventory playerInventory) {
-        this(syncId, playerInventory, new SimpleContainer(8), new SimpleContainerData(2));
+        this(syncId, playerInventory, new SimpleContainer(9), new SimpleContainerData(2));
     }
 
     public TeaKettleGuiHandler(int syncId, Inventory playerInventory, Container inventory, ContainerData propertyDelegate) {
@@ -47,6 +49,7 @@ public class TeaKettleGuiHandler extends AbstractRecipeBookGUIScreenHandler {
             }
         }
 
+        this.addSlot(new ExtendedSlot(inventory, HEATABLE_SLOT_INDEX, 95, 28, this::isItemValidForHeating));
         this.addSlot(new ExtendedSlot(inventory, 7, 95, 55, stack -> stack.is(Items.GLASS_BOTTLE)));
     }
 
@@ -60,6 +63,22 @@ public class TeaKettleGuiHandler extends AbstractRecipeBookGUIScreenHandler {
         for (i = 0; i < 9; ++i) {
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
         }
+    }
+
+    private boolean isItemValidForHeating(ItemStack stack) {
+        return isItemValidFuel(stack);
+    }
+
+    private boolean isItemValidFuel(ItemStack stack) {
+        return AbstractFurnaceBlockEntity.isFuel(stack) || isBucketOfLava(stack) || isBlazeRod(stack);
+    }
+
+    private boolean isBucketOfLava(ItemStack stack) {
+        return stack.is(Items.LAVA_BUCKET);
+    }
+
+    private boolean isBlazeRod(ItemStack stack) {
+        return stack.is(Items.BLAZE_ROD);
     }
 
     public boolean isBeingBurned() {
