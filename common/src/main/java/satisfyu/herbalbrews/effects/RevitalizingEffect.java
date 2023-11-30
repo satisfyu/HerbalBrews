@@ -26,4 +26,3 @@ public class RevitalizingEffect extends MobEffect {
         return true;
     }
 }
-//TODO

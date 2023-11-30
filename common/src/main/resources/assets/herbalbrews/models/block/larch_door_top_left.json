@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top_left",
+  "textures": {
+    "top": "herbalbrews:block/larch_door_top",
+    "bottom": "herbalbrews:block/larch_door_bottom"
+  }
+}

@@ -11,7 +11,7 @@
     "sources": "https://github.com/satisfyu/HerbalBrews"
   },
   "license": "ARR",
-  "icon": "assets/herbalbrews/icon.png",
+  "icon": "assets.herbalbrews.icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -19,6 +19,9 @@
     ],
     "client": [
       "satisfyu.herbalbrews.fabric.client.HerbalbrewsClientFabric"
+    ],
+    "terrablender":  [
+      "satisfyu.herbalbrews.fabric.terrablender.TerrablenderFabric"
     ],
     "doapi": [
       "satisfyu.herbalbrews.util.DoApiImpl"
@@ -34,6 +37,7 @@
     "fabric": "*",
     "minecraft": ">=1.20",
     "architectury": ">=9.0.8",
-    "doapi": ">=1.2.8"
+    "doapi": ">=1.2.8",
+    "terrablender": ">=3.0.0.163"
   }
 }

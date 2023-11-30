@@ -19,10 +19,15 @@ public class HerbalbrewBiomeModification {
         Predicate<BiomeSelectionContext> savannaBiomes = getHerbalbrewsSelector("savanna_biomes");
         Predicate<BiomeSelectionContext> mountainBiomes = getHerbalbrewsSelector("cherry_blossom_biomes");
         Predicate<BiomeSelectionContext> temperateBiomes = getHerbalbrewsSelector("temperate_biomes");
+        Predicate<BiomeSelectionContext> larchBiomes = getHerbalbrewsSelector("larch_biomes");
+        Predicate<BiomeSelectionContext> taigaBiomes = getHerbalbrewsSelector("taiga_biomes");
         world.add(ModificationPhase.ADDITIONS, jungleBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.COFFEE_PLANT_PATCH_CHANCE_KEY));
         world.add(ModificationPhase.ADDITIONS, savannaBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.ROOIBOS_PLANT_PATCH_CHANCE_KEY));
-        world.add(ModificationPhase.ADDITIONS, mountainBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.YERBA_MATE_PLANT_PATCH_CHANCE_KEY));
+        world.add(ModificationPhase.ADDITIONS, savannaBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.BEGONIE_FLOWER_PATCH_CHANCE_KEY));
 
+        world.add(ModificationPhase.ADDITIONS, mountainBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.YERBA_MATE_PLANT_PATCH_CHANCE_KEY));
+        world.add(ModificationPhase.ADDITIONS, jungleBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.BOTTLEBRUSHES_FLOWER_PATCH_CHANCE_KEY));
+        world.add(ModificationPhase.ADDITIONS, temperateBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.DAPHNE_FLOWER_PATCH_CHANCE_KEY));
         world.add(ModificationPhase.ADDITIONS, temperateBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.CHAMOMILE_FLOWER_PATCH_CHANCE_KEY));
         world.add(ModificationPhase.ADDITIONS, swampBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.CARDINAL_FLOWER_PATCH_CHANCE_KEY));
         world.add(ModificationPhase.ADDITIONS, swampBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.HYSSOP_FLOWER_PATCH_CHANCE_KEY));
@@ -32,6 +37,20 @@ public class HerbalbrewBiomeModification {
         world.add(ModificationPhase.ADDITIONS, jungleBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.BIRD_OF_PARADISE_FLOWER_PATCH_CHANCE_KEY));
         world.add(ModificationPhase.ADDITIONS, mountainBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.SNOWBELL_FLOWER_PATCH_CHANCE_KEY));
         world.add(ModificationPhase.ADDITIONS, mountainBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.LAVENDER_FLOWER_PATCH_CHANCE_KEY));
+        world.add(ModificationPhase.ADDITIONS, mountainBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.BLUEBELL_FLOWER_PATCH_CHANCE_KEY));
+        world.add(ModificationPhase.ADDITIONS, taigaBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.MYOSOTIS_FLOWER_PATCH_CHANCE_KEY));
+        world.add(ModificationPhase.ADDITIONS, taigaBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.LUPINE_BLUE_FLOWER_PATCH_CHANCE_KEY));
+        world.add(ModificationPhase.ADDITIONS, taigaBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.LUPINE_PURPLE_FLOWER_PATCH_CHANCE_KEY));
+
+        world.add(ModificationPhase.ADDITIONS, larchBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.LARCH_GRASS_PATCH_CHANCE_KEY));
+        world.add(ModificationPhase.ADDITIONS, larchBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.GOATSBEARD_FLOWER_PATCH_CHANCE_KEY));
+        world.add(ModificationPhase.ADDITIONS, larchBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.GENISTEAE_FLOWER_PATCH_CHANCE_KEY));
+        world.add(ModificationPhase.ADDITIONS, larchBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.FOXGLOVE_WHITE_FLOWER_PATCH_CHANCE_KEY));
+        world.add(ModificationPhase.ADDITIONS, swampBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.FOXGLOVE_PINK_FLOWER_PATCH_CHANCE_KEY));
+
+
+        world.add(ModificationPhase.ADDITIONS, larchBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.FREESIA_YELLOW_FLOWER_PATCH_CHANCE_KEY));
+        world.add(ModificationPhase.ADDITIONS, larchBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.FREESIA_PINK_FLOWER_PATCH_CHANCE_KEY));
 
     }
 

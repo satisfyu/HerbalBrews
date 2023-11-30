@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_post",
+  "textures": {
+    "texture": "herbalbrews:block/larch_planks_0"
+  }
+}

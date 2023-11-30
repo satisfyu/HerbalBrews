@@ -23,7 +23,7 @@ import java.util.List;
 
 public class TeaKettleGuiHandler extends AbstractRecipeBookGUIScreenHandler {
     private final ContainerData propertyDelegate;
-    private static final int INPUTS = 7;
+    private static final int INPUTS = 5;
     private static final int HEATABLE_SLOT_INDEX = 8;
 
     public TeaKettleGuiHandler(int syncId, Inventory playerInventory) {
@@ -41,16 +41,16 @@ public class TeaKettleGuiHandler extends AbstractRecipeBookGUIScreenHandler {
     }
 
     private void buildBlockEntityContainer(Container inventory) {
-        this.addSlot(new ExtendedSlot(inventory, 0, 124, 28, stack -> false));
+        this.addSlot(new ExtendedSlot(inventory, 0, 126, 43, stack -> false));
 
-        for (int row = 0; row < 2; row++) {
+        for (int row = 0; row < 1; row++) {
             for (int slot = 0; slot < 3; slot++) {
-                this.addSlot(new Slot(inventory, 1 + slot + row + (row * 2), 30 + (slot * 18), 17 + (row * 18)));
+                this.addSlot(new Slot(inventory, 1 + slot + row, 30 + (slot * 18), 17));
             }
         }
 
-        this.addSlot(new ExtendedSlot(inventory, HEATABLE_SLOT_INDEX, 95, 28, this::isItemValidForHeating));
-        this.addSlot(new ExtendedSlot(inventory, 7, 95, 55, stack -> stack.is(Items.GLASS_BOTTLE)));
+        this.addSlot(new ExtendedSlot(inventory, HEATABLE_SLOT_INDEX, 48, 52, this::isItemValidForHeating));
+        this.addSlot(new ExtendedSlot(inventory, 7,  87, 17, stack -> stack.is(Items.GLASS_BOTTLE)));
     }
 
     private void buildPlayerContainer(Inventory playerInventory) {

@@ -28,6 +28,3 @@ public class BalancedEffect extends MobEffect {
         return true;
     }
 }
-
-
-//TODO

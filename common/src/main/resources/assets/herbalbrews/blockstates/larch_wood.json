@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "herbalbrews:block/larch_wood",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "herbalbrews:block/larch_wood"
+    },
+    "axis=z": {
+      "model": "herbalbrews:block/larch_wood",
+      "x": 90
+    }
+  }
+}

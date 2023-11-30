@@ -16,6 +16,33 @@ public class TabRegistry {
             .title(Component.translatable("creative_tab.herbalbrews"))
             .displayItems((parameters, out) -> {
                 out.accept(ObjectRegistry.STOVE.get());
+
+                out.accept(ObjectRegistry.RED_BRICKS.get());
+                out.accept(ObjectRegistry.RED_BRICK_SLAB.get());
+                out.accept(ObjectRegistry.RED_BRICK_STAIRS.get());
+                out.accept(ObjectRegistry.RED_BRICK_WALL.get());
+
+                out.accept(ObjectRegistry.LARCH_LOG.get());
+                out.accept(ObjectRegistry.LARCH_WOOD.get());
+                out.accept(ObjectRegistry.STRIPPED_LARCH_WOOD.get());
+                out.accept(ObjectRegistry.STRIPPED_LARCH_LOG.get());
+                out.accept(ObjectRegistry.LARCH_PLANKS.get());
+                out.accept(ObjectRegistry.LARCH_STAIRS.get());
+                out.accept(ObjectRegistry.LARCH_SLAB.get());
+                out.accept(ObjectRegistry.LARCH_PRESSURE_PLATE.get());
+                out.accept(ObjectRegistry.LARCH_BUTTON.get());
+                out.accept(ObjectRegistry.LARCH_TRAPDOOR.get());
+                out.accept(ObjectRegistry.LARCH_DOOR.get());
+                out.accept(ObjectRegistry.LARCH_FENCE.get());
+                out.accept(ObjectRegistry.LARCH_FENCE_GATE.get());
+
+                out.accept(ObjectRegistry.LARCH_LEAVES.get());
+                out.accept(ObjectRegistry.LARCH_SAPLING.get());
+                out.accept(BoatsAndSignsRegistry.LARCH_SIGN_ITEM.get());
+                out.accept(BoatsAndSignsRegistry.LARCH_HANGING_SIGN_ITEM.get());
+                out.accept(BoatsAndSignsRegistry.LARCH_CHEST_BOAT.get());
+                out.accept(BoatsAndSignsRegistry.LARCH_BOAT.get());
+
                 out.accept(ObjectRegistry.TEA_LEAF_CRATE.get());
                 out.accept(ObjectRegistry.GREEN_TEA_LEAF_BLOCK.get());
                 out.accept(ObjectRegistry.BLACK_TEA_LEAF_BLOCK.get());
@@ -24,9 +51,7 @@ public class TabRegistry {
                 out.accept(ObjectRegistry.WILD_COFFEE_PLANT.get());
                 out.accept(ObjectRegistry.WILD_YERBA_MATE_PLANT.get());
                 out.accept(ObjectRegistry.WILD_ROOIBOS_PLANT.get());
-                /** --- Plants, Crops - 9 ---  **/
-
-
+                out.accept(ObjectRegistry.BEGONIE.get());
                 out.accept(ObjectRegistry.HIBISCUS.get());
                 out.accept(ObjectRegistry.JOE_PYE.get());
                 out.accept(ObjectRegistry.LAVENDER.get());
@@ -34,9 +59,20 @@ public class TabRegistry {
                 out.accept(ObjectRegistry.HYSSOP.get());
                 out.accept(ObjectRegistry.MOUNTAIN_SNOWBELL.get());
                 out.accept(ObjectRegistry.CARDINAL.get());
+                out.accept(ObjectRegistry.BOTTLEBRUSHES.get());
+                out.accept(ObjectRegistry.DAPHNE.get());
+
                 out.accept(ObjectRegistry.BIRD_OF_PARADISE.get());
                 out.accept(ObjectRegistry.WHITE_ORCHID.get());
-                /** --- Flowers 9 ---  **/
+                out.accept(ObjectRegistry.BLUEBELL.get());
+                out.accept(ObjectRegistry.GOATSBEARD.get());
+                out.accept(ObjectRegistry.GENISTEAE.get());
+                out.accept(ObjectRegistry.FOXGLOVE_WHITE.get());
+                out.accept(ObjectRegistry.FOXGLOVE_PINK.get());
+                out.accept(ObjectRegistry.FREESIA_YELLOW.get());
+                out.accept(ObjectRegistry.FREESIA_PINK.get());
+                out.accept(ObjectRegistry.LUPINE_BLUE.get());
+                out.accept(ObjectRegistry.LUPINE_PURPLE.get());
 
                 out.accept(ObjectRegistry.TEA_KETTLE.get());
                 out.accept(ObjectRegistry.COPPER_TEA_KETTLE.get());
@@ -57,6 +93,8 @@ public class TabRegistry {
                 out.accept(ObjectRegistry.ROOIBOS_TEA.get());
                 out.accept(ObjectRegistry.OOLONG_TEA.get());
                 out.accept(ObjectRegistry.COFFEE.get());
+                out.accept(ObjectRegistry.MILK_COFFEE.get());
+                out.accept(ObjectRegistry.WANDERING_GARDENER_SPAWN_EGG.get());
                 out.accept(ObjectRegistry.HERBALBREWS_STANDARD.get());
 
                 /** --- Tea 9 ---  **/

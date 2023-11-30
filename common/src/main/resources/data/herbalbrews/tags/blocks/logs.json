@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "herbalbrews:larch_log",
+    "herbalbrews:larch_wood",
+    "herbalbrews:stripped_larch_log",
+    "herbalbrews:stripped_larch_wood"
+  ]
+}

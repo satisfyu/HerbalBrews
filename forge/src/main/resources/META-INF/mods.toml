@@ -7,7 +7,7 @@ license = "ARR"
 modId = "herbalbrews"
 version = "${version}"
 displayName = "Herbal Brews"
-authors = "Me!"
+authors = "satisfy"
 description = '''
 New Flowers, new crafting Stations, Tea
 '''
@@ -31,5 +31,12 @@ side = "BOTH"
 modId = "architectury"
 mandatory = true
 versionRange = "[9.1.12,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.herbalbrews]]
+modId = "terrablender"
+mandatory = true
+versionRange = "[3.0.0.163,)"
 ordering = "AFTER"
 side = "BOTH"

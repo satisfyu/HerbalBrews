@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "herbalbrews:block/larch_slab"
+    },
+    "type=double": {
+      "model": "herbalbrews:block/larch_slab_double"
+    },
+    "type=top": {
+      "model": "herbalbrews:block/larch_slab_top"
+    }
+  }
+}

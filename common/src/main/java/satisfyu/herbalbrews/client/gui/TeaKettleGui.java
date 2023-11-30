@@ -15,8 +15,8 @@ import satisfyu.herbalbrews.util.HerbalBrewsIdentifier;
 public class TeaKettleGui extends AbstractRecipeBookGUIScreen<TeaKettleGuiHandler> {
     public static final ResourceLocation BACKGROUND;
 
-    public static final int ARROW_X = 95;
-    public static final int ARROW_Y = 14;
+    public static final int ARROW_X = 84;
+    public static final int ARROW_Y = 46;
 
     public TeaKettleGui(TeaKettleGuiHandler handler, Inventory playerInventory, Component title) {
         super(handler, playerInventory, title, new TeaKettleRecipeBook(), BACKGROUND);
@@ -24,14 +24,14 @@ public class TeaKettleGui extends AbstractRecipeBookGUIScreen<TeaKettleGuiHandle
 
     @Override
     public void renderProgressArrow(GuiGraphics guiGraphics) {
-        int progress = this.menu.getScaledProgress(18);
-        guiGraphics.blit(BACKGROUND, this.leftPos + ARROW_X, this.topPos + ARROW_Y, 178, 15, progress, 30);
+        int progress = this.menu.getScaledProgress(24);
+        guiGraphics.blit(BACKGROUND, this.leftPos + ARROW_X, this.topPos + ARROW_Y, 177, 11, progress, 30);
     }
 
     @Override
     public void renderBurnIcon(GuiGraphics guiGraphics, int posX, int posY) {
         if (menu.isBeingBurned()) {
-            guiGraphics.blit(BACKGROUND, posX + 124, posY + 56, 176, 0, 17, 15);
+            guiGraphics.blit(BACKGROUND, posX + 124, posY + 56, 177, 0, 22, 18);
         }
     }
 

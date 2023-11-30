@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "herbalbrews:block/red_bricks_3"
+  }
+}

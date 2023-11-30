@@ -4,6 +4,9 @@ import com.google.gson.JsonArray;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
@@ -14,9 +17,11 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import satisfyu.herbalbrews.HerbalBrews;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,6 +33,10 @@ public class GeneralUtil {
         Objects.requireNonNull(pos, "BlockPos cannot be null");
 
         return tracking(world, new ChunkPos(pos));
+    }
+
+    public static ResourceKey<ConfiguredFeature<?, ?>> configuredFeatureKey(String name) {
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(HerbalBrews.MOD_ID, name));
     }
 
     public static boolean isFullAndSolid(LevelReader levelReader, BlockPos blockPos) {

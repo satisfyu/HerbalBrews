@@ -25,6 +25,5 @@ public class FortuneEffect extends MobEffect {
         if (entity.getAttribute(Attributes.LUCK) != null) {
             Objects.requireNonNull(entity.getAttribute(Attributes.LUCK)).addPermanentModifier(fortuneModifier);
         }
-
     }
 }

@@ -2,13 +2,15 @@
   "replace": false,
   "values": [
     "minecraft:taiga",
-    "minecraft:old_growth_pine_taiga",
+    "minecraft:old_growth_larch_taiga",
     "minecraft:old_growth_spruce_taiga",
     "minecraft:forest",
     "minecraft:flower_forest",
+    "#minecraft:is_forest",
+    "#minecraft:is_river",
+    "#minecraft:is_hill",
     "minecraft:plains",
     "minecraft:birch_forest",
-    "minecraft:meadow",
     "minecraft:sunflower_plains",
     "minecraft:river"
   ]

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "herbalbrews:block/red_bricks_3"
+  }
+}

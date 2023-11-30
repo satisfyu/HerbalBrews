@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "herbalbrews:block/red_brick_slab"
+    },
+    "type=double": {
+      "model": "herbalbrews:block/red_bricks_1"
+    },
+    "type=top": {
+      "model": "herbalbrews:block/red_brick_slab_top"
+    }
+  }
+}

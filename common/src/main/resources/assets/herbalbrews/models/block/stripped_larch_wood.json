@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "herbalbrews:block/larch_log_stripped",
+    "side": "herbalbrews:block/larch_log_stripped"
+  }
+}
