@@ -174,6 +174,5 @@ public class TeaKettleBlock extends BaseEntityBlock {
         tooltip.add(Component.translatable("tooltip.herbalbrews.tea_kettle").withStyle(ChatFormatting.WHITE));
         tooltip.add(Component.empty());
         tooltip.add(Component.translatable("tooltip.herbalbrews.canbeplaced").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
-
     }
 }

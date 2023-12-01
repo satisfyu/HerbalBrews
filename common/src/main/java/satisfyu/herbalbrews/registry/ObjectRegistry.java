@@ -27,6 +27,7 @@ import net.minecraft.world.level.material.PushReaction;
 import org.jetbrains.annotations.NotNull;
 import satisfyu.herbalbrews.HerbalBrews;
 import satisfyu.herbalbrews.blocks.*;
+import satisfyu.herbalbrews.blocks.CauldronBlock;
 import satisfyu.herbalbrews.items.*;
 import satisfyu.herbalbrews.util.GeneralUtil;
 import satisfyu.herbalbrews.util.HerbalBrewsIdentifier;
@@ -48,6 +49,10 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> RED_BRICK_SLAB = registerWithItem("red_brick_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(RED_BRICKS.get())));
     public static final RegistrySupplier<Block> RED_BRICK_WALL = registerWithItem("red_brick_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(RED_BRICKS.get())));
 
+    public static final RegistrySupplier<Block> CALCITE_BRICKS = registerWithItem("calcite_bricks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.CALCITE)));
+    public static final RegistrySupplier<Block> CALCITE_BRICK_STAIRS = registerWithItem("calcite_brick_stairs", () -> new StairBlock(CALCITE_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(RED_BRICKS.get())));
+    public static final RegistrySupplier<Block> CALCITE_BRICK_SLAB = registerWithItem("calcite_brick_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(CALCITE_BRICKS.get())));
+    public static final RegistrySupplier<Block> CALCITE_BRICK_WALL = registerWithItem("calcite_brick_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(CALCITE_BRICKS.get())));
 
 
     public static final RegistrySupplier<Block> LARCH_LOG = registerWithItem("larch_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOD).strength(2.0f)));
@@ -63,11 +68,12 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> LARCH_DOOR = registerWithItem("larch_door", () -> new DoorBlock(BlockBehaviour.Properties.of().strength(3.0f).sound(SoundType.WOOD).noOcclusion().mapColor(LARCH_PLANKS.get().defaultMapColor()), BlockSetType.OAK));
     public static final RegistrySupplier<Block> LARCH_FENCE = registerWithItem("larch_fence", () -> new FenceBlock(BlockBehaviour.Properties.of().strength(2.0f, 3.0f).sound(SoundType.WOOD)));
     public static final RegistrySupplier<Block> LARCH_FENCE_GATE = registerWithItem("larch_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.of().strength(2.0f, 3.0f).sound(SoundType.WOOD).mapColor(LARCH_PLANKS.get().defaultMapColor()), WoodType.OAK));
-
     public static final RegistrySupplier<Block> LARCH_LEAVES = registerWithItem("larch_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.of().strength(0.2f).randomTicks().sound(SoundType.GRASS).noOcclusion().isViewBlocking((state, world, pos) -> false).isSuffocating((state, world, pos) -> false)));
+    public static final RegistrySupplier<Block> LARCH_LEAVES_ORANGE = registerWithItem("larch_leaves_orange", () -> new LeavesBlock(BlockBehaviour.Properties.of().strength(0.2f).randomTicks().sound(SoundType.GRASS).noOcclusion().isViewBlocking((state, world, pos) -> false).isSuffocating((state, world, pos) -> false)));
     public static final RegistrySupplier<Block> LARCH_SAPLING = registerWithItem("larch_sapling", () -> new SaplingBlock(new AbstractTreeGrower() {@Override protected @NotNull ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean bees) {return GeneralUtil.configuredFeatureKey("larch");}}, BlockBehaviour.Properties.copy(Blocks.SPRUCE_SAPLING)));
 
     public static final RegistrySupplier<Block> TEA_LEAF_CRATE = registerWithItem("tea_leaf_crate", () -> new Block(BlockBehaviour.Properties.copy(Blocks.RED_WOOL)));
+    public static final RegistrySupplier<Block> MOSSY_CALCITE = registerWithItem("mossy_calcite", () -> new Block(BlockBehaviour.Properties.copy(Blocks.CALCITE)));
     public static final RegistrySupplier<Block> GREEN_TEA_LEAF_BLOCK = registerWithItem("green_tea_leaf_block", () -> new TeaLeafBlock(BlockBehaviour.Properties.copy(Blocks.ACACIA_LEAVES)));
     public static final RegistrySupplier<Block> BLACK_TEA_LEAF_BLOCK = registerWithItem("black_tea_leaf_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.ACACIA_LEAVES)));
     public static final RegistrySupplier<Block> MIXED_TEA_LEAF_BLOCK = registerWithItem("mixed_tea_leaf_block", () -> new TeaLeafBlock(BlockBehaviour.Properties.copy(Blocks.ACACIA_LEAVES)));
@@ -106,6 +112,17 @@ public class ObjectRegistry {
 
     public static final RegistrySupplier<Block> COPPER_TEA_KETTLE = registerWithItem("copper_tea_kettle", () -> new TeaKettleBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
     public static final RegistrySupplier<Block> TEA_KETTLE = registerWithItem("tea_kettle", () -> new TeaKettleBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
+    public static final RegistrySupplier<Block> CAULDRON = registerWithItem("cauldron", () -> new CauldronBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).lightLevel((blockState) -> 11)));
+    public static final RegistrySupplier<Item>  HEALTH_FLASK = registerItem("health_flask", () -> new DrinkItem(getFoodItemSettings(4, 0.8f, MobEffects.HEALTH_BOOST, 75 * 15)));
+    public static final RegistrySupplier<Item>  HEALTH_FLASK_BIG = registerItem("health_flask_big", () -> new DrinkItem(getFoodItemSettings(4, 0.8f, MobEffects.HEALTH_BOOST, 90 * 15)));
+    public static final RegistrySupplier<Item>  REGENERATION_FLASK = registerItem("regeneration_flask", () -> new DrinkItem(getFoodItemSettings(4, 0.8f, MobEffects.REGENERATION, 75 * 15)));
+    public static final RegistrySupplier<Item>  REGENERATION_FLASK_BIG = registerItem("regeneration_flask_big", () -> new DrinkItem(getFoodItemSettings(4, 0.8f, MobEffects.REGENERATION, 90 * 15)));
+    public static final RegistrySupplier<Item>  FIRE_PROTECTION_FLASK = registerItem("fire_protection_flask", () -> new DrinkItem(getFoodItemSettings(4, 0.8f, MobEffects.FIRE_RESISTANCE, 75 * 15)));
+    public static final RegistrySupplier<Item>  FIRE_PROTECTION_FLASK_BIG = registerItem("fire_protection_flask_big", () -> new DrinkItem(getFoodItemSettings(4, 0.8f, MobEffects.FIRE_RESISTANCE, 90 * 15)));
+
+
+
+
     public static final RegistrySupplier<Item> TEA_BLOSSOM = registerItem("tea_blossom", () -> new SeedItem(TEA_PLANT.get(), getSettings().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.1f).fast().alwaysEat().build())));
     public static final RegistrySupplier<Item> GREEN_TEA_LEAF = registerItem("green_tea_leaf", () -> new TooltipItem(getSettings()));
     public static final RegistrySupplier<Item> YERBA_MATE_LEAF = registerItem("yerba_mate_leaf", () -> new SeedItem(YERBA_MATE_PLANT.get(), getSettings().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.1f).fast().alwaysEat().build())));
@@ -123,8 +140,11 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block>  MILK_COFFEE = registerTea("milk_coffee", () -> new TeaCupBlock(getTeaSettings()),(EffectRegistry.TOUGH.get()));
     public static final RegistrySupplier<Item>  COFFEE = registerItem("coffee", () -> new DrinkItem(getFoodItemSettings(4, 0.7f, EffectRegistry.POISONOUSBREATH.get(), 60 * 15)));
 
-    public static final RegistrySupplier<Item> WITCH_HAT = registerItem("witch_hat", () -> new WitchHatItem(getSettings().rarity(Rarity.UNCOMMON)));
+    public static final RegistrySupplier<Block> FLOWER_POT_BIG = registerWithItem("flower_pot_big", () -> new FlowerPotBigBlock(BlockBehaviour.Properties.copy(Blocks.FLOWER_POT)));
+    public static final RegistrySupplier<Block> FLOWER_BOX = registerWithItem("flower_box", () -> new FlowerBoxBlock(BlockBehaviour.Properties.copy(Blocks.FLOWER_POT)));
 
+    public static final RegistrySupplier<Item> WITCH_HAT = registerItem("witch_hat", () -> new WitchHatItem(getSettings().rarity(Rarity.UNCOMMON)));
+    public static final RegistrySupplier<Item> TOP_HAT = registerItem("top_hat", () -> new TopHatItem(getSettings().rarity(Rarity.UNCOMMON)));
 
     public static final RegistrySupplier<Item> WANDERING_GARDENER_SPAWN_EGG = registerItem("wandering_gardener_spawn_egg", () -> new ArchitecturySpawnEggItem(EntityRegistry.WANDERING_GARDENER, -1, -1, getSettings()));
     public static final RegistrySupplier<Item>  HERBALBREWS_STANDARD = registerItem("herbalbrews_standard", () -> new HerbalbrewsStandardItem(new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON)));
@@ -208,7 +228,7 @@ public class ObjectRegistry {
     }
 
     private static Item.Properties getFoodItemSettings(int nutrition, float saturationMod, MobEffect effect, int duration) {
-        return getFoodItemSettings(nutrition, saturationMod, effect, duration, true, false);
+        return getFoodItemSettings(nutrition, saturationMod, effect, duration, true, true);
     }
 
     private static Item.Properties getFoodItemSettings(int nutrition, float saturationMod, MobEffect effect, int duration, boolean alwaysEat, boolean fast) {

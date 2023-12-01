@@ -18,6 +18,6 @@ public class TooltipItem extends Item {
     }
 
     public void appendHoverText(ItemStack stack, @Nullable Level world, @NotNull List<Component> tooltip, TooltipFlag context) {
-        tooltip.add(Component.translatable("item.bakery.tooltipitem." + this.getDescriptionId()).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("item.tooltipitem." + this.getDescriptionId()).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
     }
 }

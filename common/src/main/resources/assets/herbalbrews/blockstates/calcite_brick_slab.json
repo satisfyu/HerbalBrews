@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "herbalbrews:block/calcite_brick_slab"
+    },
+    "type=double": {
+      "model": "herbalbrews:block/calcite_bricks_1"
+    },
+    "type=top": {
+      "model": "herbalbrews:block/calcite_brick_slab_top"
+    }
+  }
+}

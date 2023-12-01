@@ -4,6 +4,8 @@ import dev.architectury.platform.Platform;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrySupplier;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffect;
 import satisfyu.herbalbrews.HerbalBrews;
@@ -25,9 +27,6 @@ public class EffectRegistry {
     public static final RegistrySupplier<MobEffect> RENEWAL;
     public static final RegistrySupplier<MobEffect> REVITALIZING;
     public static final RegistrySupplier<MobEffect> TOUGH;
-
-
-
 
 
     private static RegistrySupplier<MobEffect> registerEffect(String name, Supplier<MobEffect> effect) {

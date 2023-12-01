@@ -11,7 +11,7 @@ import satisfyu.herbalbrews.HerbalBrews;
 public class TabRegistry {
     public static final DeferredRegister<CreativeModeTab> HERBALBREWS_TABS = DeferredRegister.create(HerbalBrews.MOD_ID, Registries.CREATIVE_MODE_TAB);
 
-    public static final RegistrySupplier<CreativeModeTab> HERBALBREWS_TAB = HERBALBREWS_TABS.register("herbalbrews", () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
+    public static final RegistrySupplier<CreativeModeTab> HERBALBREWS_TAB = HERBALBREWS_TABS.register("herbalbrews", () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, 1)
             .icon(() -> new ItemStack(ObjectRegistry.TEA_KETTLE.get()))
             .title(Component.translatable("creative_tab.herbalbrews"))
             .displayItems((parameters, out) -> {
@@ -21,6 +21,10 @@ public class TabRegistry {
                 out.accept(ObjectRegistry.RED_BRICK_SLAB.get());
                 out.accept(ObjectRegistry.RED_BRICK_STAIRS.get());
                 out.accept(ObjectRegistry.RED_BRICK_WALL.get());
+                out.accept(ObjectRegistry.CALCITE_BRICKS.get());
+                out.accept(ObjectRegistry.CALCITE_BRICK_SLAB.get());
+                out.accept(ObjectRegistry.CALCITE_BRICK_STAIRS.get());
+                out.accept(ObjectRegistry.CALCITE_BRICK_WALL.get());
 
                 out.accept(ObjectRegistry.LARCH_LOG.get());
                 out.accept(ObjectRegistry.LARCH_WOOD.get());
@@ -37,11 +41,11 @@ public class TabRegistry {
                 out.accept(ObjectRegistry.LARCH_FENCE_GATE.get());
 
                 out.accept(ObjectRegistry.LARCH_LEAVES.get());
+                out.accept(ObjectRegistry.LARCH_LEAVES_ORANGE.get());
                 out.accept(ObjectRegistry.LARCH_SAPLING.get());
                 out.accept(BoatsAndSignsRegistry.LARCH_SIGN_ITEM.get());
                 out.accept(BoatsAndSignsRegistry.LARCH_HANGING_SIGN_ITEM.get());
-                out.accept(BoatsAndSignsRegistry.LARCH_CHEST_BOAT.get());
-                out.accept(BoatsAndSignsRegistry.LARCH_BOAT.get());
+
 
                 out.accept(ObjectRegistry.TEA_LEAF_CRATE.get());
                 out.accept(ObjectRegistry.GREEN_TEA_LEAF_BLOCK.get());
@@ -73,9 +77,6 @@ public class TabRegistry {
                 out.accept(ObjectRegistry.FREESIA_PINK.get());
                 out.accept(ObjectRegistry.LUPINE_BLUE.get());
                 out.accept(ObjectRegistry.LUPINE_PURPLE.get());
-
-                out.accept(ObjectRegistry.TEA_KETTLE.get());
-                out.accept(ObjectRegistry.COPPER_TEA_KETTLE.get());
                 out.accept(ObjectRegistry.TEA_BLOSSOM.get());
                 out.accept(ObjectRegistry.GREEN_TEA_LEAF.get());
                 out.accept(ObjectRegistry.YERBA_MATE_LEAF.get());
@@ -83,7 +84,16 @@ public class TabRegistry {
                 out.accept(ObjectRegistry.COFFEE_BEANS.get());
                 out.accept(ObjectRegistry.DRIED_BLACK_TEA.get());
                 out.accept(ObjectRegistry.DRIED_OOLONG_TEA.get());
-                /** --- Tea Stuff 9 ---  **/
+                out.accept(ObjectRegistry.TEA_KETTLE.get());
+                out.accept(ObjectRegistry.COPPER_TEA_KETTLE.get());
+                out.accept(ObjectRegistry.CAULDRON.get());
+
+                out.accept(ObjectRegistry.HEALTH_FLASK.get());
+                out.accept(ObjectRegistry.HEALTH_FLASK_BIG.get());
+                out.accept(ObjectRegistry.REGENERATION_FLASK.get());
+                out.accept(ObjectRegistry.REGENERATION_FLASK_BIG.get());
+                out.accept(ObjectRegistry.FIRE_PROTECTION_FLASK.get());
+                out.accept(ObjectRegistry.FIRE_PROTECTION_FLASK_BIG.get());
 
                 out.accept(ObjectRegistry.GREEN_TEA.get());
                 out.accept(ObjectRegistry.BLACK_TEA.get());
@@ -94,10 +104,14 @@ public class TabRegistry {
                 out.accept(ObjectRegistry.OOLONG_TEA.get());
                 out.accept(ObjectRegistry.COFFEE.get());
                 out.accept(ObjectRegistry.MILK_COFFEE.get());
+                out.accept(ObjectRegistry.FLOWER_POT_BIG.get());
+                out.accept(ObjectRegistry.FLOWER_BOX.get());
+                out.accept(ObjectRegistry.WITCH_HAT.get());
+                out.accept(ObjectRegistry.TOP_HAT.get());
+                out.accept(BoatsAndSignsRegistry.LARCH_CHEST_BOAT.get());
+                out.accept(BoatsAndSignsRegistry.LARCH_BOAT.get());
                 out.accept(ObjectRegistry.WANDERING_GARDENER_SPAWN_EGG.get());
                 out.accept(ObjectRegistry.HERBALBREWS_STANDARD.get());
-
-                /** --- Tea 9 ---  **/
 
 
             })

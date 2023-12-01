@@ -2,18 +2,19 @@ package satisfyu.herbalbrews.client;
 
 import dev.architectury.registry.client.level.entity.EntityModelLayerRegistry;
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
+import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import dev.architectury.registry.client.rendering.RenderTypeRegistry;
 import dev.architectury.registry.menu.MenuRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.RenderType;
+import satisfyu.herbalbrews.client.gui.CauldronGui;
 import satisfyu.herbalbrews.client.gui.TeaKettleGui;
 import satisfyu.herbalbrews.client.model.WanderingGardenerModel;
+import satisfyu.herbalbrews.client.render.block.FlowerBoxBlockEntityRenderer;
+import satisfyu.herbalbrews.client.render.block.FlowerPotBigBlockEntityRenderer;
 import satisfyu.herbalbrews.client.render.entity.WanderingGardenerRenderer;
-import satisfyu.herbalbrews.registry.ArmorRegistry;
-import satisfyu.herbalbrews.registry.EntityRegistry;
-import satisfyu.herbalbrews.registry.ObjectRegistry;
-import satisfyu.herbalbrews.registry.ScreenHandlerTypeRegistry;
+import satisfyu.herbalbrews.registry.*;
 
 @Environment(EnvType.CLIENT)
 public class HerbalbrewsClient {
@@ -36,18 +37,29 @@ public class HerbalbrewsClient {
                 ObjectRegistry.POTTED_GOATSBEARD.get(), ObjectRegistry.POTTED_BLUEBELL.get(), ObjectRegistry.POTTED_DAPHNE.get(), ObjectRegistry.POTTED_BOTTLEBRUSHES.get(),
                 ObjectRegistry.POTTED_FOXGLOVE_WHITE.get(), ObjectRegistry.POTTED_FOXGLOVE_PINK.get(), ObjectRegistry.POTTED_FREESIA_YELLOW.get(),
                 ObjectRegistry.POTTED_FREESIA_PINK.get(), ObjectRegistry.POTTED_LUPINE_BLUE.get(), ObjectRegistry.POTTED_LUPINE_PURPLE.get(),
-                ObjectRegistry.POTTED_LARCH_SAPLING.get()
+                ObjectRegistry.POTTED_LARCH_SAPLING.get(), ObjectRegistry.LARCH_SAPLING.get(), ObjectRegistry.CAULDRON.get()
         );
         MenuRegistry.registerScreenFactory(ScreenHandlerTypeRegistry.TEA_KETTLE_SCREEN_HANDLER.get(), TeaKettleGui::new);
+        MenuRegistry.registerScreenFactory(ScreenHandlerTypeRegistry.CAULDRON_SCREEN_HANDLER.get(), CauldronGui::new);
+
     }
+
 
     public static void preInitClient() {
         registerEntityRenderers();
         registerEntityModelLayer();
+        registerBlockRenderer();
         ArmorRegistry.registerArmorModelLayers();
     }
 
-    public static void registerEntityRenderers() {
+    private static void registerBlockRenderer() {
+        BlockEntityRendererRegistry.register(BlockEntityRegistry.FLOWER_BOX_ENTITY.get(), FlowerBoxBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.register(BlockEntityRegistry.FLOWER_POT_BIG_ENTITY.get(), FlowerPotBigBlockEntityRenderer::new);
+
+    }
+
+
+        public static void registerEntityRenderers() {
         EntityRendererRegistry.register(EntityRegistry.WANDERING_GARDENER, WanderingGardenerRenderer::new);
     }
 

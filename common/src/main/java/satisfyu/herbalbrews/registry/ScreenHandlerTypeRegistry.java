@@ -6,6 +6,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
 import satisfyu.herbalbrews.HerbalBrews;
+import satisfyu.herbalbrews.client.gui.handler.CauldronGuiHandler;
 import satisfyu.herbalbrews.client.gui.handler.TeaKettleGuiHandler;
 
 import java.util.function.Supplier;
@@ -16,6 +17,7 @@ public class ScreenHandlerTypeRegistry {
     public static final DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(HerbalBrews.MOD_ID, Registries.MENU);
 
     public static final RegistrySupplier<MenuType<TeaKettleGuiHandler>> TEA_KETTLE_SCREEN_HANDLER = create("tea_kettle_gui_handler", () -> new MenuType<>(TeaKettleGuiHandler::new, FeatureFlags.VANILLA_SET));
+    public static final RegistrySupplier<MenuType<CauldronGuiHandler>> CAULDRON_SCREEN_HANDLER = create("cauldron_gui_handler", () -> new MenuType<>(CauldronGuiHandler::new, FeatureFlags.VANILLA_SET));
 
 
     public static void init() {

@@ -9,6 +9,7 @@
 		"5": "herbalbrews:block/cauldron_side_4",
 		"6": "herbalbrews:block/cauldron_top_2",
 		"7": "herbalbrews:block/larch_log_side",
+		"8": "herbalbrews:block/cauldron_fire",
 		"particle": "herbalbrews:block/cauldron_bottom"
 	},
 	"elements": [
@@ -207,6 +208,30 @@
 				"west": {"uv": [0, 0, 2, 16], "texture": "#7"},
 				"up": {"uv": [0, 0, 2, 2], "texture": "#7"},
 				"down": {"uv": [0, 0, 2, 2], "texture": "#7"}
+			}
+		},
+		{
+			"from": [2, 0, 2],
+			"to": [14, 2, 14],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2, 0, 2]},
+			"faces": {
+				"north": {"uv": [2, 12, 14, 14], "texture": "#8"},
+				"east": {"uv": [2, 12, 14, 14], "texture": "#8"},
+				"south": {"uv": [2, 12, 14, 14], "texture": "#8"},
+				"west": {"uv": [2, 12, 14, 14], "texture": "#8"},
+				"up": {"uv": [2, 0, 14, 12], "texture": "#8"},
+				"down": {"uv": [2, 0, 14, 12], "texture": "#8"}
+			}
+		},
+		{
+			"from": [1.9, 0, 1.9],
+			"to": [14.1, 2, 14.1],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2.9, 0, 1.9]},
+			"faces": {
+				"north": {"uv": [2, 14, 14, 16], "texture": "#8"},
+				"east": {"uv": [2, 14, 14, 16], "texture": "#8"},
+				"south": {"uv": [2, 14, 14, 16], "texture": "#8"},
+				"west": {"uv": [2, 14, 14, 16], "texture": "#8"}
 			}
 		}
 	]

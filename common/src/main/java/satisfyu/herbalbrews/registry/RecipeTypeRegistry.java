@@ -8,6 +8,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import satisfyu.herbalbrews.HerbalBrews;
 import satisfyu.herbalbrews.recipe.TeaKettleRecipe;
+import satisfyu.herbalbrews.recipe.CauldronRecipe;
 
 import java.util.function.Supplier;
 
@@ -18,7 +19,8 @@ public class RecipeTypeRegistry {
 
     public static final RegistrySupplier<RecipeType<TeaKettleRecipe>> TEA_KETTLE_RECIPE_TYPE = create("kettle_brewing");
     public static final RegistrySupplier<RecipeSerializer<TeaKettleRecipe>> TEAK_KETTLE_RECIPE_SERIALIZER = create("kettle_brewing", TeaKettleRecipe.Serializer::new);
-
+    public static final RegistrySupplier<RecipeType<CauldronRecipe>> CAULDRON_RECIPE_TYPE = create("cauldron_brewing");
+    public static final RegistrySupplier<RecipeSerializer<CauldronRecipe>> CAULDRON_RECIPE_SERIALIZER = create("cauldron_brewing", CauldronRecipe.Serializer::new);
 
     private static <T extends Recipe<?>> RegistrySupplier<RecipeSerializer<T>> create(String name, Supplier<RecipeSerializer<T>> serializer) {
         return RECIPE_SERIALIZERS.register(name, serializer);

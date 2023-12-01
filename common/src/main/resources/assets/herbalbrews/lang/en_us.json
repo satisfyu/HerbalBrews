@@ -91,6 +91,7 @@
   "rei.herbalbrews.tea_kettle_category": "Tea Kettle",
   "tooltip.herbalbrews.canbeplaced": "Can be placed",
   "tooltip.herbalbrews.tea_kettle": "Used to brew Tea",
+  "tooltip.herbalbrews.cauldron": "Used to brew Potions",
   "tooltip.herbalbrews.thankyou_1": "A reward for crafting all Tea Variants",
   "tooltip.herbalbrews.thankyou_2": "When placed:",
   "tooltip.herbalbrews.thankyou_3": "Thank you for playing Herbal Brews!",
@@ -121,6 +122,24 @@
   "block.herbalbrews.potted_lupine_purple": "Potted Purple Lupine",
   "entity.herbalbrews.wandering_gardener": "Wandering Gardener",
   "item.herbalbrews.larch_boat": "Larch Boat",
-  "item.herbalbrews.larch_chest_boat": "Larch with Boat"
+  "item.herbalbrews.larch_chest_boat": "Larch Boat with Chest",
+  "block.herbalbrews.larch_leaves_orange": "Orange Larch Leaves",
+  "block.herbalbrews.cauldron": "Cauldron",
+  "item.herbalbrews.witch_hat": "Witch Hat",
+  "item.herbalbrews.top_hat": "Top Hat",
+  "block.herbalbrews.calcite_bricks": "Calcite Bricks",
+  "block.herbalbrews.calcite_brick_slab": "Calcite Brick Slab",
+  "block.herbalbrews.calcite_brick_wall": "Calcite Brick Wall",
+  "block.herbalbrews.calcite_brick_stairs": "Calcite Brick Stairs",
+  "block.herbalbrews.flower_pot_big": "Brick Flower Pot",
+  "block.herbalbrews.flower_box": "Brick Flower Box",
+  "biome.herbalbrews.larch_forest": "Larch Forest",
+  "item.block.herbalbrews.tea_plant": "Tea Blossoms can ge gathered by breaking Flowers with Shears.",
+  "item.block.herbalbrews.yerba_mate_plant": "Crafting Ingredient",
+  "item.block.herbalbrews.rooibos_plant": "Crafting Ingredient",
+  "item.block.herbalbrews.coffee_plant": "Crafting Ingredient",
+  "item.tooltipitem.item.herbalbrews.green_tea_leaf": "Crafting Ingredient",
+  "item.tooltipitem.item.herbalbrews.dried_black_tea": "Crafting Ingredient",
+  "item.tooltipitem.item.herbalbrews.dried_oolong_tea": "Crafting Ingredient"
 
 }
