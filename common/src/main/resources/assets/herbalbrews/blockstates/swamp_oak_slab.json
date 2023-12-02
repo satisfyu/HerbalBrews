@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "herbalbrews:block/swamp_oak_slab"
+    },
+    "type=double": {
+      "model": "herbalbrews:block/swamp_oak_slab_double"
+    },
+    "type=top": {
+      "model": "herbalbrews:block/swamp_oak_slab_top"
+    }
+  }
+}

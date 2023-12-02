@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "herbalbrews:item/swamp_oak_sapling"
+  }
+}

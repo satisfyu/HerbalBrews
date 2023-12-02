@@ -16,8 +16,8 @@ public class CauldronGui extends AbstractRecipeBookGUIScreen<CauldronGuiHandler>
     public static final int ARROW_Y = 45;
     public static final int ARROW_X = 94;
 
-    public static final int SHAKE_Y = 42;
-    public static final int SHAKE_X = 96;
+    public static final int BREWING_Y = 42;
+    public static final int BREWING_X = 90;
 
     public CauldronGui(CauldronGuiHandler handler, Inventory inventory, Component title) {
         super(handler, inventory, title, new CauldronRecipeBook(), BG);
@@ -32,11 +32,11 @@ public class CauldronGui extends AbstractRecipeBookGUIScreen<CauldronGuiHandler>
 
 
     protected void renderProgressArrow(GuiGraphics guiGraphics) {
-        final int progressX = this.menu.getShakeXProgress();
+        final int progressX = this.menu.getBrewingXProgress();
         guiGraphics.blit(BG, leftPos + ARROW_X, topPos + ARROW_Y, 177, 26, progressX, 10);
 
-        final int progressY = menu.slots.get(0).hasItem() ? 20 : this.menu.getShakeYProgress();
-        guiGraphics.blit(BG, leftPos + SHAKE_X, topPos + SHAKE_Y - progressY, 179, 22 - progressY, 15, progressY);
+        final int progressY = menu.slots.get(0).hasItem() ? 20 : this.menu.getBrewingYProgress();
+        guiGraphics.blit(BG, leftPos + BREWING_X, topPos + BREWING_Y - progressY, 178, 22 - progressY, 15, progressY);
     }
 }
 

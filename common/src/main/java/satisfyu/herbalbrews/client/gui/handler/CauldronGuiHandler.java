@@ -30,9 +30,7 @@ public class CauldronGuiHandler extends AbstractRecipeBookGUIScreenHandler {
     }
 
     private void buildBlockEntityContainer(Inventory playerInventory, Container inventory) {
-        // Output
         this.addSlot(new OutputSlot(playerInventory.player, inventory, 0, 128,  35));
-        // Inputs
         this.addSlot(new Slot(inventory, 1, 55, 26));
         this.addSlot(new Slot(inventory, 2, 55, 44));
         this.addSlot(new Slot(inventory, 3, 37, 26));
@@ -51,7 +49,7 @@ public class CauldronGuiHandler extends AbstractRecipeBookGUIScreenHandler {
         }
     }
 
-    public int getShakeXProgress() {
+    public int getBrewingXProgress() {
         int progress = this.propertyDelegate.get(0);
         int totalProgress = this.propertyDelegate.get(1);
         if (totalProgress == 0 || progress == 0) {
@@ -60,7 +58,7 @@ public class CauldronGuiHandler extends AbstractRecipeBookGUIScreenHandler {
         return progress * 22 / totalProgress + 1;
     }
 
-    public int getShakeYProgress() {
+    public int getBrewingYProgress() {
         final int progress = this.propertyDelegate.get(0);
         final int totalProgress = this.propertyDelegate.get(1);
         if (totalProgress == 0 || progress == 0) {

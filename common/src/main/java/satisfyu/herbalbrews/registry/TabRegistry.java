@@ -26,26 +26,6 @@ public class TabRegistry {
                 out.accept(ObjectRegistry.CALCITE_BRICK_STAIRS.get());
                 out.accept(ObjectRegistry.CALCITE_BRICK_WALL.get());
 
-                out.accept(ObjectRegistry.LARCH_LOG.get());
-                out.accept(ObjectRegistry.LARCH_WOOD.get());
-                out.accept(ObjectRegistry.STRIPPED_LARCH_WOOD.get());
-                out.accept(ObjectRegistry.STRIPPED_LARCH_LOG.get());
-                out.accept(ObjectRegistry.LARCH_PLANKS.get());
-                out.accept(ObjectRegistry.LARCH_STAIRS.get());
-                out.accept(ObjectRegistry.LARCH_SLAB.get());
-                out.accept(ObjectRegistry.LARCH_PRESSURE_PLATE.get());
-                out.accept(ObjectRegistry.LARCH_BUTTON.get());
-                out.accept(ObjectRegistry.LARCH_TRAPDOOR.get());
-                out.accept(ObjectRegistry.LARCH_DOOR.get());
-                out.accept(ObjectRegistry.LARCH_FENCE.get());
-                out.accept(ObjectRegistry.LARCH_FENCE_GATE.get());
-
-                out.accept(ObjectRegistry.LARCH_LEAVES.get());
-                out.accept(ObjectRegistry.LARCH_LEAVES_ORANGE.get());
-                out.accept(ObjectRegistry.LARCH_SAPLING.get());
-                out.accept(BoatsAndSignsRegistry.LARCH_SIGN_ITEM.get());
-                out.accept(BoatsAndSignsRegistry.LARCH_HANGING_SIGN_ITEM.get());
-
 
                 out.accept(ObjectRegistry.TEA_LEAF_CRATE.get());
                 out.accept(ObjectRegistry.GREEN_TEA_LEAF_BLOCK.get());
@@ -108,8 +88,47 @@ public class TabRegistry {
                 out.accept(ObjectRegistry.FLOWER_BOX.get());
                 out.accept(ObjectRegistry.WITCH_HAT.get());
                 out.accept(ObjectRegistry.TOP_HAT.get());
+
+                out.accept(ObjectRegistry.LARCH_LOG.get());
+                out.accept(ObjectRegistry.LARCH_WOOD.get());
+                out.accept(ObjectRegistry.STRIPPED_LARCH_WOOD.get());
+                out.accept(ObjectRegistry.STRIPPED_LARCH_LOG.get());
+                out.accept(ObjectRegistry.LARCH_PLANKS.get());
+                out.accept(ObjectRegistry.LARCH_STAIRS.get());
+                out.accept(ObjectRegistry.LARCH_SLAB.get());
+                out.accept(ObjectRegistry.LARCH_PRESSURE_PLATE.get());
+                out.accept(ObjectRegistry.LARCH_BUTTON.get());
+                out.accept(ObjectRegistry.LARCH_TRAPDOOR.get());
+                out.accept(ObjectRegistry.LARCH_DOOR.get());
+                out.accept(ObjectRegistry.LARCH_WINDOW.get());
+                out.accept(ObjectRegistry.LARCH_FENCE.get());
+                out.accept(ObjectRegistry.LARCH_FENCE_GATE.get());
+                out.accept(ObjectRegistry.LARCH_LEAVES.get());
+                out.accept(ObjectRegistry.LARCH_SAPLING.get());
+                out.accept(BoatsAndSignsRegistry.LARCH_SIGN_ITEM.get());
+                out.accept(BoatsAndSignsRegistry.LARCH_HANGING_SIGN_ITEM.get());
+                out.accept(ObjectRegistry.SWAMP_OAK_LOG.get());
+                out.accept(ObjectRegistry.SWAMP_OAK_WOOD.get());
+                out.accept(ObjectRegistry.STRIPPED_SWAMP_OAK_WOOD.get());
+                out.accept(ObjectRegistry.STRIPPED_SWAMP_OAK_LOG.get());
+                out.accept(ObjectRegistry.SWAMP_OAK_PLANKS.get());
+                out.accept(ObjectRegistry.SWAMP_OAK_STAIRS.get());
+                out.accept(ObjectRegistry.SWAMP_OAK_SLAB.get());
+                out.accept(ObjectRegistry.SWAMP_OAK_PRESSURE_PLATE.get());
+                out.accept(ObjectRegistry.SWAMP_OAK_BUTTON.get());
+                out.accept(ObjectRegistry.SWAMP_OAK_TRAPDOOR.get());
+                out.accept(ObjectRegistry.SWAMP_OAK_DOOR.get());
+                out.accept(ObjectRegistry.SWAMP_OAK_WINDOW.get());
+                out.accept(ObjectRegistry.SWAMP_OAK_FENCE.get());
+                out.accept(ObjectRegistry.SWAMP_OAK_FENCE_GATE.get());
+                out.accept(ObjectRegistry.ORANGE_LEAVES.get());
+                out.accept(ObjectRegistry.SWAMP_OAK_SAPLING.get());
+                out.accept(BoatsAndSignsRegistry.SWAMP_OAK_SIGN_ITEM.get());
+                out.accept(BoatsAndSignsRegistry.SWAMP_OAK_HANGING_SIGN_ITEM.get());
                 out.accept(BoatsAndSignsRegistry.LARCH_CHEST_BOAT.get());
                 out.accept(BoatsAndSignsRegistry.LARCH_BOAT.get());
+                out.accept(BoatsAndSignsRegistry.SWAMP_OAK_CHEST_BOAT.get());
+                out.accept(BoatsAndSignsRegistry.SWAMP_OAK_BOAT.get());
                 out.accept(ObjectRegistry.WANDERING_GARDENER_SPAWN_EGG.get());
                 out.accept(ObjectRegistry.HERBALBREWS_STANDARD.get());
 

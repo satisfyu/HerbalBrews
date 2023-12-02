@@ -7,6 +7,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import satisfyu.herbalbrews.HerbalBrews;
+import satisfyu.herbalbrews.entities.RedWolfEntity;
 import satisfyu.herbalbrews.entities.WanderingGardenerEntity;
 import satisfyu.herbalbrews.util.HerbalBrewsIdentifier;
 
@@ -23,6 +24,13 @@ public class EntityRegistry {
                     .clientTrackingRange(10)
                     .build(new HerbalBrewsIdentifier("wandering_baker").toString()));
 
+    public static final RegistrySupplier<EntityType<RedWolfEntity>> RED_WOLF = create("red_wolf",
+            () -> EntityType.Builder.of(RedWolfEntity::new, MobCategory.CREATURE)
+                    .sized(0.2f, 1.5f)
+                    .clientTrackingRange(10)
+                    .build(new HerbalBrewsIdentifier("red_wolf").toString()));
+
+
 
     public static <T extends EntityType<?>> RegistrySupplier<T> create(final String path, final Supplier<T> type) {
         return ENTITY_TYPES.register(new HerbalBrewsIdentifier(path), type);
@@ -32,5 +40,7 @@ public class EntityRegistry {
         HerbalBrews.LOGGER.debug("Registering Entities for " + HerbalBrews.MOD_ID);
         ENTITY_TYPES.register();
         EntityAttributeRegistry.register(WANDERING_GARDENER, WanderingGardenerEntity::createMobAttributes);
+        EntityAttributeRegistry.register(RED_WOLF, RedWolfEntity::createMobAttributes);
+
     }
 }

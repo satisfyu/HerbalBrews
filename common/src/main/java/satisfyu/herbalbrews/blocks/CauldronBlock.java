@@ -53,20 +53,25 @@ public class CauldronBlock extends BaseEntityBlock implements EntityBlock {
 
     private static final Supplier<VoxelShape> voxelShapeSupplier = () -> {
         VoxelShape shape = Shapes.empty();
-        shape = Shapes.or(shape, Shapes.box(0, 0, 0, 0.125, 0.125, 0.25));
-        shape = Shapes.or(shape, Shapes.box(0.125, 0, 0, 0.25, 0.125, 0.125));
-        shape = Shapes.or(shape, Shapes.box(0.75, 0, 0, 1, 0.125, 0.125));
-        shape = Shapes.or(shape, Shapes.box(0.875, 0, 0.125, 1, 0.125, 0.25));
-        shape = Shapes.or(shape, Shapes.box(0.875, 0, 0.75, 1, 0.125, 1));
-        shape = Shapes.or(shape, Shapes.box(0.75, 0, 0.875, 0.875, 0.125, 1));
-        shape = Shapes.or(shape, Shapes.box(0, 0, 0.875, 0.25, 0.125, 1));
-        shape = Shapes.or(shape, Shapes.box(0, 0, 0.75, 0.125, 0.125, 0.875));
-        shape = Shapes.or(shape, Shapes.box(0, 0.125, 0, 1, 0.75, 1));
-        shape = Shapes.or(shape, Shapes.box(0.0625, 0.75, 0.0625, 0.9375, 0.8125, 0.9375));
+        shape = Shapes.or(shape, Shapes.box(0, 0, 0, 0.125, 0.1875, 0.25));
+        shape = Shapes.or(shape, Shapes.box(0.125, 0, 0, 0.25, 0.1875, 0.125));
+        shape = Shapes.or(shape, Shapes.box(0.75, 0, 0, 1, 0.1875, 0.125));
+        shape = Shapes.or(shape, Shapes.box(0.875, 0, 0.125, 1, 0.1875, 0.25));
+        shape = Shapes.or(shape, Shapes.box(0.875, 0, 0.75, 1, 0.1875, 1));
+        shape = Shapes.or(shape, Shapes.box(0.75, 0, 0.875, 0.875, 0.1875, 1));
+        shape = Shapes.or(shape, Shapes.box(0, 0, 0.875, 0.25, 0.1875, 1));
+        shape = Shapes.or(shape, Shapes.box(0, 0, 0.75, 0.125, 0.1875, 0.875));
+        shape = Shapes.or(shape, Shapes.box(0, 0.1875, 0, 1, 0.6875, 1));
+        shape = Shapes.or(shape, Shapes.box(0.0625, 0.6875, 0.0625, 0.9375, 0.8125, 0.9375));
         shape = Shapes.or(shape, Shapes.box(0, 0.8125, 0.8125, 1, 1, 1));
         shape = Shapes.or(shape, Shapes.box(0, 0.8125, 0, 1, 1, 0.1875));
         shape = Shapes.or(shape, Shapes.box(0, 0.8125, 0.1875, 0.1875, 1, 0.8125));
         shape = Shapes.or(shape, Shapes.box(0.8125, 0.8125, 0.1875, 1, 1, 0.8125));
+        shape = Shapes.or(shape, Shapes.box(0.125, 0.0625, 0.125, 0.875, 0.25, 0.875));
+        shape = Shapes.or(shape, Shapes.box(0.0625, 0.000625, 0.0625, 0.9375, 0.063125, 0.9375));
+        shape = Shapes.or(shape, Shapes.box(0.1875, 0.0625, 0.6875, 0.8125, 0.1875, 0.8125));
+        shape = Shapes.or(shape, Shapes.box(0.1875, 0.0625, 0.4375, 0.8125, 0.1875, 0.5625));
+        shape = Shapes.or(shape, Shapes.box(0.1875, 0.0625, 0.1875, 0.8125, 0.1875, 0.3125));
         return shape;
     };
 

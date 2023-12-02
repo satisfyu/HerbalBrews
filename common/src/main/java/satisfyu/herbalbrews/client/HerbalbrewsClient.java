@@ -10,9 +10,11 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.RenderType;
 import satisfyu.herbalbrews.client.gui.CauldronGui;
 import satisfyu.herbalbrews.client.gui.TeaKettleGui;
+import satisfyu.herbalbrews.client.model.RedWolfModel;
 import satisfyu.herbalbrews.client.model.WanderingGardenerModel;
 import satisfyu.herbalbrews.client.render.block.FlowerBoxBlockEntityRenderer;
 import satisfyu.herbalbrews.client.render.block.FlowerPotBigBlockEntityRenderer;
+import satisfyu.herbalbrews.client.render.entity.RedWolfRenderer;
 import satisfyu.herbalbrews.client.render.entity.WanderingGardenerRenderer;
 import satisfyu.herbalbrews.registry.*;
 
@@ -37,7 +39,8 @@ public class HerbalbrewsClient {
                 ObjectRegistry.POTTED_GOATSBEARD.get(), ObjectRegistry.POTTED_BLUEBELL.get(), ObjectRegistry.POTTED_DAPHNE.get(), ObjectRegistry.POTTED_BOTTLEBRUSHES.get(),
                 ObjectRegistry.POTTED_FOXGLOVE_WHITE.get(), ObjectRegistry.POTTED_FOXGLOVE_PINK.get(), ObjectRegistry.POTTED_FREESIA_YELLOW.get(),
                 ObjectRegistry.POTTED_FREESIA_PINK.get(), ObjectRegistry.POTTED_LUPINE_BLUE.get(), ObjectRegistry.POTTED_LUPINE_PURPLE.get(),
-                ObjectRegistry.POTTED_LARCH_SAPLING.get(), ObjectRegistry.LARCH_SAPLING.get(), ObjectRegistry.CAULDRON.get()
+                ObjectRegistry.POTTED_LARCH_SAPLING.get(), ObjectRegistry.LARCH_SAPLING.get(), ObjectRegistry.CAULDRON.get(), ObjectRegistry.SWAMP_OAK_TRAPDOOR.get(),
+                ObjectRegistry.SWAMP_OAK_WINDOW.get(), ObjectRegistry.SWAMP_OAK_DOOR.get(), ObjectRegistry.SWAMP_OAK_SAPLING.get(), ObjectRegistry.LARCH_WINDOW.get()
         );
         MenuRegistry.registerScreenFactory(ScreenHandlerTypeRegistry.TEA_KETTLE_SCREEN_HANDLER.get(), TeaKettleGui::new);
         MenuRegistry.registerScreenFactory(ScreenHandlerTypeRegistry.CAULDRON_SCREEN_HANDLER.get(), CauldronGui::new);
@@ -61,10 +64,12 @@ public class HerbalbrewsClient {
 
         public static void registerEntityRenderers() {
         EntityRendererRegistry.register(EntityRegistry.WANDERING_GARDENER, WanderingGardenerRenderer::new);
-    }
+        EntityRendererRegistry.register(EntityRegistry.RED_WOLF, RedWolfRenderer::new);
+        }
 
     public static void registerEntityModelLayer() {
         EntityModelLayerRegistry.register(WanderingGardenerModel.LAYER_LOCATION, WanderingGardenerModel::getTexturedModelData);
+        EntityModelLayerRegistry.register(RedWolfModel.LAYER_LOCATION, RedWolfModel::getTexturedModelData);
 
     }
 

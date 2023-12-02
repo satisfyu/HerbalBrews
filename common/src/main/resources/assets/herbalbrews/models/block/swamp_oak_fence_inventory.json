@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_inventory",
+  "textures": {
+    "texture": "herbalbrews:block/swamp_oak_planks_0"
+  }
+}

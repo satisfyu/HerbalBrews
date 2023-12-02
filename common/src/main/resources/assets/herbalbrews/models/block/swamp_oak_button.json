@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button",
+  "textures": {
+    "texture": "herbalbrews:block/swamp_oak_planks_0"
+  }
+}

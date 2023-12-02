@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_glass_pane_side",
+  "textures": {
+    "pane": "herbalbrews:block/swamp_oak_window_mid",
+    "edge": "herbalbrews:block/swamp_oak_window_pane_top"
+  }
+}
