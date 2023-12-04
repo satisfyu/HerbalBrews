@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "herbalbrews:block/tall_lupine_purple_bottom"
+    },
+    "half=upper": {
+      "model": "herbalbrews:block/tall_lupine_purple_top"
+    }
+  }
+}

@@ -29,7 +29,7 @@ public class WanderingGardenerEntity extends WanderingTrader {
                 new VillagerUtil.SellItemFactory(ObjectRegistry.HYSSOP.get(), 2, 4, 3, 15),
                 new VillagerUtil.SellItemFactory(ObjectRegistry.MOUNTAIN_SNOWBELL.get(), 2, 4, 3, 15),
                 new VillagerUtil.SellItemFactory(ObjectRegistry.CARDINAL.get(), 2, 4, 3, 15),
-                new VillagerUtil.SellItemFactory(ObjectRegistry.CHAMOMILE.get(), 2, 4, 3, 15),
+                new VillagerUtil.SellItemFactory(ObjectRegistry.MOUNTAIN_LAUREL.get(), 2, 4, 3, 15),
                 new VillagerUtil.SellItemFactory(ObjectRegistry.LAVENDER.get(), 2, 4, 3, 15),
                 new VillagerUtil.SellItemFactory(ObjectRegistry.BIRD_OF_PARADISE.get(), 2, 4, 3, 15),
                 new VillagerUtil.SellItemFactory(ObjectRegistry.WHITE_ORCHID.get(), 2, 4, 3, 15),

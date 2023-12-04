@@ -10,6 +10,7 @@
 		"6": "herbalbrews:block/cauldron_top_2",
 		"7": "herbalbrews:block/larch_log_side",
 		"10": "herbalbrews:block/coal",
+		"11": "block/soul_campfire_fire",
 		"12": "block/soul_campfire_log_lit",
 		"particle": "herbalbrews:block/cauldron_bottom"
 	},
@@ -209,6 +210,17 @@
 				"west": {"uv": [0, 0, 2, 16], "texture": "#7"},
 				"up": {"uv": [0, 0, 2, 2], "texture": "#7"},
 				"down": {"uv": [0, 0, 2, 2], "texture": "#7"}
+			}
+		},
+		{
+			"from": [2, 1, 2],
+			"to": [14, 4, 14],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-1, 0, -1]},
+			"faces": {
+				"north": {"uv": [2, 2, 14, 5], "texture": "#11"},
+				"east": {"uv": [2, 2, 14, 5], "texture": "#11"},
+				"south": {"uv": [2, 2, 14, 5], "texture": "#11"},
+				"west": {"uv": [2, 2, 14, 5], "texture": "#11"}
 			}
 		},
 		{

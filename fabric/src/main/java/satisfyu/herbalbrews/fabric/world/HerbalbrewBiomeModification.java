@@ -28,7 +28,7 @@ public class HerbalbrewBiomeModification {
         world.add(ModificationPhase.ADDITIONS, mountainBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.YERBA_MATE_PLANT_PATCH_CHANCE_KEY));
         world.add(ModificationPhase.ADDITIONS, jungleBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.BOTTLEBRUSHES_FLOWER_PATCH_CHANCE_KEY));
         world.add(ModificationPhase.ADDITIONS, temperateBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.DAPHNE_FLOWER_PATCH_CHANCE_KEY));
-        world.add(ModificationPhase.ADDITIONS, temperateBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.CHAMOMILE_FLOWER_PATCH_CHANCE_KEY));
+        world.add(ModificationPhase.ADDITIONS, temperateBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.MOUNTAIN_LAUREL_FLOWER_PATCH_CHANCE_KEY));
         world.add(ModificationPhase.ADDITIONS, swampBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.CARDINAL_FLOWER_PATCH_CHANCE_KEY));
         world.add(ModificationPhase.ADDITIONS, swampBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.HYSSOP_FLOWER_PATCH_CHANCE_KEY));
         world.add(ModificationPhase.ADDITIONS, swampBiomes, ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, HerbalbrewsPlacedFeature.JOE_PYE_FLOWER_PATCH_CHANCE_KEY));

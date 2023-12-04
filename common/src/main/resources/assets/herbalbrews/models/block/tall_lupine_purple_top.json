@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cross",
   "textures": {
-    "cross": "herbalbrews:block/chamomile"
+    "cross": "herbalbrews:block/tall_lupine_purple_top"
   }
 }

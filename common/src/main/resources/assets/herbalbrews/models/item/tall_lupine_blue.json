@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "herbalbrews:block/tall_lupine_blue_top"
+  }
+}

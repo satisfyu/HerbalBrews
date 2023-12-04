@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/flower_pot_cross",
   "textures": {
-    "plant": "herbalbrews:block/chamomile"
+    "plant": "herbalbrews:block/mountain_laurel"
   }
 }

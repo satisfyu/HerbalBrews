@@ -10,15 +10,10 @@ import satisfyu.herbalbrews.client.recipebook.CauldronRecipeBook;
 import satisfyu.herbalbrews.util.HerbalBrewsIdentifier;
 
 public class CauldronGui extends AbstractRecipeBookGUIScreen<CauldronGuiHandler> {
-
     public static final ResourceLocation BG = new HerbalBrewsIdentifier("textures/gui/cauldron.png");
 
-    public static final int ARROW_Y = 45;
-    public static final int ARROW_X = 94;
-
-    public static final int BREWING_Y = 42;
-    public static final int BREWING_X = 90;
-
+    public static final int ARROW_X = 93;
+    public static final int ARROW_Y = 32;
     public CauldronGui(CauldronGuiHandler handler, Inventory inventory, Component title) {
         super(handler, inventory, title, new CauldronRecipeBook(), BG);
     }
@@ -30,13 +25,16 @@ public class CauldronGui extends AbstractRecipeBookGUIScreen<CauldronGuiHandler>
         super.init();
     }
 
+    @Override
+    public void renderProgressArrow(GuiGraphics guiGraphics) {
+        int progress = this.menu.getScaledProgress(18);
+        guiGraphics.blit(BG,leftPos + 93, topPos + 32, 178, 20, progress, 25);
+    }
 
-    protected void renderProgressArrow(GuiGraphics guiGraphics) {
-        final int progressX = this.menu.getBrewingXProgress();
-        guiGraphics.blit(BG, leftPos + ARROW_X, topPos + ARROW_Y, 177, 26, progressX, 10);
-
-        final int progressY = menu.slots.get(0).hasItem() ? 20 : this.menu.getBrewingYProgress();
-        guiGraphics.blit(BG, leftPos + BREWING_X, topPos + BREWING_Y - progressY, 178, 22 - progressY, 15, progressY);
+    @Override
+    public void renderBurnIcon(GuiGraphics guiGraphics, int posX, int posY) {
+        if (this.menu.isBeingBurned()) {
+            guiGraphics.blit(BG, posX + 62, posY + 49, 176, 0, 17, 15);
+        }
     }
 }
-

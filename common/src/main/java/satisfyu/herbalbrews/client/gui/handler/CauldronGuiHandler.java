@@ -8,36 +8,46 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
+import satisfyu.herbalbrews.client.gui.handler.slot.ExtendedSlot;
 import satisfyu.herbalbrews.client.gui.handler.slot.OutputSlot;
 import satisfyu.herbalbrews.client.recipebook.group.CauldronRecipeBookGroup;
 import satisfyu.herbalbrews.recipe.CauldronRecipe;
+import satisfyu.herbalbrews.registry.RecipeTypeRegistry;
 import satisfyu.herbalbrews.registry.ScreenHandlerTypeRegistry;
 
 import java.util.List;
 
 public class CauldronGuiHandler extends AbstractRecipeBookGUIScreenHandler {
+    public static final int INPUTS = 4;
+    public static final int FUEL_SLOT = 4;
+    public static final int OUTPUT_SLOT = 0;
 
     public CauldronGuiHandler(int syncId, Inventory playerInventory) {
-        this(syncId, playerInventory, new SimpleContainer(5), new SimpleContainerData(2));
+        this(syncId, playerInventory, new SimpleContainer(5), new SimpleContainerData(4));
     }
-    public CauldronGuiHandler(int syncId, Inventory playerInventory, Container inventory, ContainerData propertyDelegate) {
-        super(ScreenHandlerTypeRegistry.CAULDRON_SCREEN_HANDLER.get(), syncId, 4, playerInventory, inventory, propertyDelegate);
 
+    public CauldronGuiHandler(int syncId, Inventory playerInventory, Container inventory, ContainerData delegate) {
+        super(ScreenHandlerTypeRegistry.CAULDRON_SCREEN_HANDLER.get(), syncId, INPUTS, playerInventory, inventory, delegate);
         buildBlockEntityContainer(playerInventory, inventory);
         buildPlayerContainer(playerInventory);
     }
 
     private void buildBlockEntityContainer(Inventory playerInventory, Container inventory) {
-        this.addSlot(new OutputSlot(playerInventory.player, inventory, 0, 128,  35));
-        this.addSlot(new Slot(inventory, 1, 55, 26));
-        this.addSlot(new Slot(inventory, 2, 55, 44));
-        this.addSlot(new Slot(inventory, 3, 37, 26));
-        this.addSlot(new Slot(inventory, 4, 37, 44));
+        this.addSlot(new OutputSlot(playerInventory.player, inventory, 0, 126, 42));
+
+        this.addSlot(new ExtendedSlot(inventory, 1, 29, 18, this::isIngredient));
+        this.addSlot(new ExtendedSlot(inventory, 2, 47, 18, this::isIngredient));
+        this.addSlot(new ExtendedSlot(inventory, 3, 65, 18, this::isIngredient));
+
+        this.addSlot(new ExtendedSlot(inventory, 4, 42, 48, CauldronGuiHandler::isFuel));
+
     }
 
-    private void buildPlayerContainer(Container playerInventory) {
+    private void buildPlayerContainer(Inventory playerInventory) {
         int i;
         for (i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
@@ -49,22 +59,25 @@ public class CauldronGuiHandler extends AbstractRecipeBookGUIScreenHandler {
         }
     }
 
-    public int getBrewingXProgress() {
-        int progress = this.propertyDelegate.get(0);
-        int totalProgress = this.propertyDelegate.get(1);
-        if (totalProgress == 0 || progress == 0) {
-            return 0;
-        }
-        return progress * 22 / totalProgress + 1;
+    private boolean isIngredient(ItemStack stack) {
+        return this.world.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.CAULDRON_RECIPE_TYPE.get()).stream().anyMatch(recipe -> recipe.getIngredients().stream().anyMatch(x -> x.test(stack)));
     }
 
-    public int getBrewingYProgress() {
-        final int progress = this.propertyDelegate.get(0);
-        final int totalProgress = this.propertyDelegate.get(1);
-        if (totalProgress == 0 || progress == 0) {
+    private static boolean isFuel(ItemStack stack) {
+        return AbstractFurnaceBlockEntity.isFuel(stack);
+    }
+
+    public int getScaledProgress(int arrowWidth) {
+        final int progress = this.propertyDelegate.get(2);
+        final int totalProgress = this.propertyDelegate.get(3);
+        if (progress == 0) {
             return 0;
         }
-        return progress * 20 / totalProgress + 1;
+        return progress * arrowWidth / totalProgress + 1;
+    }
+
+    public boolean isBeingBurned() {
+        return propertyDelegate.get(1) != 0;
     }
 
     @Override
@@ -94,6 +107,8 @@ public class CauldronGuiHandler extends AbstractRecipeBookGUIScreenHandler {
 
     @Override
     public int getCraftingSlotCount() {
-        return 4;
+        return INPUTS;
     }
+
 }
+

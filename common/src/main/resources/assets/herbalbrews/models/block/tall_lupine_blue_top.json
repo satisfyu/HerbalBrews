@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "herbalbrews:block/tall_lupine_blue_top"
+  }
+}
