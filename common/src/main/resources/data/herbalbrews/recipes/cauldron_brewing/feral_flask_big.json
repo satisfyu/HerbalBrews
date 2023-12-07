@@ -1,0 +1,18 @@
+{
+  "type": "herbalbrews:cauldron_brewing",
+  "experience": 0.8,
+  "ingredients": [
+    {
+      "item": "herbalbrews:feral_flask"
+    },
+    {
+      "item": "herbalbrews:feral_flask"
+    },
+    {
+      "item": "minecraft:glistering_melon_slice"
+    }
+  ],
+  "result": {
+    "item": "herbalbrews:feral_flask_big"
+  }
+}

@@ -6,7 +6,10 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -121,20 +124,33 @@ public class TeaKettleBlock extends BaseEntityBlock {
     public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
         if (state.getValue(COOKING) || state.getValue(LIT)) {
             double d = (double) pos.getX() + 0.5D;
-            double e = pos.getY() + 0.5;
+            double e = pos.getY() + 8.0F + 5.0F;
             double f = (double) pos.getZ() + 0.5D;
+
             if (random.nextDouble() < 0.3) {
-                world.playLocalSound(d, e, f, SoundEventRegistry.KETTLE_BOILING.get(), SoundSource.BLOCKS, 0.05F, 0.05F, false);
+                world.playLocalSound(d, e, f, SoundEventRegistry.BOILING.get(), SoundSource.BLOCKS, 0.05F, 0.05F, false);
             }
-            Direction direction = state.getValue(FACING);
-            Direction.Axis axis = direction.getAxis();
-            double h = random.nextDouble() * 0.6 - 0.3;
-            double i = axis == Direction.Axis.X ? (double) direction.getStepX() * 0.0 : h;
-            double j = random.nextDouble() * 9.0 / 16.0;
-            double k = axis == Direction.Axis.Z ? (double) direction.getStepZ() * 0.0 : h;
-            world.addParticle(ParticleTypes.SMOKE, d + i, e + j, f + k, 0.0, 0.0, 0.0);
-                  }
+            SimpleParticleType cozySmokeParticle = ParticleTypes.CAMPFIRE_COSY_SMOKE;
+            addParticle(world, cozySmokeParticle, pos.getX(), pos.getY() + 0.5, pos.getZ(), random, 0.0, 0.02, 0.0);
+
+            addParticle(world, ParticleTypes.SMOKE, pos.getX(), pos.getY() + 2.2, pos.getZ(), random, 0.0, 0.002, 0.0);
+        }
     }
+
+    @Environment(EnvType.CLIENT)
+    private void addParticle(Level world, ParticleOptions particleOptions, double x, double y, double z, RandomSource random, double velocityX, double velocityY, double velocityZ) {
+        world.addAlwaysVisibleParticle(
+                particleOptions,
+                x + 0.5 + random.nextDouble() / 3.0 * (random.nextBoolean() ? 1 : -1),
+                y + random.nextDouble() + random.nextDouble(),
+                z + 0.5 + random.nextDouble() / 3.0 * (random.nextBoolean() ? 1 : -1),
+                velocityX,
+                velocityY,
+                velocityZ
+        );
+    }
+
+
 
     @Override
     public void stepOn(Level world, BlockPos pos, BlockState state, Entity entity) {

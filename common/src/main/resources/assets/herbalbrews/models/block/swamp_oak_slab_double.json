@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "herbalbrews:block/swamp_oak_planks_0"
-  }
-} 

@@ -94,6 +94,7 @@ public class StoveBlock extends Block {
             double d = (double) pos.getX() + 0.5;
             double e = pos.getY() + 0.24;
             double f = (double) pos.getZ() + 0.5;
+
             if (random.nextDouble() < 0.1)
                 world.playLocalSound(d, e, f, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1.0f, 1.0f, false);
             world.playLocalSound(d, e, f, SoundEvents.SMOKER_SMOKE, SoundSource.BLOCKS, 1.0f, 1.0f, false);
@@ -105,12 +106,17 @@ public class StoveBlock extends Block {
             double i = axis == Direction.Axis.X ? (double) direction.getStepX() * 0.52 : h;
             double j = random.nextDouble() * 6.0 / 16.0;
             double k = axis == Direction.Axis.Z ? (double) direction.getStepZ() * 0.52 : h;
-            world.addParticle(ParticleTypes.SMOKE, d + i, e + j, f + k, 0.0, 0.0, 0.0);
             world.addParticle(ParticleTypes.FLAME, d + i, e + j, f + k, 0.0, 0.0, 0.0);
-            double particleHeight = pos.getY() + 0.5 + 1.0;
-            world.addParticle(ParticleTypes.SMOKE, d, particleHeight, f, 0.0, 0.0, 0.0);
+
+            BlockPos abovePos = pos.above();
+            if (world.isEmptyBlock(abovePos)) {
+                double particleHeight = pos.getY() + 0.5 + 1.0;
+                world.addParticle(ParticleTypes.SMOKE, d, particleHeight, f, 0.0, 0.0, 0.0);
+            }
         }
     }
 }
+
+
 
 

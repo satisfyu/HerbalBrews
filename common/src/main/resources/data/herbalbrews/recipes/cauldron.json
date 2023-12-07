@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": {
+      "item": "minecraft:iron_ingot"
+    },
+    "B": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    " B ",
+    "XBX",
+    "XXX"
+  ],
+  "result": {
+    "item": "herbalbrews:cauldron"
+  }
+}

@@ -1,7 +1,0 @@
-{
-	"parent": "minecraft:block/cube_column",
-	"textures": {
-		"end": "herbalbrews:block/larch_log_top",
-		"side": "herbalbrews:block/larch_log_side"
-	}
-}

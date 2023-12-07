@@ -76,9 +76,11 @@ public class TeaLeafBlock extends Block {
 
     private Block getEndBlock(Block startBlock) {
         if (startBlock == ObjectRegistry.GREEN_TEA_LEAF_BLOCK.get()) {
-            return ObjectRegistry.BLACK_TEA_LEAF_BLOCK.get();
+            return ObjectRegistry.DRIED_OUT_GREEN_TEA_LEAF_BLOCK.get();
         } else if (startBlock == ObjectRegistry.MIXED_TEA_LEAF_BLOCK.get()) {
             return ObjectRegistry.OOLONG_TEA_LEAF_BLOCK.get();
+        } else if (startBlock == ObjectRegistry.DRIED_GREEN_TEA_LEAF_BLOCK.get()) {
+            return ObjectRegistry.BLACK_TEA_LEAF_BLOCK.get();
         }
         return null;
     }

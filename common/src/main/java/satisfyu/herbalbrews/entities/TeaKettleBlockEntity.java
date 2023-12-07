@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -37,18 +38,19 @@ import satisfyu.herbalbrews.util.ImplementedInventory;
 import static net.minecraft.world.item.ItemStack.isSameItemSameTags;
 
 public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTicker<TeaKettleBlockEntity>, ImplementedInventory, MenuProvider {
-
     private final NonNullList<ItemStack> inventory = NonNullList.withSize(MAX_CAPACITY, ItemStack.EMPTY);
-    private static final int MAX_CAPACITY = 8;
-    public static final int MAX_COOKING_TIME = 600; // Time in ticks (30s)
+    private static final int MAX_CAPACITY = 7;
+    public static final int MAX_COOKING_TIME = 600;
     private int cookingTime;
-    protected static final int[] RECIPE_SLOTS = {1, 2, 3, 4, 5, 6};
-    public static final int BOTTLE_INPUT_SLOT = 7;
     public static final int OUTPUT_SLOT = 0;
-    private static final int INGREDIENTS_AREA = 2 * 3;
-    protected float experience;
+    private static final int INGREDIENTS_AREA = 6;
+    private static final int[] SLOTS_FOR_REST = new int[]{1, 2, 3, 4, 5, 6};
+    private static final int[] SLOTS_FOR_DOWN = new int[]{0};
     private boolean isBeingBurned;
+    protected float experience;
+
     private final ContainerData delegate;
+
 
     public TeaKettleBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.TEA_KETTLE_BLOCK_ENTITY.get(), pos, state);
@@ -56,8 +58,8 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
             @Override
             public int get(int index) {
                 return switch (index) {
-                    case 0 -> TeaKettleBlockEntity.this.cookingTime;
-                    case 1 -> TeaKettleBlockEntity.this.isBeingBurned ? 1 : 0;
+                    case 0 -> cookingTime;
+                    case 1 -> isBeingBurned ? 1 : 0;
                     default -> 0;
                 };
             }
@@ -65,8 +67,8 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
             @Override
             public void set(int index, int value) {
                 switch (index) {
-                    case 0 -> TeaKettleBlockEntity.this.cookingTime = value;
-                    case 1 -> TeaKettleBlockEntity.this.isBeingBurned = value != 0;
+                    case 0 -> cookingTime = value;
+                    case 1 -> isBeingBurned = value != 0;
                 }
             }
 
@@ -77,18 +79,18 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
         };
     }
 
-    @Override
-    public int[] getSlotsForFace(Direction side) {
-        if(side.equals(Direction.UP)){
-            return RECIPE_SLOTS;
-        } else if (side.equals(Direction.DOWN)){
-            return new int[]{OUTPUT_SLOT};
-        } else return new int[]{BOTTLE_INPUT_SLOT};
-    }
-
     public void dropExperience(ServerLevel world, Vec3 pos) {
         ExperienceOrb.award(world, pos, (int) experience);
     }
+
+    @Override
+    public int[] getSlotsForFace(Direction side) {
+        if(side.equals(Direction.DOWN)){
+            return SLOTS_FOR_DOWN;
+        }
+        return SLOTS_FOR_REST;
+    }
+
 
     @Override
     public void load(CompoundTag nbt) {
@@ -110,56 +112,41 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
         if (getLevel() == null)
             throw new NullPointerException("Null world invoked");
         final BlockState belowState = this.getLevel().getBlockState(getBlockPos().below());
-        if (belowState.is(TagsRegistry.ALLOWS_COOKING)) {
-            try {
-                return belowState.getValue(BlockStateProperties.LIT);
-            } catch (IllegalArgumentException e) {
-                return true;
-            }
-        }
-        return false;
+        final var optionalList = BuiltInRegistries.BLOCK.getTag(TagsRegistry.ALLOWS_COOKING);
+        final var entryList = optionalList.orElse(null);
+        if (entryList == null) {
+            return false;
+        } else return entryList.contains(belowState.getBlock().builtInRegistryHolder());
     }
 
-
-    private boolean canCraft(Recipe<?> recipe, RegistryAccess access) {
-        if (recipe == null || recipe.getResultItem(access).isEmpty()) {
+    private boolean canCraft(TeaKettleRecipe recipe) {
+        if (recipe == null || recipe.getResultItem().isEmpty()) {
             return false;
-        }
-        if (recipe instanceof TeaKettleRecipe cookingRecipe) {
-            if (!this.getItem(BOTTLE_INPUT_SLOT).is(cookingRecipe.getContainer().getItem())) {
+        } else if (this.getItem(OUTPUT_SLOT).isEmpty()) {
+            return true;
+        } else {
+            final ItemStack recipeOutput = recipe.getResultItem();
+            final ItemStack outputSlotStack = this.getItem(OUTPUT_SLOT);
+            final int outputSlotCount = outputSlotStack.getCount();
+
+            if (!ItemStack.isSameItem(outputSlotStack, recipeOutput)) { //no damage same?
                 return false;
-            } else if (this.getItem(OUTPUT_SLOT).isEmpty()) {
+            } else if (outputSlotCount < this.getMaxStackSize() && outputSlotCount < outputSlotStack.getMaxStackSize()) {
                 return true;
             } else {
-                if (this.getItem(OUTPUT_SLOT).isEmpty()) {
-                    return true;
-                }
-                final ItemStack recipeOutput = recipe.getResultItem(access);
-                final ItemStack outputSlotStack = this.getItem(OUTPUT_SLOT);
-                final int outputSlotCount = outputSlotStack.getCount();
-                if (this.getItem(OUTPUT_SLOT).isEmpty()) {
-                    return true;
-                } else if (!isSameItemSameTags(outputSlotStack, recipeOutput)) {
-                    return false;
-                } else if (outputSlotCount < this.getMaxStackSize() && outputSlotCount < outputSlotStack.getMaxStackSize()) {
-                    return true;
-                } else {
-                    return outputSlotCount < recipeOutput.getMaxStackSize();
-                }
+                return outputSlotCount < recipeOutput.getMaxStackSize();
             }
         }
-        return false;
     }
 
-
-    private void craft(Recipe<?> recipe, RegistryAccess access) {
-        if (!canCraft(recipe, access)) {
+    private void craft(TeaKettleRecipe recipe) {
+        if (!canCraft(recipe)) {
             return;
         }
-        final ItemStack recipeOutput = recipe.getResultItem(access);
-        final ItemStack outputSlotStack = getItem(OUTPUT_SLOT);
+        final ItemStack recipeOutput = recipe.assemble();
+        final ItemStack outputSlotStack = this.getItem(OUTPUT_SLOT);
         if (outputSlotStack.isEmpty()) {
-            setItem(OUTPUT_SLOT, recipeOutput.copy());
+            setItem(OUTPUT_SLOT, recipeOutput);
         } else if (outputSlotStack.is(recipeOutput.getItem())) {
             outputSlotStack.grow(recipeOutput.getCount());
         }
@@ -167,16 +154,18 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
         boolean[] slotUsed = new boolean[INGREDIENTS_AREA];
         for (int i = 0; i < recipe.getIngredients().size(); i++) {
             Ingredient ingredient = ingredients.get(i);
-            ItemStack bestSlot = getItem(i);
-            if (ingredient.test(bestSlot) && !slotUsed[i]) {
-                slotUsed[i] = true;
-                ItemStack remainderStack = getRemainderItem(bestSlot);
-                bestSlot.shrink(1);
-                if (!remainderStack.isEmpty()) {
-                    setItem(i, remainderStack);
+            if (i + 1 < inventory.size()) {
+                ItemStack bestSlot = getItem(i + 1);
+                if (ingredient.test(bestSlot) && !slotUsed[i]) {
+                    slotUsed[i] = true;
+                    ItemStack remainderStack = getRemainderItem(bestSlot);
+                    bestSlot.shrink(1);
+                    if (!remainderStack.isEmpty()) {
+                        setItem(i + 1, remainderStack);
+                    }
                 }
             } else {
-                for (int j = 0; j < INGREDIENTS_AREA; j++) {
+                for (int j = 1; j <= INGREDIENTS_AREA; j++) {
                     ItemStack stack = getItem(j);
                     if (ingredient.test(stack) && !slotUsed[j]) {
                         slotUsed[j] = true;
@@ -189,7 +178,6 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
                 }
             }
         }
-        getItem(BOTTLE_INPUT_SLOT).shrink(1);
     }
 
     private ItemStack getRemainderItem(ItemStack stack) {
@@ -201,56 +189,41 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
 
 
 
-    @Override
     public void tick(Level world, BlockPos pos, BlockState state, TeaKettleBlockEntity blockEntity) {
         if (world.isClientSide()) {
             return;
         }
-        boolean isBeingBurned = isBeingBurned();
-        if (!isBeingBurned) {
-            delegate.set(1, 0);
-            if (state.getValue(TeaKettleBlock.LIT)) {
+        this.isBeingBurned = isBeingBurned();
+        if (!this.isBeingBurned) {
+            if (state.getValue(TeaKettleBlock.LIT))
                 world.setBlock(pos, state.setValue(TeaKettleBlock.LIT, false), Block.UPDATE_ALL);
-            }
             return;
         }
-        delegate.set(1, 1);
-        Recipe<?> recipe = world.getRecipeManager().getRecipeFor(RecipeTypeRegistry.TEA_KETTLE_RECIPE_TYPE.get(), blockEntity, world).orElse(null);
-        RegistryAccess access = level.registryAccess();
-        boolean canCraft = canCraft(recipe, access);
+        TeaKettleRecipe recipe = world.getRecipeManager().getRecipeFor(RecipeTypeRegistry.TEA_KETTLE_RECIPE_TYPE.get(), this, world).orElse(null);
+
+        boolean canCraft = canCraft(recipe);
         if (canCraft) {
             this.cookingTime++;
             if (this.cookingTime >= MAX_COOKING_TIME) {
                 this.cookingTime = 0;
-                craft(recipe, access);
+                craft(recipe);
             }
-        } else if (!canCraft(recipe, access)) {
+        } else if (!canCraft(recipe)) {
             this.cookingTime = 0;
         }
         if (canCraft) {
-            world.setBlock(pos, this.getBlockState().getBlock().defaultBlockState().setValue(TeaKettleBlock.COOKING, true).setValue(TeaKettleBlock.LIT, true), Block.UPDATE_ALL);
+            world.setBlock(pos, state.setValue(TeaKettleBlock.COOKING, true).setValue(TeaKettleBlock.LIT, true), Block.UPDATE_ALL);
         } else if (state.getValue(TeaKettleBlock.COOKING)) {
-            world.setBlock(pos, this.getBlockState().getBlock().defaultBlockState().setValue(TeaKettleBlock.COOKING, false).setValue(TeaKettleBlock.LIT, true), Block.UPDATE_ALL);
+            world.setBlock(pos, state.setValue(TeaKettleBlock.COOKING, false).setValue(TeaKettleBlock.LIT, true), Block.UPDATE_ALL);
         } else if (state.getValue(TeaKettleBlock.LIT) != isBeingBurned) {
             world.setBlock(pos, state.setValue(TeaKettleBlock.LIT, isBeingBurned), Block.UPDATE_ALL);
         }
     }
 
-
     @Override
     public NonNullList<ItemStack> getItems() {
         return inventory;
     }
-
-    @Override
-    public void setItem(int slot, ItemStack stack) {
-        this.inventory.set(slot, stack);
-        if (stack.getCount() > this.getMaxStackSize()) {
-            stack.setCount(this.getMaxStackSize());
-        }
-        this.setChanged();
-    }
-
 
     @Override
     public boolean stillValid(Player player) {
@@ -273,5 +246,3 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
         return new TeaKettleGuiHandler(syncId, inv, this, this.delegate);
     }
 }
-
-

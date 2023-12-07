@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/fence_inventory",
-  "textures": {
-    "texture": "herbalbrews:block/larch_planks_0"
-  }
-}

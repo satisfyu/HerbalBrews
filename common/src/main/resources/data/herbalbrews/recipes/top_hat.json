@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "pattern": [
+    " X ",
+    "XXX",
+    "XXX"
+  ],
+  "result": {
+    "item": "herbalbrews:top_hat"
+  }
+}

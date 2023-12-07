@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "herbalbrews:hibiscus_tea"
+    },
+    "title": {
+      "translate": "herbalbrews.advancement.root"
+    },
+    "description": {
+      "translate": "herbalbrews.advancement.root.desc"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false,
+    "background": "herbalbrews:textures/block/green_tea_leaf1.png"
+  },
+  "criteria": {
+    "seeds": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {}
+    }
+  },
+  "requirements": [
+    [
+      "seeds"
+    ]
+  ]
+}

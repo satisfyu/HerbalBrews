@@ -14,14 +14,16 @@ public class FeralEffect extends MobEffect {
 
     public FeralEffect() {
         super(MobEffectCategory.BENEFICIAL, 0x00FF00);
-        this.addAttributeModifier(Attributes.ATTACK_DAMAGE, DAMAGE_UUID, 1.0F, AttributeModifier.Operation.ADDITION);
-        this.addAttributeModifier(Attributes.ARMOR, ARMOR_UUID, 1.0F, AttributeModifier.Operation.ADDITION);
+        this.addAttributeModifier(Attributes.ATTACK_DAMAGE, DAMAGE_UUID, 2.0F, AttributeModifier.Operation.ADDITION);
+        this.addAttributeModifier(Attributes.ARMOR, ARMOR_UUID, 4.0F, AttributeModifier.Operation.ADDITION);
     }
 
     @Override
     public double getAttributeModifierValue(int amplifier, AttributeModifier modifier) {
         if (modifier.getId().equals(UUID.fromString(DAMAGE_UUID)))
-            return (amplifier + 1) * 0.5F;
+            return (amplifier + 1) * 2.0F;
+        if (modifier.getId().equals(UUID.fromString(ARMOR_UUID)))
+            return (amplifier + 1) * 4.0F;
         return amplifier + 1;
     }
 

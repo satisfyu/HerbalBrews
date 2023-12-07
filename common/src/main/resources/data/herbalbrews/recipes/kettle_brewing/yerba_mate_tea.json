@@ -12,9 +12,6 @@
       "item": "minecraft:sugar"
     }
   ],
-  "container": {
-    "item": "minecraft:glass_bottle"
-  },
   "result": {
     "item": "herbalbrews:yerba_mate_tea"
   }

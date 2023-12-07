@@ -1,19 +1,19 @@
 {
   "variants": {
     "facing=east": [
-      { "model": "herbalbrews:block/coffee", "weight":1, "y": 90}
+      { "model": "herbalbrews:block/milk_coffee", "weight":1, "y": 90}
 
     ],
     "facing=north": [
-      { "model": "herbalbrews:block/coffee", "weight":1 }
+      { "model": "herbalbrews:block/milk_coffee", "weight":1 }
 
     ],
     "facing=south": [
-      { "model": "herbalbrews:block/coffee", "weight":1, "y": 180}
+      { "model": "herbalbrews:block/milk_coffee", "weight":1, "y": 180}
 
     ],
     "facing=west": [
-      { "model": "herbalbrews:block/coffee", "weight":1, "y": 270}
+      { "model": "herbalbrews:block/milk_coffee", "weight":1, "y": 270}
     ]
   }
 }

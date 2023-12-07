@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/button_inventory",
-  "textures": {
-    "texture": "herbalbrews:block/larch_planks_0"
-  }
-}

@@ -42,6 +42,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import satisfyu.herbalbrews.entities.CauldronBlockEntity;
+import satisfyu.herbalbrews.registry.SoundEventRegistry;
 import satisfyu.herbalbrews.util.GeneralUtil;
 
 import java.util.HashMap;
@@ -53,6 +54,35 @@ public class CauldronBlock extends Block implements EntityBlock {
 
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
+    private static final Supplier<VoxelShape> voxelShapeSupplier = () -> {
+        VoxelShape shape = Shapes.empty();
+        shape = Shapes.or(shape, Shapes.box(0, 0, 0, 0.125, 0.1875, 0.25));
+        shape = Shapes.or(shape, Shapes.box(0.125, 0, 0, 0.25, 0.1875, 0.125));
+        shape = Shapes.or(shape, Shapes.box(0.75, 0, 0, 1, 0.1875, 0.125));
+        shape = Shapes.or(shape, Shapes.box(0.875, 0, 0.125, 1, 0.1875, 0.25));
+        shape = Shapes.or(shape, Shapes.box(0.875, 0, 0.75, 1, 0.1875, 1));
+        shape = Shapes.or(shape, Shapes.box(0.75, 0, 0.875, 0.875, 0.1875, 1));
+        shape = Shapes.or(shape, Shapes.box(0, 0, 0.875, 0.25, 0.1875, 1));
+        shape = Shapes.or(shape, Shapes.box(0, 0, 0.75, 0.125, 0.1875, 0.875));
+        shape = Shapes.or(shape, Shapes.box(0, 0.1875, 0, 1, 0.6875, 1));
+        shape = Shapes.or(shape, Shapes.box(0.0625, 0.6875, 0.0625, 0.9375, 0.8125, 0.9375));
+        shape = Shapes.or(shape, Shapes.box(0, 0.8125, 0.8125, 1, 1, 1));
+        shape = Shapes.or(shape, Shapes.box(0, 0.8125, 0, 1, 1, 0.1875));
+        shape = Shapes.or(shape, Shapes.box(0, 0.8125, 0.1875, 0.1875, 1, 0.8125));
+        shape = Shapes.or(shape, Shapes.box(0.8125, 0.8125, 0.1875, 1, 1, 0.8125));
+        shape = Shapes.or(shape, Shapes.box(0.125, 0.0625, 0.125, 0.875, 0.25, 0.875));
+        shape = Shapes.or(shape, Shapes.box(0.0625, 0.000625, 0.0625, 0.9375, 0.063125, 0.9375));
+        shape = Shapes.or(shape, Shapes.box(0.1875, 0.0625, 0.6875, 0.8125, 0.1875, 0.8125));
+        shape = Shapes.or(shape, Shapes.box(0.1875, 0.0625, 0.4375, 0.8125, 0.1875, 0.5625));
+        shape = Shapes.or(shape, Shapes.box(0.1875, 0.0625, 0.1875, 0.8125, 0.1875, 0.3125));
+        return shape;
+    };
+    public static final Map<Direction, VoxelShape> SHAPE = Util.make(new HashMap<>(), map -> {
+        for (Direction direction : Direction.Plane.HORIZONTAL.stream().toList()) {
+            map.put(direction, GeneralUtil.rotateShape(Direction.NORTH, direction, voxelShapeSupplier.get()));
+        }
+    });
+
 
     public CauldronBlock(Properties settings) {
         super(settings);
@@ -69,7 +99,6 @@ public class CauldronBlock extends Block implements EntityBlock {
             return InteractionResult.PASS;
         }
     }
-
 
     @Override
     public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moved) {
@@ -92,7 +121,6 @@ public class CauldronBlock extends Block implements EntityBlock {
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
         return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite()).setValue(LIT, false);
     }
-
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
@@ -128,6 +156,8 @@ public class CauldronBlock extends Block implements EntityBlock {
             world.playLocalSound(blockX, blockY, blockZ, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1.0f, 1.0f, false);
         world.playLocalSound(blockX, blockY, blockZ, SoundEvents.SMOKER_SMOKE, SoundSource.BLOCKS, 1.0f, 1.0f, false);
         world.playLocalSound(blockX, blockY, blockZ, SoundEvents.CAMPFIRE_CRACKLE, SoundSource.BLOCKS, 1.0f, 1.0f, false);
+        world.playLocalSound(blockX, blockY, blockZ, SoundEventRegistry.BOILING.get(), SoundSource.BLOCKS, 0.05f, 0.05f, false);
+
 
         for (Direction direction : Direction.values()) {
             if (direction != Direction.DOWN) {
@@ -176,36 +206,6 @@ public class CauldronBlock extends Block implements EntityBlock {
         tooltip.add(Component.empty());
         tooltip.add(Component.translatable("tooltip.herbalbrews.canbeplaced").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
     }
-
-    private static final Supplier<VoxelShape> voxelShapeSupplier = () -> {
-        VoxelShape shape = Shapes.empty();
-        shape = Shapes.or(shape, Shapes.box(0, 0, 0, 0.125, 0.1875, 0.25));
-        shape = Shapes.or(shape, Shapes.box(0.125, 0, 0, 0.25, 0.1875, 0.125));
-        shape = Shapes.or(shape, Shapes.box(0.75, 0, 0, 1, 0.1875, 0.125));
-        shape = Shapes.or(shape, Shapes.box(0.875, 0, 0.125, 1, 0.1875, 0.25));
-        shape = Shapes.or(shape, Shapes.box(0.875, 0, 0.75, 1, 0.1875, 1));
-        shape = Shapes.or(shape, Shapes.box(0.75, 0, 0.875, 0.875, 0.1875, 1));
-        shape = Shapes.or(shape, Shapes.box(0, 0, 0.875, 0.25, 0.1875, 1));
-        shape = Shapes.or(shape, Shapes.box(0, 0, 0.75, 0.125, 0.1875, 0.875));
-        shape = Shapes.or(shape, Shapes.box(0, 0.1875, 0, 1, 0.6875, 1));
-        shape = Shapes.or(shape, Shapes.box(0.0625, 0.6875, 0.0625, 0.9375, 0.8125, 0.9375));
-        shape = Shapes.or(shape, Shapes.box(0, 0.8125, 0.8125, 1, 1, 1));
-        shape = Shapes.or(shape, Shapes.box(0, 0.8125, 0, 1, 1, 0.1875));
-        shape = Shapes.or(shape, Shapes.box(0, 0.8125, 0.1875, 0.1875, 1, 0.8125));
-        shape = Shapes.or(shape, Shapes.box(0.8125, 0.8125, 0.1875, 1, 1, 0.8125));
-        shape = Shapes.or(shape, Shapes.box(0.125, 0.0625, 0.125, 0.875, 0.25, 0.875));
-        shape = Shapes.or(shape, Shapes.box(0.0625, 0.000625, 0.0625, 0.9375, 0.063125, 0.9375));
-        shape = Shapes.or(shape, Shapes.box(0.1875, 0.0625, 0.6875, 0.8125, 0.1875, 0.8125));
-        shape = Shapes.or(shape, Shapes.box(0.1875, 0.0625, 0.4375, 0.8125, 0.1875, 0.5625));
-        shape = Shapes.or(shape, Shapes.box(0.1875, 0.0625, 0.1875, 0.8125, 0.1875, 0.3125));
-        return shape;
-    };
-
-    public static final Map<Direction, VoxelShape> SHAPE = Util.make(new HashMap<>(), map -> {
-        for (Direction direction : Direction.Plane.HORIZONTAL.stream().toList()) {
-            map.put(direction, GeneralUtil.rotateShape(Direction.NORTH, direction, voxelShapeSupplier.get()));
-        }
-    });
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {

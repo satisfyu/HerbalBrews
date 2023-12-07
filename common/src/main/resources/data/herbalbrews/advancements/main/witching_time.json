@@ -1,0 +1,37 @@
+{
+  "parent": "herbalbrews:main/place_cauldron",
+  "display": {
+    "icon": {
+      "item": "herbalbrews:witch_hat"
+    },
+    "title": {
+      "translate": "herbalbrews.advancement.witching_time"
+    },
+    "description": {
+      "translate": "herbalbrews.advancement.witching_time.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "witch_hat": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "herbalbrews:witch_hat"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "witch_hat"
+    ]
+  ]
+}

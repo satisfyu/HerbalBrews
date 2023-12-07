@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "herbalbrews:block/calcite_bricks_3",
-    "top": "herbalbrews:block/calcite_bricks_3",
-    "side": "herbalbrews:block/calcite_bricks_3"
-  }
-}

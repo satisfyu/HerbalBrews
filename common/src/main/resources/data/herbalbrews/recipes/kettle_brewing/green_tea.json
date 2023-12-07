@@ -1,18 +1,14 @@
 {
   "type": "herbalbrews:kettle_brewing",
   "experience": 0.8,
-  "heated": true,
   "ingredients": [
     {
-      "item": "herbalbrews:green_tea_leaf"
+      "item": "herbalbrews:dried_green_tea"
     },
     {
       "item": "minecraft:water_bucket"
     }
   ],
-  "container": {
-    "item": "minecraft:glass_bottle"
-  },
   "result": {
     "item": "herbalbrews:green_tea"
   }

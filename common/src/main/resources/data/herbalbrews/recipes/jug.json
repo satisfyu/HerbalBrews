@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": {
+      "item": "minecraft:glass_pane"
+    }
+  },
+  "pattern": [
+    "XX ",
+    "XXX",
+    "XX "
+  ],
+  "result": {
+    "item": "herbalbrews:jug"
+  }
+}

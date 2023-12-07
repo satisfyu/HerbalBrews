@@ -20,9 +20,6 @@
     "client": [
       "satisfyu.herbalbrews.fabric.client.HerbalbrewsClientFabric"
     ],
-    "terrablender":  [
-      "satisfyu.herbalbrews.fabric.terrablender.TerrablenderFabric"
-    ],
     "doapi": [
       "satisfyu.herbalbrews.util.DoApiImpl"
     ],
@@ -30,14 +27,13 @@
       "satisfyu.herbalbrews.fabric.rei.HerbalbrewsREIClientPluginFabric"
     ],
     "jei_mod_plugin": [
-      "satisfyu.herbalbrews.compat.jei.HerbalbrewsJEIPlugin"
+      "satisfyu.herbalbrews.compat.jei.HerbalBrewsJEIPlugin"
     ]
   },
   "depends": {
     "fabric": "*",
     "minecraft": ">=1.20",
     "architectury": ">=9.0.8",
-    "doapi": ">=1.2.8",
-    "terrablender": ">=3.0.0.163"
+    "doapi": ">=1.2.8"
   }
 }

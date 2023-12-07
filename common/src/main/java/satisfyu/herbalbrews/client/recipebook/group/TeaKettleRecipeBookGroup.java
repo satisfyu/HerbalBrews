@@ -5,10 +5,11 @@ import de.cristelknight.doapi.client.recipebook.IRecipeBookGroup;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.level.block.Blocks;
+import satisfyu.herbalbrews.recipe.TeaKettleRecipe;
 import satisfyu.herbalbrews.registry.ObjectRegistry;
 
 import java.util.List;
@@ -16,10 +17,9 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 public enum TeaKettleRecipeBookGroup implements IRecipeBookGroup {
     SEARCH(new ItemStack(Items.COMPASS)),
-    SWEET(new ItemStack(Items.SUGAR)),
-    MIXTURES(new ItemStack(ObjectRegistry.TEA_KETTLE.get()));
+    FLASKS(new ItemStack(ObjectRegistry.HIBISCUS_TEA.get()));
 
-    public static final List<IRecipeBookGroup> POT_GROUPS = ImmutableList.of(SEARCH, SWEET, MIXTURES);
+    public static final List<IRecipeBookGroup> TEAKETTLE_GROUPS = ImmutableList.of(SEARCH, FLASKS);
 
     private final List<ItemStack> icons;
 
@@ -27,14 +27,23 @@ public enum TeaKettleRecipeBookGroup implements IRecipeBookGroup {
         this.icons = ImmutableList.copyOf(entries);
     }
 
-    public boolean fitRecipe(Recipe<? extends Container> recipe, RegistryAccess registryAccess) {
-        return switch (this) {
-            case SEARCH -> true;
-            case SWEET ->
-                    recipe.getIngredients().stream().anyMatch((ingredient) -> ingredient.test(Items.SUGAR.getDefaultInstance()));
-            case MIXTURES ->
-                    recipe.getIngredients().stream().anyMatch((ingredient) -> ingredient.test(ObjectRegistry.GREEN_TEA_LEAF.get().getDefaultInstance()));
-        };
+    public boolean fitRecipe(Recipe<?> recipe, RegistryAccess registryAccess) {
+        if (recipe instanceof TeaKettleRecipe teaKettleRecipe) {
+            switch (this) {
+                case SEARCH -> {
+                    return true;
+                }
+                case FLASKS -> {
+                    if (teaKettleRecipe.getIngredients().stream().noneMatch((ingredient) -> ingredient.test(Blocks.ICE.asItem().getDefaultInstance()))) {
+                        return true;
+                    }
+                }
+                default -> {
+                    return false;
+                }
+            }
+        }
+        return false;
     }
 
     @Override

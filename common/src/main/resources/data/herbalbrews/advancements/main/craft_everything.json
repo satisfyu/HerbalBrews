@@ -1,0 +1,65 @@
+{
+  "parent": "herbalbrews:main/place_tea_kettle",
+  "display": {
+    "icon": {
+      "item": "herbalbrews:herbalbrews_standard"
+    },
+    "title": {
+      "translate": "herbalbrews.advancement.craft_everything"
+    },
+    "description": {
+      "translate": "herbalbrews.advancement.craft_everything.desc"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "rewards": {
+    "experience": 800,
+    "loot": [
+      "herbalbrews:advancements/completionist"
+    ]
+  },
+  "criteria": {
+    "craft_everything": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["herbalbrews:green_tea"]
+          },
+          {
+            "items": ["herbalbrews:black_tea"]
+          },
+          {
+            "items": ["herbalbrews:oolong_tea"]
+          },
+          {
+            "items": ["herbalbrews:hibiscus_tea"]
+          },
+          {
+            "items": ["herbalbrews:lavender_tea"]
+          },
+          {
+            "items": ["herbalbrews:yerba_mate_tea"]
+          },
+          {
+            "items": ["herbalbrews:rooibos_tea"]
+          },
+          {
+            "items": ["herbalbrews:coffee"]
+          },
+          {
+            "items": ["herbalbrews:milk_coffee"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "craft_everything"
+    ]
+  ]
+}

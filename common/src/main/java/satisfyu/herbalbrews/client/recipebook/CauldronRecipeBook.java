@@ -24,13 +24,14 @@ public class CauldronRecipeBook extends PrivateRecipeBookWidget {
     }
 
     @Override
-    public void showGhostRecipe(Recipe<?> recipe, List<Slot> slots, RegistryAccess registryAccess) {
+    public void showGhostRecipe(Recipe<?> recipe, List<Slot> slots,  RegistryAccess registryAccess) {
         this.ghostSlots.addSlot(recipe.getResultItem(registryAccess), slots.get(0).x, slots.get(0).y);
-        int slot = 1;
+        int j = 1;
         for (Ingredient ingredient : recipe.getIngredients()) {
             ItemStack[] inputStacks = ingredient.getItems();
-            ItemStack inputStack = inputStacks[RandomSource.create().nextIntBetweenInclusive(0, inputStacks.length - 1)];
-            this.ghostSlots.addSlot(inputStack, slots.get(slot).x, slots.get(slot++).y);
+            if (inputStacks.length == 0) continue;
+            ItemStack inputStack = inputStacks[RandomSource.create().nextInt(0, inputStacks.length)];
+            this.ghostSlots.addSlot(inputStack, slots.get(j).x, slots.get(j++).y);
         }
     }
 
@@ -41,7 +42,8 @@ public class CauldronRecipeBook extends PrivateRecipeBookWidget {
             int slotIndex = 0;
             for (Slot slot : this.screenHandler.slots) {
                 ItemStack itemStack = slot.getItem();
-                if (ingredient.test(itemStack) && usedInputSlots < 3) {
+
+                if (ingredient.test(itemStack) && usedInputSlots < 7) {
                     Minecraft.getInstance().gameMode.handleInventoryMouseClick(screenHandler.containerId, slotIndex, 0, ClickType.PICKUP, Minecraft.getInstance().player);
                     Minecraft.getInstance().gameMode.handleInventoryMouseClick(screenHandler.containerId, usedInputSlots, 0, ClickType.PICKUP, Minecraft.getInstance().player);
                     ++usedInputSlots;
@@ -50,6 +52,7 @@ public class CauldronRecipeBook extends PrivateRecipeBookWidget {
                 ++slotIndex;
             }
         }
+
     }
 
     @Override
@@ -78,6 +81,8 @@ public class CauldronRecipeBook extends PrivateRecipeBookWidget {
     static {
         TOGGLE_COOKABLE_TEXT = Component.translatable("gui.herbalbrews.recipebook.toggleRecipes.cookable");
     }
+
+
     @Override
     public void setFocused(boolean bl) {
 

@@ -1,16 +1,12 @@
 {
   "type": "herbalbrews:kettle_brewing",
   "experience": 0.8,
-  "heated": true,
   "ingredients": [
     {
       "item": "herbalbrews:coffee_beans"
     },
     {
       "item": "minecraft:water_bucket"
-    },
-    {
-      "item": "minecraft:paper"
     }
   ],
   "container": {

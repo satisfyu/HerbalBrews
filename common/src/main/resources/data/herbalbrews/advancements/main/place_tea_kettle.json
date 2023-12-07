@@ -1,0 +1,49 @@
+{
+  "parent": "herbalbrews:main/place_stove",
+  "criteria": {
+    "tea_kettle": {
+      "conditions": {
+        "location": [
+          {
+            "block": "herbalbrews:tea_kettle",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    },
+    "copper_tea_kettle": {
+      "conditions": {
+        "location": [
+          {
+            "block": "herbalbrews:copper_tea_kettle",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "herbalbrews.advancement.tea_kettle.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "herbalbrews:copper_tea_kettle"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "herbalbrews.advancement.tea_kettle"
+    }
+  },
+  "requirements": [
+    [
+      "tea_kettle",
+      "copper_tea_kettle"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

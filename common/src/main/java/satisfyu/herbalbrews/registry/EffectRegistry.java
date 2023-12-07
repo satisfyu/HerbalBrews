@@ -21,6 +21,8 @@ public class EffectRegistry {
 
     public static final RegistrySupplier<MobEffect> BALANCED;
     public static final RegistrySupplier<MobEffect> FERAL;
+    public static final RegistrySupplier<MobEffect> ARMOR;
+    public static final RegistrySupplier<MobEffect> DAMAGE;
     public static final RegistrySupplier<MobEffect> FORTUNE;
     public static final RegistrySupplier<MobEffect> LASTSTAND;
     public static final RegistrySupplier<MobEffect> POISONOUSBREATH;
@@ -46,6 +48,8 @@ public class EffectRegistry {
         BALANCED = registerEffect("balanced", BalancedEffect::new);
         FORTUNE = registerEffect("fortune", FortuneEffect::new);
         FERAL = registerEffect("feral", FeralEffect::new);
+        ARMOR = registerEffect("armor", ArmorEffect::new);
+        DAMAGE = registerEffect("damage", DamageEffect::new);
         LASTSTAND = registerEffect("laststand", LastStandEffect::new);
         TOUGH = registerEffect("tough", ToughEffect::new);
         REVITALIZING = registerEffect("revitalizing", RevitalizingEffect::new);

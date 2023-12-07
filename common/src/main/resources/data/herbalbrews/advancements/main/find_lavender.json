@@ -1,0 +1,37 @@
+{
+  "parent": "herbalbrews:main/root",
+  "display": {
+    "icon": {
+      "item": "herbalbrews:lavender"
+    },
+    "title": {
+      "translate": "herbalbrews.advancement.find_lavender"
+    },
+    "description": {
+      "translate": "herbalbrews.advancement.find_lavender.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "lavender": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "herbalbrews:lavender"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "lavender"
+    ]
+  ]
+}

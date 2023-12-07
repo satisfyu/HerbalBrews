@@ -1,0 +1,39 @@
+{
+  "parent": "herbalbrews:main/place_cauldron",
+  "criteria": {
+    "drink_flask": {
+      "conditions": {
+        "item": {
+          "items": [
+            "herbalbrews:armor_flask"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "herbalbrews.advancement.drink_armor_flask.desc"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "herbalbrews:armor_flask"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "herbalbrews.advancement.drink_armor_flask"
+    }
+  },
+  "requirements": [
+    [
+      "drink_flask"
+    ]
+  ],
+  "rewards": {
+    "experience": 25
+  },
+  "sends_telemetry_event": true
+}

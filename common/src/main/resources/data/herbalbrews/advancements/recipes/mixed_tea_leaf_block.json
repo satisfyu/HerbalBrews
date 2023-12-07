@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "herbalbrews:mixed_tea_leaf_block"
+    ]
+  },
+  "criteria": {
+    "has_dried_green_tea": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "herbalbrews:dried_green_tea"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "herbalbrews:mixed_tea_leaf_block"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_dried_green_tea",
+      "has_the_recipe"
+    ]
+  ]
+}

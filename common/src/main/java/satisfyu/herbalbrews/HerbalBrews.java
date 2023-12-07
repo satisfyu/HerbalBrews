@@ -10,9 +10,8 @@ public class HerbalBrews {
 
     public static void init() {
         ObjectRegistry.init();
-        BoatsAndSignsRegistry.init();
         BlockEntityRegistry.init();
-        EntityRegistry.init();
+        SoundEventRegistry.init();
         EffectRegistry.init();
         RecipeTypeRegistry.init();
         ScreenHandlerTypeRegistry.init();

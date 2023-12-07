@@ -1,7 +1,0 @@
-{
-	"parent": "minecraft:block/cube_column",
-	"textures": {
-		"end": "herbalbrews:block/swamp_oak_log_top",
-		"side": "herbalbrews:block/swamp_oak_log_side"
-	}
-}

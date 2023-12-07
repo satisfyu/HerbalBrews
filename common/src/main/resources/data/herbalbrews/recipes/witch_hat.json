@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": {
+      "tag": "minecraft:wool"
+    },
+    "B": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "pattern": [
+    " X ",
+    " B ",
+    "XXX"
+  ],
+  "result": {
+    "item": "herbalbrews:witch_hat"
+  }
+}

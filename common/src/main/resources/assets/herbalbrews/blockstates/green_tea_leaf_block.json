@@ -4,16 +4,16 @@
       { "model": "herbalbrews:block/green_tea_leaf0" }
     ],
     "drying=1": [
-      { "model": "herbalbrews:block/green_tea_leaf1" }
+      { "model": "herbalbrews:block/green_tea_leaf0" }
     ],
     "drying=2": [
-      { "model": "herbalbrews:block/green_tea_leaf2" }
+      { "model": "herbalbrews:block/green_tea_leaf1" }
     ],
     "drying=3": [
-      { "model": "herbalbrews:block/green_tea_leaf3" }
+      { "model": "herbalbrews:block/green_tea_leaf1" }
     ],
     "drying=4": [
-      { "model": "herbalbrews:block/green_tea_leaf4" }
+      { "model": "herbalbrews:block/green_tea_leaf2" }
     ]
   }
 }

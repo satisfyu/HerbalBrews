@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "herbalbrews:block/red_bricks_3",
-    "top": "herbalbrews:block/red_bricks_3",
-    "side": "herbalbrews:block/red_bricks_3"
-  }
-}

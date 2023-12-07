@@ -17,10 +17,9 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 public enum CauldronRecipeBookGroup implements IRecipeBookGroup {
     SEARCH(new ItemStack(Items.COMPASS)),
-    POTION(new ItemStack(Items.POTION)),
     FLASKS(new ItemStack(ObjectRegistry.CAULDRON.get()));
 
-    public static final List<IRecipeBookGroup> CAULDRON_GROUPS = ImmutableList.of(SEARCH, POTION, FLASKS);
+    public static final List<IRecipeBookGroup> CAULDRON_GROUPS = ImmutableList.of(SEARCH, FLASKS);
 
     private final List<ItemStack> icons;
 
@@ -33,11 +32,6 @@ public enum CauldronRecipeBookGroup implements IRecipeBookGroup {
             switch (this) {
                 case SEARCH -> {
                     return true;
-                }
-                case POTION -> {
-                    if (cauldronRecipe.getIngredients().stream().anyMatch((ingredient) -> ingredient.test(Blocks.ICE.asItem().getDefaultInstance()))) {
-                        return true;
-                    }
                 }
                 case FLASKS -> {
                     if (cauldronRecipe.getIngredients().stream().noneMatch((ingredient) -> ingredient.test(Blocks.ICE.asItem().getDefaultInstance()))) {

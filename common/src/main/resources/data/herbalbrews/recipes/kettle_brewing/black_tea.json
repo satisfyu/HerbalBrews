@@ -1,7 +1,6 @@
 {
   "type": "herbalbrews:kettle_brewing",
   "experience": 0.8,
-  "heated": false,
   "ingredients": [
     {
       "item": "herbalbrews:dried_black_tea"
@@ -13,9 +12,6 @@
       "item": "minecraft:sugar"
     }
   ],
-  "container": {
-    "item": "minecraft:glass_bottle"
-  },
   "result": {
     "item": "herbalbrews:black_tea"
   }

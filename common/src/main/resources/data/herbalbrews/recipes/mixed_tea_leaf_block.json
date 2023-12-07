@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "X": {
-      "item": "herbalbrews:green_tea_leaf"
+      "item": "herbalbrews:dried_green_tea"
     },
     "B": {
       "item": "herbalbrews:dried_black_tea"

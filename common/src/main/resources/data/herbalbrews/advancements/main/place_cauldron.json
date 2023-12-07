@@ -1,0 +1,37 @@
+{
+  "parent": "herbalbrews:main/root",
+  "criteria": {
+    "cauldron": {
+      "conditions": {
+        "location": [
+          {
+            "block": "herbalbrews:cauldron",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "herbalbrews.advancement.cauldron.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "herbalbrews:cauldron"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "herbalbrews.advancement.cauldron"
+    }
+  },
+  "requirements": [
+    [
+      "cauldron"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "herbalbrews:yerba_mate_plant"
+      "item": "herbalbrews:wild_yerba_mate_plant"
     }
   ],
   "result": {

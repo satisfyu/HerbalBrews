@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "herbalbrews:tea_leaf_crate"
+    ]
+  },
+  "criteria": {
+    "has_green_tea_leaf": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "herbalbrews:green_tea_leaf"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "herbalbrews:tea_leaf_crate"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_green_tea_leaf",
+      "has_the_recipe"
+    ]
+  ]
+}

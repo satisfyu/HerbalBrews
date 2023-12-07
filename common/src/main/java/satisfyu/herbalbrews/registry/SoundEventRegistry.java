@@ -12,7 +12,7 @@ import satisfyu.herbalbrews.util.HerbalBrewsIdentifier;
 public class SoundEventRegistry {
 
     private static final Registrar<SoundEvent> SOUND_EVENTS = DeferredRegister.create(HerbalBrews.MOD_ID, Registries.SOUND_EVENT).getRegistrar();
-    public static final RegistrySupplier<SoundEvent> KETTLE_BOILING = create("kettle_boiling");
+    public static final RegistrySupplier<SoundEvent> BOILING = create("boiling");
 
 
     private static RegistrySupplier<SoundEvent> create(String name) {

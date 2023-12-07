@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "herbalbrews:block/larch_planks_0",
-    "top": "herbalbrews:block/larch_planks_0",
-    "side": "herbalbrews:block/larch_planks_0"
-  }
-}

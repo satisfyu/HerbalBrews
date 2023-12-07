@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/template_glass_pane_post",
-  "textures": {
-    "pane": "herbalbrews:block/larch_window_mid",
-    "edge": "herbalbrews:block/larch_window_pane_top"
-  }
-}

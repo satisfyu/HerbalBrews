@@ -8,7 +8,7 @@
 		"4": "herbalbrews:block/cauldron_side_3",
 		"5": "herbalbrews:block/cauldron_side_4",
 		"6": "herbalbrews:block/cauldron_top_2",
-		"7": "herbalbrews:block/larch_log_side",
+		"7": "block/spruce_log",
 		"10": "herbalbrews:block/coal",
 		"12": "block/soul_campfire_log_lit",
 		"particle": "herbalbrews:block/cauldron_bottom"

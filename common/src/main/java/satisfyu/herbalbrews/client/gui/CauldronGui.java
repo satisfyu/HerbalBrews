@@ -28,13 +28,13 @@ public class CauldronGui extends AbstractRecipeBookGUIScreen<CauldronGuiHandler>
     @Override
     public void renderProgressArrow(GuiGraphics guiGraphics) {
         int progress = this.menu.getScaledProgress(18);
-        guiGraphics.blit(BG,leftPos + 93, topPos + 32, 178, 20, progress, 25);
+        guiGraphics.blit(BG,leftPos + 93, topPos + 31, 178, 19, progress, 26);
     }
 
     @Override
     public void renderBurnIcon(GuiGraphics guiGraphics, int posX, int posY) {
         if (this.menu.isBeingBurned()) {
-            guiGraphics.blit(BG, posX + 62, posY + 49, 176, 0, 17, 15);
+            guiGraphics.blit(BG, posX + 62, posY + 50, 176, 0, 17, 16);
         }
     }
 }

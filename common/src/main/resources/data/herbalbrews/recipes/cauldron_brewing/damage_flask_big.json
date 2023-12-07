@@ -1,0 +1,18 @@
+{
+  "type": "herbalbrews:cauldron_brewing",
+  "experience": 0.8,
+  "ingredients": [
+    {
+      "item": "herbalbrews:damage_flask"
+    },
+    {
+      "item": "herbalbrews:damage_flask"
+    },
+    {
+      "item": "herbalbrews:lavender"
+    }
+  ],
+  "result": {
+    "item": "herbalbrews:damage_flask_big"
+  }
+}
