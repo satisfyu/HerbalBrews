@@ -4,8 +4,6 @@ import dev.architectury.platform.Platform;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrySupplier;
-import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffect;
 import satisfyu.herbalbrews.HerbalBrews;
@@ -24,7 +22,7 @@ public class EffectRegistry {
     public static final RegistrySupplier<MobEffect> ARMOR;
     public static final RegistrySupplier<MobEffect> DAMAGE;
     public static final RegistrySupplier<MobEffect> FORTUNE;
-    public static final RegistrySupplier<MobEffect> LASTSTAND;
+    public static final RegistrySupplier<MobEffect> EXCAVATION;
     public static final RegistrySupplier<MobEffect> POISONOUSBREATH;
     public static final RegistrySupplier<MobEffect> RENEWAL;
     public static final RegistrySupplier<MobEffect> REVITALIZING;
@@ -50,7 +48,7 @@ public class EffectRegistry {
         FERAL = registerEffect("feral", FeralEffect::new);
         ARMOR = registerEffect("armor", ArmorEffect::new);
         DAMAGE = registerEffect("damage", DamageEffect::new);
-        LASTSTAND = registerEffect("laststand", LastStandEffect::new);
+        EXCAVATION = registerEffect("excavation", ExcavationEffect::new);
         TOUGH = registerEffect("tough", ToughEffect::new);
         REVITALIZING = registerEffect("revitalizing", RevitalizingEffect::new);
         POISONOUSBREATH = registerEffect("poisonous", PoisonousbreathEffect::new);

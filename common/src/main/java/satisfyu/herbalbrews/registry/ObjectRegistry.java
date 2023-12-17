@@ -86,7 +86,7 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Item>  LAVENDER_TEA = registerItem("lavender_tea", () -> new DrinkItem(getFoodItemSettings(4, 0.7f, EffectRegistry.FORTUNE.get(), 60 * 15)));
     public static final RegistrySupplier<Item>  YERBA_MATE_TEA = registerItem("yerba_mate_tea", () -> new DrinkItem(getFoodItemSettings(4, 0.7f, EffectRegistry.POISONOUSBREATH.get(), 60 * 15)));
     public static final RegistrySupplier<Item>  OOLONG_TEA = registerItem("oolong_tea", () -> new DrinkItem(getFoodItemSettings(4, 0.7f, EffectRegistry.RENEWAL.get(), 60 * 15)));
-    public static final RegistrySupplier<Item>  ROOIBOS_TEA = registerItem("rooibos_tea", () -> new DrinkItem(getFoodItemSettings(4, 0.7f, EffectRegistry.LASTSTAND.get(), 60 * 15)));
+    public static final RegistrySupplier<Item>  ROOIBOS_TEA = registerItem("rooibos_tea", () -> new DrinkItem(getFoodItemSettings(4, 0.7f, EffectRegistry.EXCAVATION.get(), 60 * 15)));
     public static final RegistrySupplier<Block>  HIBISCUS_TEA = registerTea("hibiscus_tea", () -> new TeaCupBlock(getTeaSettings()),(EffectRegistry.FERAL.get()));
     public static final RegistrySupplier<Block>  MILK_COFFEE = registerTea("milk_coffee", () -> new TeaCupBlock(getTeaSettings()),(EffectRegistry.TOUGH.get()));
     public static final RegistrySupplier<Item>  COFFEE = registerItem("coffee", () -> new DrinkItem(getFoodItemSettings(4, 0.7f, EffectRegistry.TOUGH.get(), 60 * 15)));

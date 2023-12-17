@@ -17,9 +17,10 @@ subprojects {
     dependencies {
         minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
         mappings loom.officialMojangMappings()
-
+        modImplementation "maven.modrinth:do-api:${project.doapi_version}-fabric"
     }
 }
+
 
 
 

@@ -19,7 +19,6 @@ public class HerbalBrews {
     }
 
     public static void commonInit() {
-        ObjectRegistry.registerCompostable();
     }
 }
 
