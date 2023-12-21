@@ -17,8 +17,5 @@ public class HerbalBrews {
         ScreenHandlerTypeRegistry.init();
         TabRegistry.init();
     }
-
-    public static void commonInit() {
-    }
 }
 

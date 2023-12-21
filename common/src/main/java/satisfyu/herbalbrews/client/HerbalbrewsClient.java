@@ -26,8 +26,6 @@ public class HerbalbrewsClient {
                 ObjectRegistry.CAULDRON.get(), ObjectRegistry.JUG.get()
         );
 
-
-
         MenuRegistry.registerScreenFactory(ScreenHandlerTypeRegistry.TEA_KETTLE_SCREEN_HANDLER.get(), TeaKettleGui::new);
         MenuRegistry.registerScreenFactory(ScreenHandlerTypeRegistry.CAULDRON_SCREEN_HANDLER.get(), CauldronGui::new);
 
@@ -35,21 +33,7 @@ public class HerbalbrewsClient {
 
 
     public static void preInitClient() {
-        registerEntityRenderers();
-        registerEntityModelLayer();
-        registerBlockRenderer();
         ArmorRegistry.registerArmorModelLayers();
     }
-
-    private static void registerBlockRenderer() {
-    }
-
-
-        public static void registerEntityRenderers() {
-        }
-
-    public static void registerEntityModelLayer() {
-    }
-
 }
 

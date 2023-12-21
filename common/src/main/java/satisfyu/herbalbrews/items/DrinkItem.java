@@ -23,7 +23,7 @@ import java.util.Map;
 public class DrinkItem extends Item {
 
     public DrinkItem(Properties properties) {
-        super(properties);
+        super(properties.stacksTo(16));
     }
 
     @Override

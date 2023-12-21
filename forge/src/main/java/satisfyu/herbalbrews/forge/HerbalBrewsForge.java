@@ -19,6 +19,5 @@ public class HerbalBrewsForge {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(CompostableRegistry::registerCompostable);
-        HerbalBrews.commonInit();
     }
 }
