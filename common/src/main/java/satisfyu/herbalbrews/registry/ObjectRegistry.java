@@ -87,8 +87,8 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Item>  YERBA_MATE_TEA = registerItem("yerba_mate_tea", () -> new DrinkItem(getFoodItemSettings(4, 0.7f, EffectRegistry.POISONOUSBREATH.get(), 60 * 15)));
     public static final RegistrySupplier<Item>  OOLONG_TEA = registerItem("oolong_tea", () -> new DrinkItem(getFoodItemSettings(4, 0.7f, EffectRegistry.RENEWAL.get(), 60 * 15)));
     public static final RegistrySupplier<Item>  ROOIBOS_TEA = registerItem("rooibos_tea", () -> new DrinkItem(getFoodItemSettings(4, 0.7f, EffectRegistry.EXCAVATION.get(), 60 * 15)));
-    public static final RegistrySupplier<Block>  HIBISCUS_TEA = registerTea("hibiscus_tea", () -> new TeaCupBlock(getTeaSettings()),(EffectRegistry.FERAL.get()));
-    public static final RegistrySupplier<Block>  MILK_COFFEE = registerTea("milk_coffee", () -> new TeaCupBlock(getTeaSettings()),(EffectRegistry.TOUGH.get()));
+    public static final RegistrySupplier<Block>  HIBISCUS_TEA = registerTea("hibiscus_tea", () -> new TeaCupBlock(getTeaSettings()),EffectRegistry.FERAL);
+    public static final RegistrySupplier<Block>  MILK_COFFEE = registerTea("milk_coffee", () -> new TeaCupBlock(getTeaSettings()),(EffectRegistry.TOUGH));
     public static final RegistrySupplier<Item>  COFFEE = registerItem("coffee", () -> new DrinkItem(getFoodItemSettings(4, 0.7f, EffectRegistry.TOUGH.get(), 60 * 15)));
 
     public static final RegistrySupplier<Item> WITCH_HAT = registerItem("witch_hat", () -> new WitchHatItem(getSettings().rarity(Rarity.UNCOMMON)));
@@ -207,9 +207,9 @@ public class ObjectRegistry {
         return BlockBehaviour.Properties.copy(Blocks.GLASS).noOcclusion().instabreak();
     }
 
-    private static <T extends Block> RegistrySupplier<T> registerTea(String name, Supplier<T> block, MobEffect effect) {
+    private static <T extends Block> RegistrySupplier<T> registerTea(String name, Supplier<T> block, RegistrySupplier<MobEffect> effect) {
         RegistrySupplier<T> toReturn = registerWithoutItem(name, block);
-        registerItem(name, () -> new DrinkBlockItem(toReturn.get(), getSettings(settings -> settings.food(teaFoodComponent(effect)))));
+        registerItem(name, () -> new DrinkBlockItem(toReturn.get(), getSettings(settings -> settings.food(teaFoodComponent(effect.get())))));
         return toReturn;
     }
 

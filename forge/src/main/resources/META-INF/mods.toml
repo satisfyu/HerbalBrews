@@ -11,7 +11,7 @@ authors = "satisfy"
 description = '''
 New Flowers, new crafting Stations, Tea
 '''
-#logoFile = ""
+logoFile = "pack.png"
 
 [[dependencies.herbalbrews]]
 modId = "forge"

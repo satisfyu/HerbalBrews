@@ -9,10 +9,10 @@ public class HerbalBrews {
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
     public static void init() {
+        EffectRegistry.init();
         ObjectRegistry.init();
         BlockEntityRegistry.init();
         SoundEventRegistry.init();
-        EffectRegistry.init();
         RecipeTypeRegistry.init();
         ScreenHandlerTypeRegistry.init();
         TabRegistry.init();

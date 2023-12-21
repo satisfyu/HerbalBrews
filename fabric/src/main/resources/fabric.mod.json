@@ -11,7 +11,7 @@
     "sources": "https://github.com/satisfyu/HerbalBrews"
   },
   "license": "ARR",
-  "icon": "assets.herbalbrews.icon.png",
+  "icon": "pack.png",
   "environment": "*",
   "entrypoints": {
     "main": [
