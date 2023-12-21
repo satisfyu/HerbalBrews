@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#herbalbrews:savanna_biomes",
+  "features": "herbalbrews:rooibos_patch_chance",
+  "step": "vegetal_decoration"
+}
