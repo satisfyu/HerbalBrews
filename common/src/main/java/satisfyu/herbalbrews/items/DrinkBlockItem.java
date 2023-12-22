@@ -20,9 +20,8 @@ import java.util.Map;
 
 public class DrinkBlockItem extends BlockItem {
     public DrinkBlockItem(Block block, Properties settings) {
-        super(block, settings);
+        super(block, settings.stacksTo(16));
     }
-
     @Override
     public UseAnim getUseAnimation(ItemStack stack) {
         return UseAnim.DRINK;

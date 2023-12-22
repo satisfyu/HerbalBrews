@@ -6,7 +6,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import satisfyu.herbalbrews.registry.EffectRegistry;
 
 public class BalancedEffect extends MobEffect {
     public BalancedEffect() {
@@ -17,10 +16,12 @@ public class BalancedEffect extends MobEffect {
     public void applyEffectTick(LivingEntity entity, int amplifier) {
         for (LivingEntity livingEntity : entity.level().getEntitiesOfClass(LivingEntity.class, entity.getBoundingBox().inflate(10.0D))) {
             if (livingEntity.isAlive() && livingEntity instanceof Player) {
-                livingEntity.addEffect(new MobEffectInstance(MobEffects.HEALTH_BOOST, 50, amplifier + 1));
+                int reducedDuration = 25;
+                int reducedAmplifier = 1;
+
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, reducedDuration, reducedAmplifier));
             }
         }
-        entity.addEffect(new MobEffectInstance(EffectRegistry.BALANCED.get(), 50, amplifier + 1));
     }
 
     @Override
