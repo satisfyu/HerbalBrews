@@ -32,7 +32,6 @@ import satisfyu.herbalbrews.registry.BlockEntityRegistry;
 import satisfyu.herbalbrews.registry.RecipeTypeRegistry;
 import satisfyu.herbalbrews.util.ImplementedInventory;
 
-
 public class CauldronBlockEntity extends BlockEntity implements BlockEntityTicker<CauldronBlockEntity>, ImplementedInventory, MenuProvider {
 
     private NonNullList<ItemStack> inventory;
@@ -168,7 +167,6 @@ public class CauldronBlockEntity extends BlockEntity implements BlockEntityTicke
         if (dirty) {
             setChanged();
         }
-
     }
 
     protected boolean canCraft(CauldronRecipe recipe, RegistryAccess access) {
@@ -176,12 +174,11 @@ public class CauldronBlockEntity extends BlockEntity implements BlockEntityTicke
             return false;
         } else if (this.getItem(FUEL_SLOT).isEmpty()) {
             return false;
+        } else if (!this.getItem(INGREDIENT_SLOTS[2]).isEmpty()) {
+            return false;  // Slot 3 is not consumed
         } else if (this.getItem(OUTPUT_SLOT).isEmpty()) {
             return true;
         } else {
-            if (this.getItem(OUTPUT_SLOT).isEmpty()) {
-                return true;
-            }
             final ItemStack recipeOutput = recipe.getResultItem(access);
             final ItemStack outputSlotStack = this.getItem(OUTPUT_SLOT);
             final int outputSlotCount = outputSlotStack.getCount();
@@ -208,7 +205,6 @@ public class CauldronBlockEntity extends BlockEntity implements BlockEntityTicke
         } else if (outputSlotStack.is(recipeOutput.getItem())) {
             outputSlotStack.grow(recipeOutput.getCount());
         }
-
 
         final NonNullList<Ingredient> ingredients = recipe.getIngredients();
         boolean[] slotUsed = new boolean[3];
@@ -238,7 +234,6 @@ public class CauldronBlockEntity extends BlockEntity implements BlockEntityTicke
         }
     }
 
-
     protected int getTotalBurnTime(ItemStack fuel) {
         if (fuel.isEmpty()) {
             return 0;
@@ -255,12 +250,10 @@ public class CauldronBlockEntity extends BlockEntity implements BlockEntityTicke
         return ItemStack.EMPTY;
     }
 
-
     @Override
     public NonNullList<ItemStack> getItems() {
         return inventory;
     }
-
 
     @Override
     public void setItem(int slot, ItemStack stack) {

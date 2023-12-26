@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "herbalbrews:tea_leaf_crate"
+    }
+  ],
+  "result": {
+    "item": "herbalbrews:green_tea_leaf",
+    "count": 6
+  }
+}

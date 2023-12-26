@@ -44,8 +44,7 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
     private int cookingTime;
     public static final int OUTPUT_SLOT = 0;
     private static final int INGREDIENTS_AREA = 6;
-    private static final int[] SLOTS_FOR_REST = new int[]{1, 2, 3, 4, 5, 6};
-    private static final int[] SLOTS_FOR_DOWN = new int[]{0};
+    private static final int[] INPUT_SLOTS = new int[]{1, 2, 3, 4, 5, 6};
     private boolean isBeingBurned;
     protected float experience;
 
@@ -86,9 +85,9 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
     @Override
     public int[] getSlotsForFace(Direction side) {
         if(side.equals(Direction.DOWN)){
-            return SLOTS_FOR_DOWN;
+            return INPUT_SLOTS;
         }
-        return SLOTS_FOR_REST;
+        return INPUT_SLOTS;
     }
 
 
@@ -129,7 +128,7 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
             final ItemStack outputSlotStack = this.getItem(OUTPUT_SLOT);
             final int outputSlotCount = outputSlotStack.getCount();
 
-            if (!ItemStack.isSameItem(outputSlotStack, recipeOutput)) { //no damage same?
+            if (!ItemStack.isSameItem(outputSlotStack, recipeOutput)) {
                 return false;
             } else if (outputSlotCount < this.getMaxStackSize() && outputSlotCount < outputSlotStack.getMaxStackSize()) {
                 return true;
@@ -143,6 +142,32 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
         if (!canCraft(recipe)) {
             return;
         }
+
+        NonNullList<ItemStack> ingredients = NonNullList.create();
+        for (int i = 1; i <= INGREDIENTS_AREA; i++) {
+            ingredients.add(getItem(i));
+        }
+
+        for (Ingredient ingredient : recipe.getIngredients()) {
+            boolean ingredientConsumed = false;
+            for (int i = 0; i < ingredients.size(); i++) {
+                ItemStack inputStack = ingredients.get(i);
+                if (!inputStack.isEmpty() && ingredient.test(inputStack)) {
+                    ItemStack remainderStack = getRemainderItem(inputStack);
+                    inputStack.shrink(1);
+                    if (inputStack.isEmpty()) {
+                        setItem(i + 1, remainderStack);
+                    }
+                    ingredientConsumed = true;
+                    ingredients.set(i, inputStack);
+                    break;
+                }
+            }
+            if (!ingredientConsumed) {
+                return;
+            }
+        }
+
         final ItemStack recipeOutput = recipe.assemble();
         final ItemStack outputSlotStack = this.getItem(OUTPUT_SLOT);
         if (outputSlotStack.isEmpty()) {
@@ -150,35 +175,10 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
         } else if (outputSlotStack.is(recipeOutput.getItem())) {
             outputSlotStack.grow(recipeOutput.getCount());
         }
-        final NonNullList<Ingredient> ingredients = recipe.getIngredients();
-        boolean[] slotUsed = new boolean[INGREDIENTS_AREA];
-        for (int i = 0; i < recipe.getIngredients().size(); i++) {
-            Ingredient ingredient = ingredients.get(i);
-            if (i + 1 < inventory.size()) {
-                ItemStack bestSlot = getItem(i + 1);
-                if (ingredient.test(bestSlot) && !slotUsed[i]) {
-                    slotUsed[i] = true;
-                    ItemStack remainderStack = getRemainderItem(bestSlot);
-                    bestSlot.shrink(1);
-                    if (!remainderStack.isEmpty()) {
-                        setItem(i + 1, remainderStack);
-                    }
-                }
-            } else {
-                for (int j = 1; j <= INGREDIENTS_AREA; j++) {
-                    ItemStack stack = getItem(j);
-                    if (ingredient.test(stack) && !slotUsed[j]) {
-                        slotUsed[j] = true;
-                        ItemStack remainderStack = getRemainderItem(stack);
-                        stack.shrink(1);
-                        if (!remainderStack.isEmpty()) {
-                            setItem(j, remainderStack);
-                        }
-                    }
-                }
-            }
-        }
     }
+
+
+
 
     private ItemStack getRemainderItem(ItemStack stack) {
         if (stack.getItem().hasCraftingRemainingItem()) {
