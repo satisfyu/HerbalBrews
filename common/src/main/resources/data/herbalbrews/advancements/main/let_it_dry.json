@@ -1,0 +1,37 @@
+{
+  "parent": "herbalbrews:main/find_lavender",
+  "criteria": {
+    "dry": {
+      "conditions": {
+        "location": [
+          {
+            "block": "herbalbrews:green_tea_leaf_block",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "herbalbrews.advancement.dry.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "herbalbrews:green_tea_leaf_block"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "herbalbrews.advancement.dry"
+    }
+  },
+  "requirements": [
+    [
+      "dry"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

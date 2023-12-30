@@ -1,6 +1,6 @@
 {
   "block.herbalbrews.black_tea_leaf_block": "Black Tea Leaf Block",
-  "block.herbalbrews.cauldron": "Cauldron",
+  "block.herbalbrews.cauldron": "Brewing Cauldron",
   "block.herbalbrews.coffee_plant": "Coffee Beans",
   "block.herbalbrews.copper_tea_kettle": "Copper Tea Kettle",
   "block.herbalbrews.dried_green_tea_leaf_block": "Dried Green Tea Leaf Block",
@@ -60,7 +60,7 @@
   "item.block.herbalbrews.tea_plant": "Tea Blossoms can be gathered by breaking Flowers with Shears.",
   "item.block.herbalbrews.yerba_mate_plant": "Crafting Ingredient",
   "item.herbalbrews.black_tea": "Black Tea",
-  "item.herbalbrews.dried_green_tea": "Green Tea",
+  "item.herbalbrews.dried_green_tea": "Dried Green Tea",
   "item.herbalbrews.coffee": "Coffee",
   "item.herbalbrews.dried_black_tea": "Dried Black Tea",
   "item.herbalbrews.dried_oolong_tea": "Dried Oolong Tea",
@@ -113,5 +113,11 @@
   "herbalbrews.advancement.drink_armor_flask": "Armor! Armor! Definitely unused Armor",
   "herbalbrews.advancement.drink_armor_flask.desc": "Brew and drink an Armor Flask",
   "herbalbrews.advancement.witching_time": "Witching Time",
-  "herbalbrews.advancement.witching_time.desc": "Find or craft a Witch Hat"
+  "herbalbrews.advancement.witching_time.desc": "Find or craft a Witch Hat",
+  "herbalbrews.advancement.dry": "Drying Expertise",
+  "herbalbrews.advancement.dry.desc": "Craft a Green Tea Leaf Block by combining 9 Green Tea Leafs, place it down and wait until it's fully dried",
+  "herbalbrews.advancement.dry_2": "Let's do it again!",
+  "herbalbrews.advancement.dry_2.desc": "Craft a Black Tea Leaf Block by combining 9 Green Tea, place it down and wait until it's fully dried",
+  "herbalbrews.advancement.dry_3": "Mix it up!",
+  "herbalbrews.advancement.dry_3.desc": "Craft a Mixed Tea Leaf Block by combining 4 Dried Green Tea and 4 Dried Black Tea , place it down and wait until it's fully dried"
 }

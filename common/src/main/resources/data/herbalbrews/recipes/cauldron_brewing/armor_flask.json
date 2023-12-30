@@ -1,6 +1,5 @@
 {
   "type": "herbalbrews:cauldron_brewing",
-  "experience": 0.8,
   "ingredients": [
     {
       "item": "minecraft:water_bucket"

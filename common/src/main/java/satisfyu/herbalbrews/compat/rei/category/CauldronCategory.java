@@ -3,9 +3,7 @@ package satisfyu.herbalbrews.compat.rei.category;
 import com.google.common.collect.Lists;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
-import me.shedaniel.rei.api.client.gui.DisplayRenderer;
 import me.shedaniel.rei.api.client.gui.Renderer;
-import me.shedaniel.rei.api.client.gui.SimpleDisplayRenderer;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
 import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
@@ -13,59 +11,20 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.network.chat.Component;
 import satisfyu.herbalbrews.compat.rei.display.CauldronDisplay;
-import satisfyu.herbalbrews.entities.CauldronBlockEntity;
 import satisfyu.herbalbrews.registry.ObjectRegistry;
 
-
-import java.text.DecimalFormat;
-import java.util.Collections;
 import java.util.List;
 
 public class CauldronCategory implements DisplayCategory<CauldronDisplay> {
 
     @Override
-    public List<Widget> setupDisplay(CauldronDisplay display, Rectangle bounds) {
-        Point startPoint = new Point(bounds.getCenterX() - 41, bounds.y + 10);
-        int cookingTime = CauldronBlockEntity.TOTAL_COOKING_TIME;
-        List<Widget> widgets = Lists.newArrayList();
-        widgets.add(Widgets.createRecipeBase(bounds));
-        DecimalFormat df = new DecimalFormat("###.##");
-        widgets.add(Widgets.createLabel(new Point(bounds.x + bounds.width - 5, bounds.y + 5), Component.translatable("category.rei.cooking.time", df.format(cookingTime / 20d))).noShadow().rightAligned().color(0xFF404040, 0xFFBBBBBB));
-        int move = 20;
-        int moveDown = 10;
-        widgets.add(Widgets.createArrow(new Point(startPoint.x + 24 + move, startPoint.y + 8 + moveDown)).animationDurationTicks(cookingTime));
-        widgets.add(Widgets.createResultSlotBackground(new Point(startPoint.x + 61 + move, startPoint.y + 9 + moveDown)));
-        widgets.add(Widgets.createSlot(new Point(startPoint.x + 61 + move, startPoint.y + 9 + moveDown)).entries(display.getOutputEntries().get(0)).disableBackground().markOutput());
-        widgets.add(Widgets.createBurningFire(new Point(startPoint.x + 1, startPoint.y + 20 + moveDown)).animationDurationMS(10000));
-        addSlot(widgets, display, startPoint, 0, moveDown, 0);
-        if (display.getInputEntries().size() < 2) addBackground(widgets, startPoint, 18, moveDown);
-        else addSlot(widgets, display, startPoint, 18, moveDown, 1);
-        if (display.getInputEntries().size() < 3) addBackground(widgets, startPoint, 36, moveDown);
-        else addSlot(widgets, display, startPoint, 36, moveDown, 2);
-        return widgets;
-    }
-
-    public void addSlot(List<Widget> widgets, CauldronDisplay display, Point startPoint, int x, int y, int index) {
-        widgets.add(Widgets.createSlot(new Point(startPoint.x + x - 17, startPoint.y + 1 + y)).entries(display.getInputEntries().get(index)).markInput());
-    }
-
-    public void addBackground(List<Widget> widgets, Point startPoint, int x, int y) {
-        widgets.add(Widgets.createSlotBackground(new Point(startPoint.x + x - 17, startPoint.y + 1 + y)));
+    public CategoryIdentifier<CauldronDisplay> getCategoryIdentifier() {
+        return CauldronDisplay.CAULDRON_DISPLAY;
     }
 
     @Override
-    public DisplayRenderer getDisplayRenderer(CauldronDisplay display) {
-        return SimpleDisplayRenderer.from(Collections.singletonList(display.getInputEntries().get(0)), display.getOutputEntries());
-    }
-
-    @Override
-    public int getDisplayHeight() {
-        return 65;
-    }
-
-    @Override
-    public CategoryIdentifier<? extends CauldronDisplay> getCategoryIdentifier() {
-        return CauldronDisplay.STOVE_DISPLAY;
+    public Component getTitle() {
+        return Component.translatable("rei.herbalbrews.cauldron_category");
     }
 
     @Override
@@ -74,7 +33,26 @@ public class CauldronCategory implements DisplayCategory<CauldronDisplay> {
     }
 
     @Override
-    public Component getTitle() {
-        return Component.translatable("rei.herbalbrews.cauldron_category");
+    public List<Widget> setupDisplay(CauldronDisplay display, Rectangle bounds) {
+        Point startPoint = new Point(bounds.getCenterX() - 55, bounds.getCenterY() - 13);
+        List<Widget> widgets = Lists.newArrayList();
+        widgets.add(Widgets.createRecipeBase(bounds));
+        widgets.add(Widgets.createArrow(new Point(startPoint.x + 54, startPoint.y - 1)).animationDurationTicks(50));
+        widgets.add(Widgets.createResultSlotBackground(new Point(startPoint.x + 90, startPoint.y)));
+        widgets.add(Widgets.createSlot(new Point(startPoint.x + 90, startPoint.y)).entries(display.getOutputEntries().get(0)).disableBackground().markOutput());
+        for(int i = 0; i < 4; i++){
+            int x = i * 18;
+            int y = -4;
+            if(i > 1){
+                x = (i - 2) * 18;
+                y+=18;
+            }
+            x-=8;
+            if(i >= display.getInputEntries().size() - 1) widgets.add(Widgets.createSlotBackground(new Point(startPoint.x + x, startPoint.y + y)));
+            else widgets.add(Widgets.createSlot(new Point(startPoint.x + x, startPoint.y + y)).entries(display.getInputEntries().get(i + 1)).markInput());
+
+        }
+        widgets.add(Widgets.createSlot(new Point(startPoint.x + 36, startPoint.y + 18)).entries(display.getInputEntries().get(0)).markInput());
+        return widgets;
     }
 }

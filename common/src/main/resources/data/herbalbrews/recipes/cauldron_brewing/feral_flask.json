@@ -1,6 +1,5 @@
 {
   "type": "herbalbrews:cauldron_brewing",
-  "experience": 0.8,
   "ingredients": [
     {
       "item": "herbalbrews:armor_flask"

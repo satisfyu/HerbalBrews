@@ -1,6 +1,5 @@
 {
   "type": "herbalbrews:cauldron_brewing",
-  "experience": 0.8,
   "ingredients": [
     {
       "item": "minecraft:water_bucket"
@@ -9,7 +8,7 @@
       "item": "minecraft:redstone"
     },
     {
-      "item": "herbalbrews:lavender"
+      "item": "herbalbrews:lavender_blossom"
     }
   ],
   "result": {

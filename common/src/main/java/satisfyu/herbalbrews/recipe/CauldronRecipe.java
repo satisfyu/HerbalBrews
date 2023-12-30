@@ -8,33 +8,55 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 import satisfyu.herbalbrews.registry.RecipeTypeRegistry;
 import satisfyu.herbalbrews.util.GeneralUtil;
 
 public class CauldronRecipe implements Recipe<Container> {
 
-    final ResourceLocation id;
+    private final ResourceLocation identifier;
     private final NonNullList<Ingredient> inputs;
     private final ItemStack output;
 
-    public CauldronRecipe(ResourceLocation id, NonNullList<Ingredient> inputs, ItemStack output) {
-        this.id = id;
+    public CauldronRecipe(ResourceLocation identifier, NonNullList<Ingredient> inputs, ItemStack output) {
+        this.identifier = identifier;
         this.inputs = inputs;
         this.output = output;
     }
 
     @Override
     public boolean matches(Container inventory, Level world) {
-        return GeneralUtil.matchesRecipe(inventory, inputs, 1, 4);
+        StackedContents recipeMatcher = new StackedContents();
+        int matchingStacks = 0;
+
+        for(int i = 1; i < 5; ++i) {
+            ItemStack itemStack = inventory.getItem(i);
+            if (!itemStack.isEmpty()) {
+                ++matchingStacks;
+                recipeMatcher.accountStack(itemStack, 1);
+            }
+        }
+
+        return matchingStacks == this.inputs.size() && recipeMatcher.canCraft(this, null);
     }
 
     @Override
-    public ItemStack assemble(Container inventory, RegistryAccess registryAccess) {
+    public ItemStack assemble(Container container, RegistryAccess registryAccess) {
         return ItemStack.EMPTY;
     }
+
+    @Override
+    public NonNullList<Ingredient> getIngredients() {
+        return this.inputs;
+    }
+
 
     @Override
     public boolean canCraftInDimensions(int width, int height) {
@@ -48,7 +70,7 @@ public class CauldronRecipe implements Recipe<Container> {
 
     @Override
     public ResourceLocation getId() {
-        return id;
+        return this.identifier;
     }
 
     @Override
@@ -62,24 +84,18 @@ public class CauldronRecipe implements Recipe<Container> {
     }
 
     @Override
-    public NonNullList<Ingredient> getIngredients() {
-        return this.inputs;
-    }
-
-    @Override
     public boolean isSpecial() {
         return true;
     }
-
     public static class Serializer implements RecipeSerializer<CauldronRecipe> {
 
         @Override
         public CauldronRecipe fromJson(ResourceLocation id, JsonObject json) {
             final var ingredients = GeneralUtil.deserializeIngredients(GsonHelper.getAsJsonArray(json, "ingredients"));
             if (ingredients.isEmpty()) {
-                throw new JsonParseException("No ingredients for Cauldron Recipe");
+                throw new JsonParseException("No ingredients for Brewing Cauldron");
             } else if (ingredients.size() > 4) {
-                throw new JsonParseException("Too many ingredients for Cauldron Recipe");
+                throw new JsonParseException("Too many ingredients for Brewing Cauldron");
             } else {
                 return new CauldronRecipe(id, ingredients, ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result")));
             }

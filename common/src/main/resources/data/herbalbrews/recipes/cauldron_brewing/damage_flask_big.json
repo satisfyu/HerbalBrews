@@ -1,15 +1,14 @@
 {
   "type": "herbalbrews:cauldron_brewing",
-  "experience": 0.8,
   "ingredients": [
     {
       "item": "herbalbrews:damage_flask"
     },
     {
-      "item": "herbalbrews:damage_flask"
+      "item": "herbalbrews:lavender_blossom"
     },
     {
-      "item": "herbalbrews:lavender"
+      "item": "minecraft:redstone"
     }
   ],
   "result": {

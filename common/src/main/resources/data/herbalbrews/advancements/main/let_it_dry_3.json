@@ -1,0 +1,37 @@
+{
+  "parent": "herbalbrews:main/let_it_dry_2",
+  "criteria": {
+    "dry_3": {
+      "conditions": {
+        "location": [
+          {
+            "block": "herbalbrews:mixed_tea_leaf_block",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "herbalbrews.advancement.dry_3.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "herbalbrews:mixed_tea_leaf_block"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "herbalbrews.advancement.dry_3"
+    }
+  },
+  "requirements": [
+    [
+      "dry_3"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

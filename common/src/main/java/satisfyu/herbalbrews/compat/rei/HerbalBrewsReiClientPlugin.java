@@ -20,7 +20,7 @@ public class HerbalBrewsReiClientPlugin {
         registry.addWorkstations(TeaKettleCategory.COOKING_CAULDRON_DISPLAY, EntryStacks.of(ObjectRegistry.TEA_KETTLE.get()));
         registry.addWorkstations(TeaKettleCategory.COOKING_CAULDRON_DISPLAY, EntryStacks.of(ObjectRegistry.COPPER_TEA_KETTLE.get()));
 
-        registry.addWorkstations(CauldronDisplay.STOVE_DISPLAY, EntryStacks.of(ObjectRegistry.CAULDRON.get()));
+        registry.addWorkstations(CauldronDisplay.CAULDRON_DISPLAY, EntryStacks.of(ObjectRegistry.CAULDRON.get()));
     }
 
     public static void registerDisplays(DisplayRegistry registry) {

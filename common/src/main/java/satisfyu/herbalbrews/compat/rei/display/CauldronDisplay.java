@@ -17,7 +17,7 @@ import java.util.Optional;
 
 public class CauldronDisplay extends BasicDisplay implements SimpleGridMenuDisplay {
 
-    public static final CategoryIdentifier<CauldronDisplay> STOVE_DISPLAY = CategoryIdentifier.of(HerbalBrews.MOD_ID, "cauldron_display");
+    public static final CategoryIdentifier<CauldronDisplay> CAULDRON_DISPLAY = CategoryIdentifier.of(HerbalBrews.MOD_ID, "cauldron_display");
 
     public CauldronDisplay(CauldronRecipe recipe) {
         this(EntryIngredients.ofIngredients(recipe.getIngredients()), Collections.singletonList(EntryIngredients.of(recipe.getResultItem(BasicDisplay.registryAccess()))), recipe);
@@ -47,6 +47,6 @@ public class CauldronDisplay extends BasicDisplay implements SimpleGridMenuDispl
 
     @Override
     public CategoryIdentifier<?> getCategoryIdentifier() {
-        return STOVE_DISPLAY;
+        return CAULDRON_DISPLAY;
     }
 }

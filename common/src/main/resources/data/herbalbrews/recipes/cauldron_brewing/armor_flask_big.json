@@ -1,15 +1,14 @@
 {
   "type": "herbalbrews:cauldron_brewing",
-  "experience": 0.8,
   "ingredients": [
     {
       "item": "herbalbrews:armor_flask"
     },
     {
-      "item": "herbalbrews:armor_flask"
+      "item": "minecraft:glistering_melon_slice"
     },
     {
-      "item": "minecraft:glistering_melon_slice"
+      "item": "herbalbrews:hibiscus"
     }
   ],
   "result": {
