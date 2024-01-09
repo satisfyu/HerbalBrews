@@ -3,6 +3,10 @@
   "values": [
     "herbalbrews:stove",
     "#forge:allows_cooking",
-    "#c:allows_cooking"
+    "#c:allows_cooking",
+    {
+      "id": "farmersdelight:stove",
+      "required": false
+    }
   ]
 }

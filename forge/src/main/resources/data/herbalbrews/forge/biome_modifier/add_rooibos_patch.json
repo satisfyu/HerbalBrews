@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
-  "biomes": "#herbalbrews:savanna_biomes",
+  "biomes": "#minecraft:is_savanna",
   "features": "herbalbrews:rooibos_patch_chance",
   "step": "vegetal_decoration"
 }

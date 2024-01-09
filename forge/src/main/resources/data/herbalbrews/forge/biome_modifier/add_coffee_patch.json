@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
-  "biomes": "#herbalbrews:jungle_biomes",
+  "biomes": "#minecraft:is_jungle",
   "features": "herbalbrews:coffee_patch_chance",
   "step": "vegetal_decoration"
 }

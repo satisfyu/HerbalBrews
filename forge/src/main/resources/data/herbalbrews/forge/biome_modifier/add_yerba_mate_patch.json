@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
-  "biomes": "#herbalbrews:mountain_biomes",
+  "biomes": "#minecraft:is_mountains",
   "features": "herbalbrews:yerba_mate_patch_chance",
   "step": "vegetal_decoration"
 }
