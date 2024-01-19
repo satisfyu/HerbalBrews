@@ -7,6 +7,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -50,7 +51,17 @@ public class TeaLeafBlock extends Block {
 
     private float calculateDryingChance(ServerLevel level, BlockPos pos) {
         int maxLight = calculateMaxLight(level, pos);
-        return maxLight > 8 ? 0.1F : 0.04F;
+        float baseChance = maxLight > 8 ? 0.1F : 0.04F;
+
+        BlockPos upperBlock = pos.above();
+        BlockState aboveState = level.getBlockState(upperBlock);
+        Block aboveBlock = aboveState.getBlock();
+        if (aboveBlock == Blocks.TORCH || aboveBlock == Blocks.MAGMA_BLOCK ||
+                aboveBlock == Blocks.JACK_O_LANTERN || aboveBlock == Blocks.LANTERN) {
+            baseChance *= 0.5f;
+        }
+
+        return baseChance;
     }
 
     private int calculateMaxLight(ServerLevel level, BlockPos pos) {

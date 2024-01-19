@@ -33,9 +33,19 @@ repositories {
 
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
-    modImplementation "maven.modrinth:do-api:${project.doapi_version}-fabric"
     modImplementation("me.shedaniel:RoughlyEnoughItems-fabric:$rei_version") { exclude group: 'net.fabricmc', module: 'fabric-loader' }
-    modImplementation "com.terraformersmc.terraform-api:terraform-wood-api-v1:${project.terraform_wood_api_version}"
+    include("maven.modrinth:do-api:${project.doapi_version}-fabric"){
+        transitive = true;
+    }
+    modApi("maven.modrinth:do-api:${project.doapi_version}-fabric"){
+        transitive = true;
+    }
+    include("com.terraformersmc.terraform-api:terraform-wood-api-v1:${project.terraform_wood_api_version}"){
+        transitive = true;
+    }
+    modApi("com.terraformersmc.terraform-api:terraform-wood-api-v1:${project.terraform_wood_api_version}"){
+        transitive = true;
+    }
     modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
     modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
     modCompileOnlyApi("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")

@@ -28,17 +28,29 @@ configurations {
     developmentForge.extendsFrom common
 }
 
+repositories {
+    maven {
+        name "terraform wood api, trinkets"
+        url "https://maven.terraformersmc.com"
+    }
+}
+
 dependencies {
     forge "net.minecraftforge:forge:${rootProject.forge_version}"
     modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
-    modImplementation "maven.modrinth:do-api:${project.doapi_version}-forge"
+    include("maven.modrinth:do-api:${project.doapi_version}-fabric"){
+        transitive = true;
+    }
+    modApi("maven.modrinth:do-api:${project.doapi_version}-fabric"){
+        transitive = true;
+    }
+    include("com.terraformersmc.terraform-api:terraform-wood-api-v1:${project.terraform_wood_api_version}"){
+        transitive = true;
+    }
+    modApi("com.terraformersmc.terraform-api:terraform-wood-api-v1:${project.terraform_wood_api_version}"){
+        transitive = true;
+    }
     modImplementation "me.shedaniel:RoughlyEnoughItems-forge:$rei_version"
-    modImplementation "maven.modrinth:do-api:${project.doapi_version}-forge"
-    /*
-    modCompileOnlyApi("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
-    modCompileOnlyApi("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
-    modRuntimeOnly("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
-     */
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
 }

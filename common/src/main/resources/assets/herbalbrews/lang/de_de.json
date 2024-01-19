@@ -13,7 +13,7 @@
   "block.herbalbrews.wild_coffee_plant": "Wilde Kaffeepflanze",
   "block.herbalbrews.wild_rooibos_plant": "Wilde Rooibospflanze",
   "block.herbalbrews.wild_yerba_mate_plant": "Wilde Yerba Mate Pflanze",
-  "creative_tab.herbalbrews": "Herbal Brews",
+  "creative_tab.herbalbrews": "[Let's Do] Herbal Brews",
   "effect.block.herbalbrews.hibiscus_tea": "Erhöht Angriffsschaden und Rüstung",
   "effect.herbalbrews.balanced": "Balance",
   "effect.herbalbrews.feral": "Wild",
@@ -113,5 +113,11 @@
   "herbalbrews.advancement.drink_armor_flask": "Rüstung! Rüstung! Definitiv ungenutzte Rüstung",
   "herbalbrews.advancement.drink_armor_flask.desc": "Braue und trinke eine Rüstungselixier",
   "herbalbrews.advancement.witching_time": "Hexenzeit",
-  "herbalbrews.advancement.witching_time.desc": "Finde oder stelle einen Hexenhut her"
+  "herbalbrews.advancement.witching_time.desc": "Finde oder stelle einen Hexenhut her",
+  "herbalbrews.advancement.dry": "Drying Expertise",
+  "herbalbrews.advancement.dry.desc": "Craft a Green Tea Leaf Block by combining 9 Green Tea Leafs, place it down and wait until it's fully dried",
+  "herbalbrews.advancement.dry_2": "Let's do it again!",
+  "herbalbrews.advancement.dry_2.desc": "Craft a Black Tea Leaf Block by combining 9 Green Tea, place it down and wait until it's fully dried",
+  "herbalbrews.advancement.dry_3": "Mix it up!",
+  "herbalbrews.advancement.dry_3.desc": "Craft a Mixed Tea Leaf Block by combining 4 Dried Green Tea and 4 Dried Black Tea , place it down and wait until it's fully dried"
 }
