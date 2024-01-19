@@ -1,4 +1,4 @@
-<p align="center"><img src="https://imgur.com/j7HOj6V.png" width="1200"></p>
+<p align="center"><img src="https://imgur.com/9YdVzce.png" width="1200"></p>
 
 <h1 align="center">Welcome to Herbal Brews!</h1>
 
