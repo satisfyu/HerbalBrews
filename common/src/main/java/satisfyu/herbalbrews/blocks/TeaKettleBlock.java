@@ -130,7 +130,7 @@ public class TeaKettleBlock extends BaseEntityBlock {
             if (random.nextDouble() < 0.3) {
                 world.playLocalSound(d, e, f, SoundEventRegistry.BOILING.get(), SoundSource.BLOCKS, 0.05F, 0.05F, false);
             }
-            SimpleParticleType cozySmokeParticle = ParticleTypes.CAMPFIRE_COSY_SMOKE;
+            SimpleParticleType cozySmokeParticle = ParticleTypes.SMOKE;
             addParticle(world, cozySmokeParticle, pos.getX(), pos.getY() + 0.5, pos.getZ(), random, 0.0, 0.02, 0.0);
 
             addParticle(world, ParticleTypes.SMOKE, pos.getX(), pos.getY() + 2.2, pos.getZ(), random, 0.0, 0.002, 0.0);

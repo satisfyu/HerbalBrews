@@ -5,13 +5,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
-import net.minecraft.world.entity.ai.attributes.AttributeMap;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
-
-import java.util.Map;
 
 public class ToughEffect extends MobEffect {
     public ToughEffect() {
@@ -20,8 +14,8 @@ public class ToughEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity entity, int amplifier) {
-        for (LivingEntity living : entity.level().getEntitiesOfClass(Player.class, entity.getBoundingBox().inflate(10.0D))) {
-            if (living.isAlive() && living != entity && !(living instanceof Player && ((Player) living).isCreative())) {
+        for (LivingEntity living : entity.level().getEntitiesOfClass(LivingEntity.class, entity.getBoundingBox().inflate(10.0D))) {
+            if (living.isAlive() && !(living instanceof Player && ((Player) living).isCreative())) {
                 living.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 50, amplifier + 1));
                 living.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 50, amplifier + 1));
                 living.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 20, amplifier + 1));

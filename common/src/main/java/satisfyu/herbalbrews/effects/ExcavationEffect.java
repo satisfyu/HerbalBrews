@@ -14,6 +14,12 @@ public class ExcavationEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity entity, int amplifier) {
+        if (entity.isAlive() && entity instanceof Player && !((Player) entity).isCreative()) {
+            entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 50, amplifier + 1));
+            entity.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 50, amplifier + 1));
+            entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20, amplifier + 1));
+        }
+
         for (LivingEntity living : entity.level().getEntitiesOfClass(Player.class, entity.getBoundingBox().inflate(10.0D))) {
             if (living.isAlive() && living != entity && !(living instanceof Player && ((Player) living).isCreative())) {
                 living.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 50, amplifier + 1));
