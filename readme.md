@@ -5,6 +5,13 @@
 <p>Tea Time! In Herbal Brews, it's all about tea and brewing: lavender tea, black tea, green tea, as well as coffee and potions, along with vials of long-lasting strengthening effects.</p>
 
 
+
+
+<div style="text-align: center;">
+    Credits: Tea Leaf Texture by <a href="https://www.cometkins.com">Cometkins</a>
+</div>
+
+
 <h1 align="center">Available for</h1>
 <p align="center"><img src="https://imgur.com/gREqi3m.png" width="240" height="120"></p>
 
