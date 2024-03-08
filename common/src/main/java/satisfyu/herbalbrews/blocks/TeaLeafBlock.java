@@ -50,27 +50,22 @@ public class TeaLeafBlock extends Block {
     }
 
     private float calculateDryingChance(ServerLevel level, BlockPos pos) {
-        int maxLight = calculateMaxLight(level, pos);
-        float baseChance = maxLight > 8 ? 0.1F : 0.04F;
+        int lightLevel = level.getBrightness(LightLayer.BLOCK, pos);
+        float baseChance = 1.0F / 600;
 
-        BlockPos upperBlock = pos.above();
-        BlockState aboveState = level.getBlockState(upperBlock);
-        Block aboveBlock = aboveState.getBlock();
-        if (aboveBlock == Blocks.TORCH || aboveBlock == Blocks.MAGMA_BLOCK ||
-                aboveBlock == Blocks.JACK_O_LANTERN || aboveBlock == Blocks.LANTERN) {
-            baseChance *= 0.5f;
+        BlockPos abovePos = pos.above();
+        BlockState aboveState = level.getBlockState(abovePos);
+        boolean isSpecialLightSource = aboveState.is(Blocks.TORCH) || aboveState.is(Blocks.MAGMA_BLOCK) ||
+                aboveState.is(Blocks.JACK_O_LANTERN) || aboveState.is(Blocks.LANTERN);
+        if (isSpecialLightSource) {
+            baseChance *= 1.1F;
+        }
+
+        if (lightLevel >= 13) {
+            baseChance *= 1.25F;
         }
 
         return baseChance;
-    }
-
-    private int calculateMaxLight(ServerLevel level, BlockPos pos) {
-        int maxLight = 0;
-        for (BlockPos neighborPos : BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, 1, 1))) {
-            int light = level.getBrightness(LightLayer.SKY, neighborPos.above());
-            maxLight = Math.max(maxLight, light);
-        }
-        return maxLight;
     }
 
     private void performDrying(ServerLevel level, BlockPos pos, BlockState state) {

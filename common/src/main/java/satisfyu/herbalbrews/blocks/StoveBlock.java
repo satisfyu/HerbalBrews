@@ -1,12 +1,11 @@
 package satisfyu.herbalbrews.blocks;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -14,22 +13,20 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import satisfyu.herbalbrews.registry.TagsRegistry;
-
-import java.util.List;
 
 public class StoveBlock extends Block {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -66,27 +63,36 @@ public class StoveBlock extends Block {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    @SuppressWarnings("deprecation")
+    public @NotNull InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (world.isClientSide) return InteractionResult.SUCCESS;
-        boolean lit = state.getValue(LIT);
         ItemStack stack = player.getItemInHand(hand);
+        boolean lit = state.getValue(LIT);
         boolean isFlint;
-        if (lit && stack.is(TagsRegistry.SHOVEL)) {
+
+        if (lit && (stack.is(ItemTags.SHOVELS) || stack.getItem() == Items.WATER_BUCKET || (stack.getItem() instanceof PotionItem && PotionUtils.getPotion(stack) == Potions.WATER))) {
             world.setBlockAndUpdate(pos, state.setValue(LIT, false));
-            world.levelEvent(null, LevelEvent.SOUND_EXTINGUISH_FIRE, pos, 0);
-            if (!player.getAbilities().instabuild) stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
-            return InteractionResult.SUCCESS;
-        } else if (!lit && ((isFlint = stack.getItem() instanceof FlintAndSteelItem) || stack.getItem() instanceof FireChargeItem)) {
+            world.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0f, 1.0f);
+            if (!player.getAbilities().instabuild && stack.getItem() instanceof ShovelItem) {
+                stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
+            }
+            return InteractionResult.sidedSuccess(false);
+        }
+        else if (!lit && ((isFlint = stack.getItem() instanceof FlintAndSteelItem) || stack.getItem() instanceof FireChargeItem)) {
             world.setBlockAndUpdate(pos, state.setValue(LIT, true));
             if (!player.getAbilities().instabuild) {
-                if (isFlint) stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
-                else stack.shrink(1);
+                if (isFlint) {
+                    stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
+                } else {
+                    stack.shrink(1);
+                }
             }
-            world.playSound(null, pos, isFlint ? SoundEvents.FLINTANDSTEEL_USE : SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 1, 1);
-            return InteractionResult.SUCCESS;
+            world.playSound(null, pos, isFlint ? SoundEvents.FLINTANDSTEEL_USE : SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 1.0f, 1.0f);
+            return InteractionResult.sidedSuccess(false);
         }
         return super.use(state, world, pos, player, hand, hit);
     }
+
 
     @Override
     public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {

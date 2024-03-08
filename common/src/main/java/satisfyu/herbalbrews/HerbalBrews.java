@@ -2,6 +2,7 @@ package satisfyu.herbalbrews;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import satisfyu.herbalbrews.event.CommonEvents;
 import satisfyu.herbalbrews.registry.*;
 
 public class HerbalBrews {
@@ -16,6 +17,7 @@ public class HerbalBrews {
         RecipeTypeRegistry.init();
         ScreenHandlerTypeRegistry.init();
         TabRegistry.init();
+        CommonEvents.init();
     }
 }
 
