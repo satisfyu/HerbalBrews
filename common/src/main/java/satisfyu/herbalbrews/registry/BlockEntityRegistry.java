@@ -7,6 +7,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import satisfyu.herbalbrews.HerbalBrews;
 import satisfyu.herbalbrews.entities.CauldronBlockEntity;
 import satisfyu.herbalbrews.entities.TeaKettleBlockEntity;
+import satisfyu.herbalbrews.entities.TeaLeafBlockEntity;
 
 import java.util.function.Supplier;
 
@@ -16,6 +17,7 @@ public class BlockEntityRegistry {
 
     public static final RegistrySupplier<BlockEntityType<TeaKettleBlockEntity>> TEA_KETTLE_BLOCK_ENTITY = create("tea_kettle", () -> BlockEntityType.Builder.of(TeaKettleBlockEntity::new, ObjectRegistry.TEA_KETTLE.get(), ObjectRegistry.COPPER_TEA_KETTLE.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<CauldronBlockEntity>> CAULDRON_BLOCK_ENTITY = create("cauldron", () -> BlockEntityType.Builder.of(CauldronBlockEntity::new, ObjectRegistry.CAULDRON.get()).build(null));
+    public static final RegistrySupplier<BlockEntityType<TeaLeafBlockEntity>> TEA_LEAF_BLOCK_ENTITY = create("tea_leaf", () -> BlockEntityType.Builder.of(TeaLeafBlockEntity::new, ObjectRegistry.GREEN_TEA_LEAF_BLOCK.get(), ObjectRegistry.MIXED_TEA_LEAF_BLOCK.get(), ObjectRegistry.DRIED_GREEN_TEA_LEAF_BLOCK.get()).build(null));
 
     private static <T extends BlockEntityType<?>> RegistrySupplier<T> create(final String path, final Supplier<T> type) {
         return BLOCK_ENTITY_TYPES.register(path, type);

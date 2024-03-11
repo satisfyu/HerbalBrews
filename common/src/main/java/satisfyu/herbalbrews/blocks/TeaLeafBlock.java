@@ -2,103 +2,51 @@ package satisfyu.herbalbrews.blocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import satisfyu.herbalbrews.registry.ObjectRegistry;
+import satisfyu.herbalbrews.entities.TeaLeafBlockEntity;
 
-@SuppressWarnings("deprecation")
-public class TeaLeafBlock extends Block {
-    public static IntegerProperty DRYING = IntegerProperty.create("drying", 0, 4);
+public class TeaLeafBlock extends Block implements EntityBlock {
+    public static final IntegerProperty DRYING = IntegerProperty.create("drying", 0, 4);
 
     public TeaLeafBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(super.defaultBlockState().setValue(DRYING, 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(DRYING, 0));
     }
 
     @Override
-    public boolean isRandomlyTicking(BlockState state) {
-        return true;
-    }
-
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
         builder.add(DRYING);
-        super.createBlockStateDefinition(builder);
-    }
-
-    public int getMaxDryingStage() {
-        return 4;
     }
 
     @Override
-    @Deprecated
-    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (level.isClientSide) return;
-
-        float chance = calculateDryingChance(level, pos);
-
-        if (random.nextFloat() <= chance) {
-            performDrying(level, pos, state);
-        }
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new TeaLeafBlockEntity(pos, state);
     }
 
-    private float calculateDryingChance(ServerLevel level, BlockPos pos) {
-        int lightLevel = level.getBrightness(LightLayer.BLOCK, pos);
-        float baseChance = 1.0F / 600;
-
-        BlockPos abovePos = pos.above();
-        BlockState aboveState = level.getBlockState(abovePos);
-        boolean isSpecialLightSource = aboveState.is(Blocks.TORCH) || aboveState.is(Blocks.MAGMA_BLOCK) ||
-                aboveState.is(Blocks.JACK_O_LANTERN) || aboveState.is(Blocks.LANTERN);
-        if (isSpecialLightSource) {
-            baseChance *= 1.1F;
-        }
-
-        if (lightLevel >= 13) {
-            baseChance *= 1.25F;
-        }
-
-        return baseChance;
-    }
-
-    private void performDrying(ServerLevel level, BlockPos pos, BlockState state) {
-        if (state.getValue(DRYING) == getMaxDryingStage()) {
-            Block endBlock = getEndBlock(state.getBlock());
-
-            if (endBlock != null) {
-                level.setBlock(pos, endBlock.defaultBlockState(), 3);
-            }
-        } else {
-            level.setBlock(pos, state.setValue(DRYING, state.getValue(DRYING) + 1), 3);
-        }
-    }
-
-    private Block getEndBlock(Block startBlock) {
-        if (startBlock == ObjectRegistry.GREEN_TEA_LEAF_BLOCK.get()) {
-            return ObjectRegistry.DRIED_OUT_GREEN_TEA_LEAF_BLOCK.get();
-        } else if (startBlock == ObjectRegistry.MIXED_TEA_LEAF_BLOCK.get()) {
-            return ObjectRegistry.OOLONG_TEA_LEAF_BLOCK.get();
-        } else if (startBlock == ObjectRegistry.DRIED_GREEN_TEA_LEAF_BLOCK.get()) {
-            return ObjectRegistry.BLACK_TEA_LEAF_BLOCK.get();
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        if (!level.isClientSide) {
+            return (level1, blockPos, blockState, blockEntity) -> {
+                if (blockEntity instanceof TeaLeafBlockEntity) {
+                    ((TeaLeafBlockEntity) blockEntity).tick(level1, blockPos, blockState, (TeaLeafBlockEntity) blockEntity);
+                }
+            };
         }
         return null;
     }
 
-    @Override
-    public boolean hasAnalogOutputSignal(BlockState state) {
-        return true;
-    }
-
-    @Override
-    public int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos pos) {
-        return getMaxDryingStage() + 1 - blockState.getValue(DRYING);
+    @SuppressWarnings("unchecked")
+    private static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> checkType(BlockEntityType<A> givenType, BlockEntityType<E> expectedType, BlockEntityTicker<? super E> ticker) {
+        return expectedType == givenType ? (BlockEntityTicker<A>) ticker : null;
     }
 
     @Override
