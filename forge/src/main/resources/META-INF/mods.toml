@@ -1,12 +1,11 @@
 modLoader = "javafml"
 loaderVersion = "[47,)"
-#issueTrackerURL = ""
-license = "ARR"
+license = "Custom"
 
 [[mods]]
 modId = "herbalbrews"
 version = "${version}"
-displayName = "Herbal Brews"
+displayName = "HerbalBrews"
 authors = "satisfy"
 description = '''
 New Flowers, new crafting Stations, Tea
@@ -33,10 +32,9 @@ mandatory = true
 versionRange = "[9.1.12,)"
 ordering = "AFTER"
 side = "BOTH"
-
 [[dependencies.herbalbrews]]
 modId = "doapi"
 mandatory = true
-versionRange = "[1.2.8,)"
+versionRange = "[1.2.9,)"
 ordering = "AFTER"
 side = "BOTH"
