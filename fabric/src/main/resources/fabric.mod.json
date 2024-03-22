@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "herbalbrews",
   "version": "${version}",
-  "name": "HerbalBrews",
+  "name": "[Let's Do] HerbalBrews",
   "description": "New Flowers, new crafting Stations, Tea",
   "authors": [
     "satisfy"

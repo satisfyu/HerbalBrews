@@ -5,7 +5,7 @@ license = "Custom"
 [[mods]]
 modId = "herbalbrews"
 version = "${version}"
-displayName = "HerbalBrews"
+displayName = "[Let's Do] HerbalBrews"
 authors = "satisfy"
 description = '''
 New Flowers, new crafting Stations, Tea
