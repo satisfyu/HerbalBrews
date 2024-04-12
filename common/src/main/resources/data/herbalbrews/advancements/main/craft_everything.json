@@ -22,36 +22,110 @@
     ]
   },
   "criteria": {
-    "craft_everything": {
+    "herbalbrews:green_tea": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": ["herbalbrews:green_tea"]
-          },
+            "items": [
+              "herbalbrews:green_tea"
+            ]
+          }
+        ]
+      }
+    },
+    "herbalbrews:black_tea": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
           {
-            "items": ["herbalbrews:black_tea"]
-          },
+            "items": [
+              "herbalbrews:black_tea"
+            ]
+          }
+        ]
+      }
+    },
+    "herbalbrews:oolong_tea": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
           {
-            "items": ["herbalbrews:oolong_tea"]
-          },
+            "items": [
+              "herbalbrews:oolong_tea"
+            ]
+          }
+        ]
+      }
+    },
+    "herbalbrews:hibiscus_tea": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
           {
-            "items": ["herbalbrews:hibiscus_tea"]
-          },
+            "items": [
+              "herbalbrews:hibiscus_tea"
+            ]
+          }
+        ]
+      }
+    },
+    "herbalbrews:lavender_tea": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
           {
-            "items": ["herbalbrews:lavender_tea"]
-          },
+            "items": [
+              "herbalbrews:lavender_tea"
+            ]
+          }
+        ]
+      }
+    },
+    "herbalbrews:yerba_mate_tea": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
           {
-            "items": ["herbalbrews:yerba_mate_tea"]
-          },
+            "items": [
+              "herbalbrews:yerba_mate_tea"
+            ]
+          }
+        ]
+      }
+    },
+    "herbalbrews:rooibos_tea": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
           {
-            "items": ["herbalbrews:rooibos_tea"]
-          },
+            "items": [
+              "herbalbrews:rooibos_tea"
+            ]
+          }
+        ]
+      }
+    },
+    "herbalbrews:coffee": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
           {
-            "items": ["herbalbrews:coffee"]
-          },
+            "items": [
+              "herbalbrews:coffee"
+            ]
+          }
+        ]
+      }
+    },
+    "herbalbrews:milk_coffee": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
           {
-            "items": ["herbalbrews:milk_coffee"]
+            "items": [
+              "herbalbrews:milk_coffee"
+            ]
           }
         ]
       }
@@ -59,7 +133,31 @@
   },
   "requirements": [
     [
-      "craft_everything"
+      "herbalbrews:green_tea"
+    ],
+    [
+      "herbalbrews:black_tea"
+    ],
+    [
+      "herbalbrews:oolong_tea"
+    ],
+    [
+      "herbalbrews:hibiscus_tea"
+    ],
+    [
+      "herbalbrews:lavender_tea"
+    ],
+    [
+      "herbalbrews:yerba_mate_tea"
+    ],
+    [
+      "herbalbrews:rooibos_tea"
+    ],
+    [
+      "herbalbrews:coffee"
+    ],
+    [
+      "herbalbrews:milk_coffee"
     ]
   ]
 }
