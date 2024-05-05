@@ -1,5 +1,6 @@
-package satisfyu.herbalbrews.entities;
+package satisfyu.herbalbrews.blocks.entity;
 
+import de.cristelknight.doapi.common.world.ImplementedInventory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -21,11 +22,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import satisfyu.herbalbrews.client.gui.handler.CauldronGuiHandler;
 import satisfyu.herbalbrews.registry.BlockEntityRegistry;
 import satisfyu.herbalbrews.registry.RecipeTypeRegistry;
-import satisfyu.herbalbrews.util.ImplementedInventory;
 
 public class CauldronBlockEntity extends BlockEntity implements ImplementedInventory, BlockEntityTicker<CauldronBlockEntity>, MenuProvider {
     private NonNullList<ItemStack> inventory;
@@ -92,6 +93,7 @@ public class CauldronBlockEntity extends BlockEntity implements ImplementedInven
         if (world.isClientSide) return;
         boolean dirty = false;
         Recipe<?> recipe = world.getRecipeManager().getRecipeFor(RecipeTypeRegistry.CAULDRON_RECIPE_TYPE.get(), this, world).orElse(null);
+        assert level != null;
         RegistryAccess access = level.registryAccess();
         if (canCraft(recipe, access)) {
             this.brewingTime++;
@@ -160,7 +162,7 @@ public class CauldronBlockEntity extends BlockEntity implements ImplementedInven
     }
 
     @Override
-    public int[] getSlotsForFace(Direction side) {
+    public int @NotNull [] getSlotsForFace(Direction side) {
         if(side.equals(Direction.UP)){
             return SLOTS_FOR_UP;
         } else if (side.equals(Direction.DOWN)){
@@ -191,6 +193,7 @@ public class CauldronBlockEntity extends BlockEntity implements ImplementedInven
     }
     @Override
     public boolean stillValid(Player player) {
+        assert this.level != null;
         if (this.level.getBlockEntity(this.worldPosition) != this) {
             return false;
         } else {
@@ -199,7 +202,7 @@ public class CauldronBlockEntity extends BlockEntity implements ImplementedInven
     }
 
     @Override
-    public Component getDisplayName() {
+    public @NotNull Component getDisplayName() {
         return Component.translatable(this.getBlockState().getBlock().getDescriptionId());
     }
 

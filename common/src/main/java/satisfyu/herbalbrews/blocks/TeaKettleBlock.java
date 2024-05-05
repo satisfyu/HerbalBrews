@@ -1,5 +1,7 @@
 package satisfyu.herbalbrews.blocks;
 
+import de.cristelknight.doapi.common.registry.DoApiSoundEventRegistry;
+import de.cristelknight.doapi.common.util.GeneralUtil;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
@@ -7,7 +9,6 @@ import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.chat.Component;
@@ -43,17 +44,17 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import satisfyu.herbalbrews.entities.TeaKettleBlockEntity;
+import satisfyu.herbalbrews.blocks.entity.TeaKettleBlockEntity;
 import satisfyu.herbalbrews.registry.BlockEntityRegistry;
-import satisfyu.herbalbrews.registry.SoundEventRegistry;
-import satisfyu.herbalbrews.util.GeneralUtil;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
+@SuppressWarnings("deprecation")
 public class TeaKettleBlock extends BaseEntityBlock {
     private static final Supplier<VoxelShape> voxelShapeSupplier = () -> {
         VoxelShape shape = Shapes.empty();
@@ -88,13 +89,13 @@ public class TeaKettleBlock extends BaseEntityBlock {
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+    public @NotNull VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return SHAPE.get(state.getValue(FACING));
     }
 
 
     @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public @NotNull InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         final BlockEntity entity = world.getBlockEntity(pos);
         if (entity instanceof MenuProvider factory) {
             player.openMenu(factory);
@@ -128,29 +129,27 @@ public class TeaKettleBlock extends BaseEntityBlock {
             double f = (double) pos.getZ() + 0.5D;
 
             if (random.nextDouble() < 0.3) {
-                world.playLocalSound(d, e, f, SoundEventRegistry.BOILING.get(), SoundSource.BLOCKS, 0.05F, 0.05F, false);
+                world.playLocalSound(d, e, f, DoApiSoundEventRegistry.COOKING_POT_BOILING.get(), SoundSource.BLOCKS, 0.05F, 1.0F, false);
             }
             SimpleParticleType cozySmokeParticle = ParticleTypes.SMOKE;
-            addParticle(world, cozySmokeParticle, pos.getX(), pos.getY() + 0.5, pos.getZ(), random, 0.0, 0.02, 0.0);
+            addParticle(world, cozySmokeParticle, pos.getX(), pos.getY() + 0.5, pos.getZ(), random, 0.02);
 
-            addParticle(world, ParticleTypes.SMOKE, pos.getX(), pos.getY() + 2.2, pos.getZ(), random, 0.0, 0.002, 0.0);
+            addParticle(world, ParticleTypes.SMOKE, pos.getX(), pos.getY() + 2.2, pos.getZ(), random, 0.002);
         }
     }
 
     @Environment(EnvType.CLIENT)
-    private void addParticle(Level world, ParticleOptions particleOptions, double x, double y, double z, RandomSource random, double velocityX, double velocityY, double velocityZ) {
+    private void addParticle(Level world, ParticleOptions particleOptions, double x, double y, double z, RandomSource random, double velocityY) {
         world.addAlwaysVisibleParticle(
                 particleOptions,
                 x + 0.5 + random.nextDouble() / 3.0 * (random.nextBoolean() ? 1 : -1),
                 y + random.nextDouble() + random.nextDouble(),
                 z + 0.5 + random.nextDouble() / 3.0 * (random.nextBoolean() ? 1 : -1),
-                velocityX,
+                0.0,
                 velocityY,
-                velocityZ
+                0.0
         );
     }
-
-
 
     @Override
     public void stepOn(Level world, BlockPos pos, BlockState state, Entity entity) {
@@ -169,7 +168,7 @@ public class TeaKettleBlock extends BaseEntityBlock {
     }
 
     @Override
-    public RenderShape getRenderShape(BlockState state) {
+    public @NotNull RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
     }
 
@@ -187,8 +186,6 @@ public class TeaKettleBlock extends BaseEntityBlock {
 
     @Override
     public void appendHoverText(ItemStack itemStack, BlockGetter world, List<Component> tooltip, TooltipFlag tooltipContext) {
-        tooltip.add(Component.translatable("tooltip.herbalbrews.tea_kettle").withStyle(ChatFormatting.WHITE));
-        tooltip.add(Component.empty());
         tooltip.add(Component.translatable("tooltip.herbalbrews.canbeplaced").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
     }
 }

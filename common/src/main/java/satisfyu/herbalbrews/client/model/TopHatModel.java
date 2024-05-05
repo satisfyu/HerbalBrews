@@ -18,9 +18,12 @@ public class TopHatModel<T extends Entity> extends EntityModel<T> {
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new HerbalBrewsIdentifier("top_hat"), "main");
 
 	private final ModelPart witch_hat;
+
 	public TopHatModel(ModelPart root) {
 		this.witch_hat = root.getChild("top_hat");
 	}
+
+	@SuppressWarnings("unused")
 	public static LayerDefinition getTexturedModelData() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();

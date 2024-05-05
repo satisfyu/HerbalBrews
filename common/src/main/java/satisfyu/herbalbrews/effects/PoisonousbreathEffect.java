@@ -14,19 +14,20 @@ public class PoisonousbreathEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity entity, int amplifier) {
-        for (LivingEntity livingEntity : entity.getCommandSenderWorld().getEntitiesOfClass(LivingEntity.class, entity.getBoundingBox().inflate(0.5D))) {
-            if (livingEntity.isAlive() && livingEntity != entity) {
-                if (!(livingEntity instanceof Player && ((Player) livingEntity).isCreative())) {
+        entity.level().getEntitiesOfClass(LivingEntity.class, entity.getBoundingBox().inflate(0.5), livingEntity ->
+                        isAffectedEntity(livingEntity, entity))
+                .forEach(livingEntity -> {
                     livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, 50, amplifier + 2));
                     livingEntity.setLastHurtByMob(entity);
-                }
-            }
-        }
+                });
+    }
+
+    private boolean isAffectedEntity(LivingEntity target, LivingEntity source) {
+        return target.isAlive() && target != source && !(target instanceof Player && ((Player) target).isCreative());
     }
 
     @Override
     public boolean isDurationEffectTick(int duration, int amplifier) {
         return true;
     }
-
 }

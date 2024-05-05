@@ -2,6 +2,7 @@ package satisfyu.herbalbrews.recipe;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import de.cristelknight.doapi.common.util.GeneralUtil;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
@@ -15,11 +16,11 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import satisfyu.herbalbrews.registry.RecipeTypeRegistry;
-import satisfyu.herbalbrews.util.GeneralUtil;
 
+@SuppressWarnings("unused")
 public class TeaKettleRecipe implements Recipe<Container> {
-
     final ResourceLocation id;
     private final NonNullList<Ingredient> inputs;
     private final ItemStack output;
@@ -40,7 +41,7 @@ public class TeaKettleRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack assemble(Container inventory, RegistryAccess registryManager) {
+    public @NotNull ItemStack assemble(Container inventory, RegistryAccess registryManager) {
         return this.output.copy();
     }
 
@@ -54,27 +55,27 @@ public class TeaKettleRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess registryManager) {
+    public @NotNull ItemStack getResultItem(RegistryAccess registryManager) {
         return this.output;
     }
 
     @Override
-    public ResourceLocation getId() {
+    public @NotNull ResourceLocation getId() {
         return id;
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<?> getSerializer() {
         return RecipeTypeRegistry.TEAK_KETTLE_RECIPE_SERIALIZER.get();
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public @NotNull RecipeType<?> getType() {
         return RecipeTypeRegistry.TEA_KETTLE_RECIPE_TYPE.get();
     }
 
     @Override
-    public NonNullList<Ingredient> getIngredients() {
+    public @NotNull NonNullList<Ingredient> getIngredients() {
         return this.inputs;
     }
 
@@ -86,7 +87,7 @@ public class TeaKettleRecipe implements Recipe<Container> {
     public static class Serializer implements RecipeSerializer<TeaKettleRecipe> {
 
         @Override
-        public TeaKettleRecipe fromJson(ResourceLocation id, JsonObject json) {
+        public @NotNull TeaKettleRecipe fromJson(ResourceLocation id, JsonObject json) {
             final var ingredients = GeneralUtil.deserializeIngredients(GsonHelper.getAsJsonArray(json, "ingredients"));
             if (ingredients.isEmpty()) {
                 throw new JsonParseException("No ingredients for Tea Kettle Recipe");
@@ -98,7 +99,7 @@ public class TeaKettleRecipe implements Recipe<Container> {
         }
 
         @Override
-        public TeaKettleRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
+        public @NotNull TeaKettleRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
             final var ingredients = NonNullList.withSize(buf.readVarInt(), Ingredient.EMPTY);
             ingredients.replaceAll(ignored -> Ingredient.fromNetwork(buf));
             return new TeaKettleRecipe(id, ingredients, buf.readItem());

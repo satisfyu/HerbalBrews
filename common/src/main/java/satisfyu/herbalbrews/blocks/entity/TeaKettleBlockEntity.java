@@ -1,9 +1,9 @@
-package satisfyu.herbalbrews.entities;
+package satisfyu.herbalbrews.blocks.entity;
 
+import de.cristelknight.doapi.common.world.ImplementedInventory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -17,14 +17,13 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import satisfyu.herbalbrews.blocks.TeaKettleBlock;
 import satisfyu.herbalbrews.client.gui.handler.TeaKettleGuiHandler;
@@ -32,11 +31,10 @@ import satisfyu.herbalbrews.recipe.TeaKettleRecipe;
 import satisfyu.herbalbrews.registry.BlockEntityRegistry;
 import satisfyu.herbalbrews.registry.RecipeTypeRegistry;
 import satisfyu.herbalbrews.registry.TagsRegistry;
-import satisfyu.herbalbrews.util.ImplementedInventory;
 
+import java.util.Objects;
 
-import static net.minecraft.world.item.ItemStack.isSameItemSameTags;
-
+@SuppressWarnings("deprecation")
 public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTicker<TeaKettleBlockEntity>, ImplementedInventory, MenuProvider {
     private final NonNullList<ItemStack> inventory = NonNullList.withSize(MAX_CAPACITY, ItemStack.EMPTY);
     private static final int MAX_CAPACITY = 7;
@@ -83,13 +81,9 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
     }
 
     @Override
-    public int[] getSlotsForFace(Direction side) {
-        if(side.equals(Direction.DOWN)){
-            return INPUT_SLOTS;
-        }
+    public int @NotNull [] getSlotsForFace(Direction side) {
         return INPUT_SLOTS;
     }
-
 
     @Override
     public void load(CompoundTag nbt) {
@@ -182,7 +176,7 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
 
     private ItemStack getRemainderItem(ItemStack stack) {
         if (stack.getItem().hasCraftingRemainingItem()) {
-            return new ItemStack(stack.getItem().getCraftingRemainingItem());
+            return new ItemStack(Objects.requireNonNull(stack.getItem().getCraftingRemainingItem()));
         }
         return ItemStack.EMPTY;
     }
@@ -227,6 +221,7 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
 
     @Override
     public boolean stillValid(Player player) {
+        assert this.level != null;
         if (this.level.getBlockEntity(this.worldPosition) != this) {
             return false;
         } else {
@@ -236,7 +231,7 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
 
 
     @Override
-    public Component getDisplayName() {
+    public @NotNull Component getDisplayName() {
         return Component.translatable(this.getBlockState().getBlock().getDescriptionId());
     }
 

@@ -13,7 +13,6 @@ public class HerbalBrews {
         EffectRegistry.init();
         ObjectRegistry.init();
         BlockEntityRegistry.init();
-        SoundEventRegistry.init();
         RecipeTypeRegistry.init();
         ScreenHandlerTypeRegistry.init();
         TabRegistry.init();

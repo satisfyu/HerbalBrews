@@ -8,11 +8,13 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffectUtil;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -22,9 +24,22 @@ public class DrinkBlockItem extends BlockItem {
     public DrinkBlockItem(Block block, Properties settings) {
         super(block, settings.stacksTo(16));
     }
+
     @Override
-    public UseAnim getUseAnimation(ItemStack stack) {
+    public @NotNull UseAnim getUseAnimation(ItemStack stack) {
         return UseAnim.DRINK;
+    }
+
+    @Override
+    public @NotNull ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity user) {
+        if (this.getFoodProperties() != null) {
+            for (Pair<MobEffectInstance, Float> effectPair : this.getFoodProperties().getEffects()) {
+                if (world.random.nextFloat() < effectPair.getSecond()) {
+                    user.addEffect(new MobEffectInstance(effectPair.getFirst()));
+                }
+            }
+        }
+        return super.finishUsingItem(stack, world, user);
     }
 
     @Override
@@ -77,25 +92,21 @@ public class DrinkBlockItem extends BlockItem {
                 if (d > 0.0) {
                     tooltip.add(
                             Component.translatable(
-                                    "attribute.modifier.plus." + entityAttributeModifier3.getOperation().toValue(),
-                                    ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(e), Component.translatable(pair.getFirst().getDescriptionId()))
+                                            "attribute.modifier.plus." + entityAttributeModifier3.getOperation().toValue(),
+                                            ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(e), Component.translatable(pair.getFirst().getDescriptionId()))
                                     .withStyle(ChatFormatting.BLUE)
                     );
                 } else if (d < 0.0) {
                     e *= -1.0;
                     tooltip.add(
                             Component.translatable(
-                                    "attribute.modifier.take." + entityAttributeModifier3.getOperation().toValue(),
-                                    ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(e), Component.translatable(pair.getFirst().getDescriptionId()))
+                                            "attribute.modifier.take." + entityAttributeModifier3.getOperation().toValue(),
+                                            ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(e), Component.translatable(pair.getFirst().getDescriptionId()))
                                     .withStyle(ChatFormatting.RED)
                     );
                 }
             }
         }
-        tooltip.add(Component.empty());
-        tooltip.add(Component.translatable("effect." + this.getDescriptionId()).withStyle(ChatFormatting.BLUE));
-        tooltip.add(Component.empty());
         tooltip.add(Component.translatable("tooltip.herbalbrews.canbeplaced").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
     }
-
 }

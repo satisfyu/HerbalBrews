@@ -18,7 +18,7 @@ public class HerbalbrewsClient {
         RenderTypeRegistry.register(RenderType.cutout(),
                 ObjectRegistry.LAVENDER.get(), ObjectRegistry.WILD_COFFEE_PLANT.get(),
                 ObjectRegistry.WILD_ROOIBOS_PLANT.get(), ObjectRegistry.WILD_YERBA_MATE_PLANT.get(), ObjectRegistry.HIBISCUS.get(),
-                ObjectRegistry.HIBISCUS_TEA.get(), ObjectRegistry.MILK_COFFEE.get(), ObjectRegistry.POTTED_HIBISCUS.get(),
+                ObjectRegistry.HIBISCUS_TEA_BLOCK.get(), ObjectRegistry.MILK_COFFEE_BLOCK.get(), ObjectRegistry.POTTED_HIBISCUS.get(),
                 ObjectRegistry.POTTED_LAVENDER.get(), ObjectRegistry.WILD_ROOIBOS_PLANT.get(), ObjectRegistry.POTTED_WILD_COFFEE.get(),
                 ObjectRegistry.POTTED_WILD_YERBA_MATE.get(), ObjectRegistry.COFFEE_PLANT.get(), ObjectRegistry.TEA_PLANT.get(),
                 ObjectRegistry.YERBA_MATE_PLANT.get(), ObjectRegistry.ROOIBOS_PLANT.get(), ObjectRegistry.POTTED_WILD_ROOIBOS.get(),

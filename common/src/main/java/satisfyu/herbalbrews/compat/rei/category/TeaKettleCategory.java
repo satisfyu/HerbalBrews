@@ -12,7 +12,7 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.network.chat.Component;
 import satisfyu.herbalbrews.HerbalBrews;
 import satisfyu.herbalbrews.compat.rei.display.TeaKettleDisplay;
-import satisfyu.herbalbrews.entities.TeaKettleBlockEntity;
+import satisfyu.herbalbrews.blocks.entity.TeaKettleBlockEntity;
 import satisfyu.herbalbrews.registry.ObjectRegistry;
 
 import java.util.List;

@@ -15,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public class DrinkItem extends Item {
     }
 
     @Override
-    public UseAnim getUseAnimation(ItemStack stack) {
+    public @NotNull UseAnim getUseAnimation(ItemStack stack) {
         return UseAnim.DRINK;
     }
 
@@ -96,8 +97,5 @@ public class DrinkItem extends Item {
                 }
             }
         }
-        tooltip.add(Component.empty());
-        tooltip.add(Component.translatable("effect." + this.getDescriptionId()).withStyle(ChatFormatting.BLUE));
     }
-
 }

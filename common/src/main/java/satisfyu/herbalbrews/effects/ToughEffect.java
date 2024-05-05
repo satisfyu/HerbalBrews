@@ -14,13 +14,18 @@ public class ToughEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity entity, int amplifier) {
-        for (LivingEntity living : entity.level().getEntitiesOfClass(LivingEntity.class, entity.getBoundingBox().inflate(10.0D))) {
-            if (living.isAlive() && !(living instanceof Player && ((Player) living).isCreative())) {
-                living.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 50, amplifier + 1));
-                living.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 50, amplifier + 1));
-                living.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 20, amplifier + 1));
-            }
-        }
+        entity.level().getEntitiesOfClass(LivingEntity.class, entity.getBoundingBox().inflate(10.0), this::isAffectedEntity)
+                .forEach(living -> applyEffects(living, amplifier));
+    }
+
+    private boolean isAffectedEntity(LivingEntity entity) {
+        return entity.isAlive() && !(entity instanceof Player && ((Player) entity).isCreative());
+    }
+
+    private void applyEffects(LivingEntity entity, int amplifier) {
+        entity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 50, amplifier + 1));
+        entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 50, amplifier + 1));
+        entity.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 20, amplifier + 1));
     }
 
     @Override

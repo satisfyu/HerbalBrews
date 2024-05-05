@@ -17,7 +17,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import satisfyu.herbalbrews.HerbalBrews;
 import satisfyu.herbalbrews.client.gui.TeaKettleGui;
 import satisfyu.herbalbrews.compat.jei.HerbalBrewsJEIPlugin;
-import satisfyu.herbalbrews.entities.TeaKettleBlockEntity;
+import satisfyu.herbalbrews.blocks.entity.TeaKettleBlockEntity;
 import satisfyu.herbalbrews.recipe.TeaKettleRecipe;
 import satisfyu.herbalbrews.registry.ObjectRegistry;
 

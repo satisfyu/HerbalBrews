@@ -15,7 +15,6 @@ import org.jetbrains.annotations.Nullable;
 import satisfyu.herbalbrews.registry.ObjectRegistry;
 
 public class CommonEvents {
-
     public static void init() {
         PlayerEvent.ATTACK_ENTITY.register(CommonEvents::attack);
     }

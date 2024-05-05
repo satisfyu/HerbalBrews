@@ -16,9 +16,9 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import satisfyu.herbalbrews.util.HerbalBrewsTiers;
 
-@SuppressWarnings({"deprecation"})
 public class JugItem extends BlockItem {
     private final Multimap<Attribute, AttributeModifier> toolAttributes;
 
@@ -53,7 +53,7 @@ public class JugItem extends BlockItem {
     }
 
     @Override
-    public InteractionResult place(BlockPlaceContext context) {
+    public @NotNull InteractionResult place(BlockPlaceContext context) {
         Player player = context.getPlayer();
         if (player != null && player.isShiftKeyDown()) {
             return super.place(context);
@@ -67,7 +67,7 @@ public class JugItem extends BlockItem {
         return GLASS_TIER.getEnchantmentValue();
     }
 
-    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {
+    public @NotNull Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {
         return equipmentSlot == EquipmentSlot.MAINHAND ? this.toolAttributes : super.getDefaultAttributeModifiers(equipmentSlot);
     }
 }

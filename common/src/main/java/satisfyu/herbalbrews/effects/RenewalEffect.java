@@ -14,13 +14,16 @@ public class RenewalEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity entity, int amplifier) {
-        for (LivingEntity living : entity.level().getEntitiesOfClass(LivingEntity.class, entity.getBoundingBox().inflate(10.0D))) {
-            if (living.isAlive() && !(living instanceof Player && ((Player) living).isCreative())) {
-                living.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 50, amplifier + 1));
-                living.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 50, amplifier + 1));
-                living.addEffect(new MobEffectInstance(MobEffects.HEALTH_BOOST, 20, amplifier + 1));
-            }
-        }
+        entity.level().getEntitiesOfClass(LivingEntity.class, entity.getBoundingBox().inflate(10.0), this::isAffectedEntity)
+                .forEach(living -> {
+                    living.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 50, amplifier + 1));
+                    living.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 50, amplifier + 1));
+                    living.addEffect(new MobEffectInstance(MobEffects.HEALTH_BOOST, 20, amplifier + 1));
+                });
+    }
+
+    private boolean isAffectedEntity(LivingEntity entity) {
+        return entity.isAlive() && !(entity instanceof Player && ((Player) entity).isCreative());
     }
 
     @Override

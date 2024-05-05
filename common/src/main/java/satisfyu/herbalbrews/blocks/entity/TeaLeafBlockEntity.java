@@ -1,4 +1,4 @@
-package satisfyu.herbalbrews.entities;
+package satisfyu.herbalbrews.blocks.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;

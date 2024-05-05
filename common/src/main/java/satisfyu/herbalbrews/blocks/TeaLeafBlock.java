@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import satisfyu.herbalbrews.entities.TeaLeafBlockEntity;
+import satisfyu.herbalbrews.blocks.entity.TeaLeafBlockEntity;
 
 public class TeaLeafBlock extends Block implements EntityBlock {
     public static final IntegerProperty DRYING = IntegerProperty.create("drying", 0, 4);
@@ -44,7 +44,7 @@ public class TeaLeafBlock extends Block implements EntityBlock {
         return null;
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("all")
     private static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> checkType(BlockEntityType<A> givenType, BlockEntityType<E> expectedType, BlockEntityTicker<? super E> ticker) {
         return expectedType == givenType ? (BlockEntityTicker<A>) ticker : null;
     }

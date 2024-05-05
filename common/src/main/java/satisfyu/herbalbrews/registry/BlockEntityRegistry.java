@@ -5,9 +5,9 @@ import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import satisfyu.herbalbrews.HerbalBrews;
-import satisfyu.herbalbrews.entities.CauldronBlockEntity;
-import satisfyu.herbalbrews.entities.TeaKettleBlockEntity;
-import satisfyu.herbalbrews.entities.TeaLeafBlockEntity;
+import satisfyu.herbalbrews.blocks.entity.CauldronBlockEntity;
+import satisfyu.herbalbrews.blocks.entity.TeaKettleBlockEntity;
+import satisfyu.herbalbrews.blocks.entity.TeaLeafBlockEntity;
 
 import java.util.function.Supplier;
 

@@ -8,6 +8,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import satisfyu.herbalbrews.HerbalBrews;
 
+@SuppressWarnings("unused")
 public class TabRegistry {
     public static final DeferredRegister<CreativeModeTab> HERBALBREWS_TABS = DeferredRegister.create(HerbalBrews.MOD_ID, Registries.CREATIVE_MODE_TAB);
 

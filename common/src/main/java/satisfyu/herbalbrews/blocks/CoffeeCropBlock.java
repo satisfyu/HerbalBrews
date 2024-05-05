@@ -20,7 +20,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import satisfyu.herbalbrews.registry.ObjectRegistry;
 
-@SuppressWarnings("deprecated")
+@SuppressWarnings("deprecation")
 public class CoffeeCropBlock extends CropBlock {
     public static final IntegerProperty AGE = IntegerProperty.create("age", 0, 3);
 
@@ -49,7 +49,7 @@ public class CoffeeCropBlock extends CropBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public @NotNull InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         int i = state.getValue(AGE);
         boolean bl = i == 3;
         if (!bl && player.getItemInHand(hand).is(Items.BONE_MEAL)) {

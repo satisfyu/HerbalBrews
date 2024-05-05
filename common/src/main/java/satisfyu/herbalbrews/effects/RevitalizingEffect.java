@@ -5,7 +5,6 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 
 public class RevitalizingEffect extends MobEffect {
     public RevitalizingEffect() {
@@ -14,11 +13,8 @@ public class RevitalizingEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity entity, int amplifier) {
-        for (LivingEntity living : entity.level().getEntitiesOfClass(LivingEntity.class, entity.getBoundingBox().inflate(10.0D))) {
-            if (living.isAlive()) {
-                living.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 50, amplifier + 1));
-            }
-        }
+        entity.level().getEntitiesOfClass(LivingEntity.class, entity.getBoundingBox().inflate(10.0), LivingEntity::isAlive)
+                .forEach(living -> living.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 50, amplifier + 1)));
     }
 
     @Override

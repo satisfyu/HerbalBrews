@@ -1,11 +1,11 @@
 package satisfyu.herbalbrews.blocks;
 
+import de.cristelknight.doapi.common.util.GeneralUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -33,22 +33,20 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import satisfyu.herbalbrews.entities.CauldronBlockEntity;
-import satisfyu.herbalbrews.util.GeneralUtil;
+import satisfyu.herbalbrews.blocks.entity.CauldronBlockEntity;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
+@SuppressWarnings("deprecation")
 public class CauldronBlock extends Block implements EntityBlock {
 
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
@@ -60,7 +58,7 @@ public class CauldronBlock extends Block implements EntityBlock {
 
 
     @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public @NotNull InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         final BlockEntity entity = world.getBlockEntity(pos);
         if (entity instanceof MenuProvider factory) {
             player.openMenu(factory);
@@ -98,15 +96,18 @@ public class CauldronBlock extends Block implements EntityBlock {
         builder.add(FACING);
     }
 
-    @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
-        return (theWorld, pos, theState, blockEntity) -> {
-            if (blockEntity instanceof BlockEntityTicker<?>) {
-                ((BlockEntityTicker) blockEntity).tick(theWorld, pos, theState, blockEntity);
-            }
-        };
+        if (!world.isClientSide) {
+            return (lvl, pos, blkState, t) -> {
+                if (t instanceof CauldronBlockEntity cookingPot) {
+                    cookingPot.tick(lvl, pos, blkState, cookingPot);
+                }
+            };
+        }
+        return null;
     }
+
 
     @Nullable
     @Override
@@ -116,39 +117,26 @@ public class CauldronBlock extends Block implements EntityBlock {
 
     @Override
     public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
-        double blockX = (double) pos.getX() + 0.5;
-        double blockY = pos.getY() + 0.24;
-        double blockZ = (double) pos.getZ() + 0.5;
+        double x = pos.getX() + 0.5, y = pos.getY() + 0.24, z = pos.getZ() + 0.5;
 
         if (random.nextDouble() < 0.1)
-            world.playLocalSound(blockX, blockY, blockZ, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1.0f, 1.0f, false);
-        world.playLocalSound(blockX, blockY, blockZ, SoundEvents.SMOKER_SMOKE, SoundSource.BLOCKS, 1.0f, 1.0f, false);
-        world.playLocalSound(blockX, blockY, blockZ, SoundEvents.CAMPFIRE_CRACKLE, SoundSource.BLOCKS, 1.0f, 1.0f, false);
+            world.playLocalSound(x, y, z, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1.0f, 1.0f, false);
+        world.playLocalSound(x, y, z, SoundEvents.SMOKER_SMOKE, SoundSource.BLOCKS, 1.0f, 1.0f, false);
+        world.playLocalSound(x, y, z, SoundEvents.CAMPFIRE_CRACKLE, SoundSource.BLOCKS, 1.0f, 1.0f, false);
 
-        for (Direction direction : Direction.values()) {
-            if (direction != Direction.DOWN) {
-                double offsetX = random.nextDouble() * 0.6 - 0.3;
-                double offsetY = random.nextDouble() * 6.0 / 16.0;
-                double offsetZ = random.nextDouble() * 0.6 - 0.3;
+        for (Direction dir : Direction.values()) {
+            if (dir != Direction.DOWN) {
+                double offsetX = random.nextDouble() * 0.6 - 0.3, offsetY = random.nextDouble() * 0.375, offsetZ = random.nextDouble() * 0.6 - 0.3;
+                double px = x + offsetX + 0.5 * dir.getStepX(), py = y + offsetY, pz = z + offsetZ + 0.5 * dir.getStepZ();
 
-                double particleX = blockX + offsetX + 0.5 * direction.getStepX();
-                double particleY = blockY + offsetY;
-                double particleZ = blockZ + offsetZ + 0.5 * direction.getStepZ();
+                world.addParticle(ParticleTypes.SMOKE, px, py, pz, 0.0, 0.0, 0.0);
+                world.addParticle(ParticleTypes.SOUL_FIRE_FLAME, px, py, pz, 0.0, 0.0, 0.0);
 
-                world.addParticle(ParticleTypes.SMOKE, particleX, particleY, particleZ, 0.0, 0.0, 0.0);
-                world.addParticle(ParticleTypes.SOUL_FIRE_FLAME, particleX, particleY, particleZ, 0.0, 0.0, 0.0);
-
-                if (random.nextDouble() < 0.6) {
-                    double middleParticleX = blockX + offsetX + 0.5 * direction.getStepX() * random.nextDouble();
-                    double middleParticleY = blockY + offsetY + 0.7 * random.nextDouble();
-                    double middleParticleZ = blockZ + offsetZ + 0.5 * direction.getStepZ() * random.nextDouble();
-
-                    world.addParticle(ParticleTypes.BUBBLE_POP, middleParticleX, middleParticleY, middleParticleZ, 0.0, 0.0, 0.0);
-                }
+                if (random.nextDouble() < 0.6)
+                    world.addParticle(ParticleTypes.BUBBLE_POP, px + 0.5 * dir.getStepX() * random.nextDouble(), py + 0.7 * random.nextDouble(), pz + 0.5 * dir.getStepZ() * random.nextDouble(), 0.0, 0.0, 0.0);
 
                 if (random.nextDouble() < 0.1) {
-                    SimpleParticleType simpleParticleType = ParticleTypes.CAMPFIRE_COSY_SMOKE;
-                    world.addAlwaysVisibleParticle(simpleParticleType, true, pos.getX() + 0.5 + random.nextDouble() / 3.0 * (random.nextBoolean() ? 1 : -1), pos.getY() + random.nextDouble() + random.nextDouble(), pos.getZ() + 0.5 + random.nextDouble() / 3.0 * (random.nextBoolean() ? 1 : -1), 0.0, 0.07, 0.0);
+                    world.addAlwaysVisibleParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, true, pos.getX() + 0.5 + random.nextDouble() / 3.0 * (random.nextBoolean() ? 1 : -1), pos.getY() + random.nextDouble() * 2, pos.getZ() + 0.5 + random.nextDouble() / 3.0 * (random.nextBoolean() ? 1 : -1), 0.0, 0.07, 0.0);
                     world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5 + random.nextDouble() / 4.0 * (random.nextBoolean() ? 1 : -1), pos.getY() + 2.2, pos.getZ() + 0.5 + random.nextDouble() / 4.0 * (random.nextBoolean() ? 1 : -1), 0.0, 0.005, 0.0);
                 }
             }
@@ -163,13 +151,6 @@ public class CauldronBlock extends Block implements EntityBlock {
         }
 
         super.stepOn(world, pos, state, entity);
-    }
-
-    @Override
-    public void appendHoverText(ItemStack itemStack, BlockGetter world, List<Component> tooltip, TooltipFlag tooltipContext) {
-        tooltip.add(Component.translatable("tooltip.herbalbrews.cauldron").withStyle(ChatFormatting.WHITE));
-        tooltip.add(Component.empty());
-        tooltip.add(Component.translatable("tooltip.herbalbrews.canbeplaced").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
     }
 
     private static final Supplier<VoxelShape> voxelShapeSupplier = () -> {
@@ -203,7 +184,12 @@ public class CauldronBlock extends Block implements EntityBlock {
     });
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+    public @NotNull VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return SHAPE.get(state.getValue(FACING));
+    }
+
+    @Override
+    public void appendHoverText(ItemStack itemStack, BlockGetter world, List<Component> tooltip, TooltipFlag tooltipContext) {
+        tooltip.add(Component.translatable("tooltip.herbalbrews.canbeplaced").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
     }
 }
