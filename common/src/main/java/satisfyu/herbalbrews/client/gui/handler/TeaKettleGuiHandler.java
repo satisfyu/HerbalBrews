@@ -10,17 +10,14 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.FurnaceResultSlot;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
-import satisfyu.herbalbrews.client.recipebook.group.TeaKettleRecipeBookGroup;
 import satisfyu.herbalbrews.blocks.entity.TeaKettleBlockEntity;
+import satisfyu.herbalbrews.client.recipebook.group.TeaKettleRecipeBookGroup;
 import satisfyu.herbalbrews.recipe.TeaKettleRecipe;
-import satisfyu.herbalbrews.registry.RecipeTypeRegistry;
 import satisfyu.herbalbrews.registry.ScreenHandlerTypeRegistry;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 public class TeaKettleGuiHandler extends AbstractRecipeBookGUIScreenHandler {
     public TeaKettleGuiHandler(int syncId, Inventory playerInventory) {
@@ -63,15 +60,6 @@ public class TeaKettleGuiHandler extends AbstractRecipeBookGUIScreenHandler {
         return propertyDelegate.get(1) != 0;
     }
 
-
-    private boolean isItemIngredient(ItemStack stack) {
-        return recipeStream().anyMatch(teaKettleRecipe -> teaKettleRecipe.getIngredients().stream().anyMatch(ingredient -> ingredient.test(stack)));
-    }
-
-    private Stream<TeaKettleRecipe> recipeStream() {
-        return this.world.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.TEA_KETTLE_RECIPE_TYPE.get()).stream();
-    }
-
     public int getScaledProgress(int arrowWidth) {
         final int progress = this.propertyDelegate.get(0);
         final int totalProgress = TeaKettleBlockEntity.MAX_COOKING_TIME;
@@ -80,7 +68,6 @@ public class TeaKettleGuiHandler extends AbstractRecipeBookGUIScreenHandler {
         }
         return progress * arrowWidth/ totalProgress + 1;
     }
-
 
     @Override
     public List<IRecipeBookGroup> getGroups() {

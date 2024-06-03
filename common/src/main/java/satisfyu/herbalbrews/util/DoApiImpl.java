@@ -8,7 +8,6 @@ import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import satisfyu.herbalbrews.registry.ArmorRegistry;
 
 import java.util.Map;
 import java.util.Set;
@@ -24,8 +23,6 @@ public class DoApiImpl implements DoApiAPI {
     @Override
     @SuppressWarnings("deprecation")
     public <T extends LivingEntity> void registerHat(Map<Item, EntityModel<T>> map, EntityModelSet entityModelSet) {
-        ArmorRegistry.registerHatModels(map, entityModelSet);
-
     }
 
     @Override

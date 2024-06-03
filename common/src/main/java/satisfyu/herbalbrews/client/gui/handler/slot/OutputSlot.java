@@ -6,6 +6,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import satisfyu.herbalbrews.blocks.entity.TeaKettleBlockEntity;
 
 public class OutputSlot extends Slot {
@@ -29,7 +30,7 @@ public class OutputSlot extends Slot {
     }
 
     @Override
-    public ItemStack remove(int amount) {
+    public @NotNull ItemStack remove(int amount) {
         if (this.hasItem()) {
             this.amount += Math.min(amount, this.getItem().getCount());
         }

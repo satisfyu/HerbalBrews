@@ -26,7 +26,7 @@ public class CauldronGui extends AbstractRecipeBookGUIScreen<CauldronGuiHandler>
     @Override
     protected void init() {
         this.titleLabelX += 2;
-        this.titleLabelY += -3;
+        this.titleLabelY -= 3;
         super.init();
     }
 
