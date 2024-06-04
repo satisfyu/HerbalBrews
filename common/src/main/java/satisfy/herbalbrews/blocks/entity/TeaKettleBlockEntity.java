@@ -171,17 +171,12 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
         }
     }
 
-
-
-
     private ItemStack getRemainderItem(ItemStack stack) {
         if (stack.getItem().hasCraftingRemainingItem()) {
             return new ItemStack(Objects.requireNonNull(stack.getItem().getCraftingRemainingItem()));
         }
         return ItemStack.EMPTY;
     }
-
-
 
     public void tick(Level world, BlockPos pos, BlockState state, TeaKettleBlockEntity blockEntity) {
         if (world.isClientSide()) {

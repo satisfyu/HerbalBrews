@@ -28,6 +28,8 @@ import satisfy.herbalbrews.client.gui.handler.CauldronGuiHandler;
 import satisfy.herbalbrews.registry.BlockEntityRegistry;
 import satisfy.herbalbrews.registry.RecipeTypeRegistry;
 
+import java.util.Objects;
+
 public class CauldronBlockEntity extends BlockEntity implements ImplementedInventory, BlockEntityTicker<CauldronBlockEntity>, MenuProvider {
     private NonNullList<ItemStack> inventory;
     public static final int CAPACITY = 6;
@@ -51,7 +53,6 @@ public class CauldronBlockEntity extends BlockEntity implements ImplementedInven
             };
         }
 
-
         @Override
         public void set(int index, int value) {
             switch (index) {
@@ -71,7 +72,6 @@ public class CauldronBlockEntity extends BlockEntity implements ImplementedInven
         this.inventory = NonNullList.withSize(CAPACITY, ItemStack.EMPTY);
     }
 
-
     @Override
     public void load(CompoundTag nbt) {
         super.load(nbt);
@@ -79,7 +79,6 @@ public class CauldronBlockEntity extends BlockEntity implements ImplementedInven
         ContainerHelper.loadAllItems(nbt, this.inventory);
         this.brewingTime = nbt.getShort("BrewingTime");
     }
-
 
     @Override
     protected void saveAdditional(CompoundTag nbt) {
@@ -135,6 +134,7 @@ public class CauldronBlockEntity extends BlockEntity implements ImplementedInven
         }
         return emptyStacks == 4;
     }
+
     private void craft(Recipe<?> recipe, RegistryAccess access) {
         if (!canCraft(recipe, access)) {
             return;
@@ -146,28 +146,47 @@ public class CauldronBlockEntity extends BlockEntity implements ImplementedInven
             ItemStack output = recipeOutput.copy();
             setItem(OUTPUT_SLOT, output);
         }
+
         final ItemStack bottle = this.getItem(BOTTLE_INPUT_SLOT);
         if (bottle.getCount() > 1) {
             removeItem(BOTTLE_INPUT_SLOT, 1);
         } else if (bottle.getCount() == 1) {
             setItem(BOTTLE_INPUT_SLOT, ItemStack.EMPTY);
         }
+
         for (Ingredient entry : recipe.getIngredients()) {
             for (int i = 1; i <= 4; i++) {
                 if (entry.test(this.getItem(i))) {
-                    removeItem(i, 1);
+                    ItemStack stack = this.getItem(i);
+                    ItemStack remainder = getRemainderItem(stack);
+                    stack.shrink(1);
+                    if (stack.isEmpty() && !remainder.isEmpty()) {
+                        setItem(i, remainder);
+                    } else {
+                        setItem(i, stack);
+                    }
+                    break;
                 }
             }
         }
     }
 
+    private ItemStack getRemainderItem(ItemStack stack) {
+        if (stack.getItem().hasCraftingRemainingItem()) {
+            return new ItemStack(Objects.requireNonNull(stack.getItem().getCraftingRemainingItem()));
+        }
+        return ItemStack.EMPTY;
+    }
+
     @Override
     public int @NotNull [] getSlotsForFace(Direction side) {
-        if(side.equals(Direction.UP)){
+        if (side.equals(Direction.UP)) {
             return SLOTS_FOR_UP;
-        } else if (side.equals(Direction.DOWN)){
+        } else if (side.equals(Direction.DOWN)) {
             return SLOTS_FOR_DOWN;
-        } else return SLOTS_FOR_SIDE;
+        } else {
+            return SLOTS_FOR_SIDE;
+        }
     }
 
     @Override
@@ -191,13 +210,14 @@ public class CauldronBlockEntity extends BlockEntity implements ImplementedInven
             }
         }
     }
+
     @Override
     public boolean stillValid(Player player) {
         assert this.level != null;
         if (this.level.getBlockEntity(this.worldPosition) != this) {
             return false;
         } else {
-            return player.distanceToSqr((double)this.worldPosition.getX() + 0.5, (double)this.worldPosition.getY() + 0.5, (double)this.worldPosition.getZ() + 0.5) <= 64.0;
+            return player.distanceToSqr((double) this.worldPosition.getX() + 0.5, (double) this.worldPosition.getY() + 0.5, (double) this.worldPosition.getZ() + 0.5) <= 64.0;
         }
     }
 
