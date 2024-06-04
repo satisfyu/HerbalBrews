@@ -16,25 +16,25 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "satisfyu.herbalbrews.fabric.HerbalBrewsFabric"
+      "satisfy.herbalbrews.fabric.HerbalBrewsFabric"
     ],
     "client": [
-      "satisfyu.herbalbrews.fabric.client.HerbalbrewsClientFabric"
+      "satisfy.herbalbrews.fabric.client.HerbalbrewsClientFabric"
     ],
     "doapi": [
-      "satisfyu.herbalbrews.util.DoApiImpl"
+      "satisfy.herbalbrews.util.DoApiImpl"
     ],
     "rei_client": [
-      "satisfyu.herbalbrews.fabric.rei.HerbalbrewsREIClientPluginFabric"
+      "satisfy.herbalbrews.fabric.rei.HerbalbrewsREIClientPluginFabric"
     ],
     "jei_mod_plugin": [
-      "satisfyu.herbalbrews.compat.jei.HerbalBrewsJEIPlugin"
+      "satisfy.herbalbrews.compat.jei.HerbalBrewsJEIPlugin"
     ]
   },
   "depends": {
     "fabric": "*",
     "minecraft": ">=1.20",
     "architectury": ">=9.0.8",
-    "doapi": ">=1.2.9"
+    "doapi": ">=1.2.12"
   }
 }
