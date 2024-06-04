@@ -14,18 +14,20 @@ public class ToughEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity entity, int amplifier) {
-        entity.level().getEntitiesOfClass(LivingEntity.class, entity.getBoundingBox().inflate(10.0), this::isAffectedEntity)
-                .forEach(living -> applyEffects(living, amplifier));
+        if (entity instanceof Player) {
+            entity.level().getEntitiesOfClass(Player.class, entity.getBoundingBox().inflate(10.0), this::isAffectedEntity)
+                    .forEach(player -> applyEffects(player, amplifier));
+        }
     }
 
-    private boolean isAffectedEntity(LivingEntity entity) {
-        return entity.isAlive() && !(entity instanceof Player && ((Player) entity).isCreative());
+    private boolean isAffectedEntity(Player player) {
+        return player.isAlive() && !player.isCreative();
     }
 
-    private void applyEffects(LivingEntity entity, int amplifier) {
-        entity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 50, amplifier + 1));
-        entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 50, amplifier + 1));
-        entity.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 20, amplifier + 1));
+    private void applyEffects(Player player, int amplifier) {
+        player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 50, amplifier + 1, false, false, false));
+        player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 50, amplifier + 1, false, false, false));
+        player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 50, amplifier + 1, false, false, false));
     }
 
     @Override

@@ -14,8 +14,10 @@ public class BalancedEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity entity, int amplifier) {
-        entity.level().getEntitiesOfClass(Player.class, entity.getBoundingBox().inflate(10.0), Player::isAlive)
-                .forEach(player -> player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 25, 1)));
+        if (entity instanceof Player) {
+            entity.level().getEntitiesOfClass(Player.class, entity.getBoundingBox().inflate(10.0), Player::isAlive)
+                    .forEach(player -> player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 50, 1, false, false, false)));
+        }
     }
 
     @Override

@@ -14,19 +14,19 @@ public class ExcavationEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity entity, int amplifier) {
-        if (entity.isAlive() && entity instanceof Player && !((Player) entity).isCreative()) {
-            applyEffects(entity, amplifier);
+        if (entity instanceof Player && !((Player) entity).isCreative()) {
+            applyEffects((Player) entity, amplifier);
         }
 
         entity.level().getEntitiesOfClass(Player.class, entity.getBoundingBox().inflate(10.0D)).stream()
-                .filter(living -> living.isAlive() && living != entity && !(living instanceof Player && living.isCreative()))
-                .forEach(living -> applyEffects(living, amplifier));
+                .filter(player -> player.isAlive() && player != entity && !player.isCreative())
+                .forEach(player -> applyEffects(player, amplifier));
     }
 
-    private void applyEffects(LivingEntity entity, int amplifier) {
-        entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 50, amplifier + 1));
-        entity.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 50, amplifier + 1));
-        entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20, amplifier + 1));
+    private void applyEffects(Player player, int amplifier) {
+        player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 50, amplifier + 1, false, false, false));
+        player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 50, amplifier + 1, false, false, false));
+        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 50, amplifier + 1, false, false, false));
     }
 
     @Override
