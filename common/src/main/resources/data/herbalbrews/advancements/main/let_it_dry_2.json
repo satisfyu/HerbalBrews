@@ -1,37 +1,37 @@
 {
   "parent": "herbalbrews:main/let_it_dry",
-  "criteria": {
-    "dry_2": {
-      "conditions": {
-        "location": [
-          {
-            "block": "herbalbrews:black_tea_leaf_block",
-            "condition": "minecraft:block_state_property"
-          }
-        ]
-      },
-      "trigger": "minecraft:placed_block"
-    }
-  },
   "display": {
-    "announce_to_chat": true,
+    "icon": {
+      "item": "herbalbrews:black_tea_leaf_block"
+    },
+    "title": {
+      "translate": "herbalbrews.advancement.dry_2"
+    },
     "description": {
       "translate": "herbalbrews.advancement.dry_2.desc"
     },
     "frame": "task",
-    "hidden": false,
-    "icon": {
-      "item": "herbalbrews:black_tea_leaf_block"
-    },
     "show_toast": true,
-    "title": {
-      "translate": "herbalbrews.advancement.dry_2"
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "dried_black_tea": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "herbalbrews:dried_black_tea"
+            ]
+          }
+        ]
+      }
     }
   },
   "requirements": [
     [
-      "dry_2"
+      "dried_black_tea"
     ]
-  ],
-  "sends_telemetry_event": true
+  ]
 }
