@@ -37,6 +37,8 @@ public class CompletionistWallBannerBlock extends CompletionistBannerBlock {
 
     public boolean canSurvive(BlockState blockState, LevelReader levelReader, BlockPos blockPos) {
         return levelReader.getBlockState(blockPos.relative(blockState.getValue(FACING))).isSolid();
+        
+        
     }
 
     public @NotNull BlockState updateShape(BlockState blockState, Direction direction, BlockState blockState2, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos blockPos2) {

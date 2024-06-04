@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "satisfyu.herbalbrews.forge.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "minVersion": "0.8",
+  "client": [
+  ],
+  "mixins": [
+    "HatItemMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

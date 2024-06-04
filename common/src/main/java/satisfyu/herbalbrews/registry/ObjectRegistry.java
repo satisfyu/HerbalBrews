@@ -74,24 +74,21 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Item> DRIED_BLACK_TEA = registerItem("dried_black_tea", () -> new Item(getSettings().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.1f).fast().alwaysEat().build())));
     public static final RegistrySupplier<Item> DRIED_OOLONG_TEA = registerItem("dried_oolong_tea", () -> new Item(getSettings().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.1f).fast().alwaysEat().build())));
     public static final RegistrySupplier<Item> COFFEE_BEANS = registerItem("coffee_beans", () -> new BlockItem(COFFEE_PLANT.get(), getSettings().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.1f).fast().alwaysEat().build())));
-    public static final RegistrySupplier<Item> GREEN_TEA = registerItem("green_tea", () -> new DrinkItem(getFoodItemSettings(0.7f, EffectRegistry.BALANCED.get(), 60 * 15)));
-    public static final RegistrySupplier<Item> BLACK_TEA = registerItem("black_tea", () -> new DrinkItem(getFoodItemSettings(0.7f, EffectRegistry.REVITALIZING.get(), 60 * 15)));
-    public static final RegistrySupplier<Item> LAVENDER_TEA = registerItem("lavender_tea", () -> new DrinkItem(getFoodItemSettings(0.7f, EffectRegistry.FORTUNE.get(), 60 * 15)));
-    public static final RegistrySupplier<Item> YERBA_MATE_TEA = registerItem("yerba_mate_tea", () -> new DrinkItem(getFoodItemSettings(0.7f, EffectRegistry.POISONOUSBREATH.get(), 60 * 15)));
-    public static final RegistrySupplier<Item> OOLONG_TEA = registerItem("oolong_tea", () -> new DrinkItem(getFoodItemSettings(0.7f, EffectRegistry.RENEWAL.get(), 60 * 15)));
-    public static final RegistrySupplier<Item> ROOIBOS_TEA = registerItem("rooibos_tea", () -> new DrinkItem(getFoodItemSettings(0.7f, EffectRegistry.EXCAVATION.get(), 60 * 15)));
+    public static final RegistrySupplier<Item> GREEN_TEA = registerItem("green_tea", () -> new DrinkItem(getFoodItemSettings(0.7f, EffectRegistry.BALANCED.get(), 1800)));
+    public static final RegistrySupplier<Item> BLACK_TEA = registerItem("black_tea", () -> new DrinkItem(getFoodItemSettings(0.7f, EffectRegistry.REVITALIZING.get(), 1800)));
+    public static final RegistrySupplier<Item> LAVENDER_TEA = registerItem("lavender_tea", () -> new DrinkItem(getFoodItemSettings(0.7f, EffectRegistry.FORTUNE.get(), 1800)));
+    public static final RegistrySupplier<Item> YERBA_MATE_TEA = registerItem("yerba_mate_tea", () -> new DrinkItem(getFoodItemSettings(0.7f, EffectRegistry.POISONOUSBREATH.get(), 1800)));
+    public static final RegistrySupplier<Item> OOLONG_TEA = registerItem("oolong_tea", () -> new DrinkItem(getFoodItemSettings(0.7f, EffectRegistry.RENEWAL.get(), 1800)));
+    public static final RegistrySupplier<Item> ROOIBOS_TEA = registerItem("rooibos_tea", () -> new DrinkItem(getFoodItemSettings(0.7f, EffectRegistry.EXCAVATION.get(), 1800)));
     public static final RegistrySupplier<Block> HIBISCUS_TEA_BLOCK = registerTea("hibiscus_tea_block", () -> new TeaCupBlock(getTeaSettings()), EffectRegistry.FERAL);
-    public static final RegistrySupplier<Item> HIBISCUS_TEA = registerItem("hibiscus_tea", () -> new DrinkBlockItem(HIBISCUS_TEA_BLOCK.get(), getSettings().food(new FoodProperties.Builder().nutrition(Foods.SWEET_BERRIES.getNutrition()).saturationMod(Foods.SWEET_BERRIES.getSaturationModifier()).alwaysEat().build())));
-    public static final RegistrySupplier<Block> MILK_COFFEE_BLOCK = registerTea("milk_coffee_block", () -> new TeaCupBlock(getTeaSettings()), (EffectRegistry.TOUGH));
-    public static final RegistrySupplier<Item> MILK_COFFEE = registerItem("milk_coffee", () -> new DrinkBlockItem(MILK_COFFEE_BLOCK.get(), getSettings().food(new FoodProperties.Builder().nutrition(Foods.SWEET_BERRIES.getNutrition()).saturationMod(Foods.SWEET_BERRIES.getSaturationModifier()).alwaysEat().build())));
-    public static final RegistrySupplier<Item> COFFEE = registerItem("coffee", () -> new DrinkItem(getFoodItemSettings(0.7f, EffectRegistry.TOUGH.get(), 60 * 15)));
-    public static final RegistrySupplier<Item> WITCH_HAT = registerItem("witch_hat", () -> new WitchHatItem(getSettings().rarity(Rarity.UNCOMMON)));
-
-    public static final RegistrySupplier<Item> TOP_HAT = registerItem("top_hat", () -> new TopHatItem(ArmorMaterials.LEATHER, ArmorItem.Type.HELMET, new Item.Properties()));
-
+    public static final RegistrySupplier<Item> HIBISCUS_TEA = registerItem("hibiscus_tea", () -> new DrinkBlockItem(HIBISCUS_TEA_BLOCK.get(), getSettings().food(new FoodProperties.Builder().nutrition(Foods.SWEET_BERRIES.getNutrition()).saturationMod(Foods.SWEET_BERRIES.getSaturationModifier()).alwaysEat().build()), new MobEffectInstance(EffectRegistry.FERAL.get(), 1800, 0)));
+    public static final RegistrySupplier<Block> MILK_COFFEE_BLOCK = registerTea("milk_coffee_block", () -> new TeaCupBlock(getTeaSettings()), EffectRegistry.TOUGH);
+    public static final RegistrySupplier<Item> MILK_COFFEE = registerItem("milk_coffee", () -> new DrinkBlockItem(MILK_COFFEE_BLOCK.get(), getSettings().food(new FoodProperties.Builder().nutrition(Foods.SWEET_BERRIES.getNutrition()).saturationMod(Foods.SWEET_BERRIES.getSaturationModifier()).alwaysEat().build()), new MobEffectInstance(EffectRegistry.TOUGH.get(), 1800, 0)));
+    public static final RegistrySupplier<Item> COFFEE = registerItem("coffee", () -> new DrinkItem(getFoodItemSettings(0.7f, EffectRegistry.TOUGH.get(), 1800)));
+    public static final RegistrySupplier<Item> WITCH_HAT = registerItem("witch_hat", () -> new HatItem(ArmorMaterials.LEATHER, ArmorItem.Type.HELMET, new Item.Properties(), new HerbalBrewsIdentifier("textures/entity/witch_hat.png")));
+    public static final RegistrySupplier<Item> TOP_HAT = registerItem("top_hat", () -> new HatItem(ArmorMaterials.LEATHER, ArmorItem.Type.HELMET, new Item.Properties(), new HerbalBrewsIdentifier("textures/entity/top_hat.png")));
     public static final RegistrySupplier<Block> HERBALBREWS_STANDARD = registerWithItem("herbalbrews_standard", () -> new CompletionistBannerBlock(BlockBehaviour.Properties.of().strength(1F).instrument(NoteBlockInstrument.BASS).noCollission().sound(SoundType.WOOD)));
     public static final RegistrySupplier<Block> HERBALBREWS_WALL_STANDARD = registerWithoutItem("herbalbrews_wall_standard", () -> new CompletionistWallBannerBlock(BlockBehaviour.Properties.of().strength(1F).instrument(NoteBlockInstrument.BASS).noCollission().sound(SoundType.WOOD)));
-
     public static final RegistrySupplier<Block> POTTED_LAVENDER = registerWithoutItem("potted_lavender", () -> new FlowerPotBlock(LAVENDER.get(), BlockBehaviour.Properties.copy(Blocks.FLOWER_POT)));
     public static final RegistrySupplier<Block> POTTED_HIBISCUS = registerWithoutItem("potted_hibiscus", () -> new FlowerPotBlock(HIBISCUS.get(), BlockBehaviour.Properties.copy(Blocks.FLOWER_POT)));
     public static final RegistrySupplier<Block> POTTED_WILD_ROOIBOS = registerWithoutItem("potted_wild_rooibos", () -> new FlowerPotBlock(WILD_ROOIBOS_PLANT.get(), BlockBehaviour.Properties.copy(Blocks.FLOWER_POT)));
@@ -184,7 +181,7 @@ public class ObjectRegistry {
 
     private static FoodProperties teaFoodComponent(MobEffect effect) {
         FoodProperties.Builder component = new FoodProperties.Builder().nutrition(2).saturationMod(2);
-        if (effect != null) component.effect(new MobEffectInstance(effect, 90 * 20), 1.0f);
+        if (effect != null) component.effect(new MobEffectInstance(effect, 1800 * 20), 1.0f);
         return component.build();
     }
 
@@ -194,7 +191,11 @@ public class ObjectRegistry {
 
     private static <T extends Block> RegistrySupplier<T> registerTea(String name, Supplier<T> block, RegistrySupplier<MobEffect> effect) {
         RegistrySupplier<T> toReturn = registerWithoutItem(name, block);
-        registerItem(name, () -> new DrinkBlockItem(toReturn.get(), getSettings(settings -> settings.food(teaFoodComponent(effect.get())))));
+        registerItem(name, () -> new DrinkBlockItem(
+                toReturn.get(),
+                getSettings(settings -> settings.food(teaFoodComponent(effect.get()))),
+                new MobEffectInstance(effect.get(), 1800, 1)
+        ));
         return toReturn;
     }
 

@@ -12,6 +12,8 @@ import net.minecraft.resources.ResourceLocation;
 import satisfyu.herbalbrews.client.block.CompletionistBannerRenderer;
 import satisfyu.herbalbrews.client.gui.CauldronGui;
 import satisfyu.herbalbrews.client.gui.TeaKettleGui;
+import satisfyu.herbalbrews.client.model.TopHatModel;
+import satisfyu.herbalbrews.client.model.WitchHatModel;
 import satisfyu.herbalbrews.registry.ObjectRegistry;
 import satisfyu.herbalbrews.registry.ScreenHandlerTypeRegistry;
 
@@ -51,6 +53,8 @@ public class HerbalbrewsClient {
 
     public static void registerEntityModelLayer() {
         EntityModelLayerRegistry.register(CompletionistBannerRenderer.LAYER_LOCATION, CompletionistBannerRenderer::createBodyLayer);
+        EntityModelLayerRegistry.register(TopHatModel.LAYER_LOCATION, TopHatModel::createBodyLayer);
+        EntityModelLayerRegistry.register(WitchHatModel.LAYER_LOCATION, WitchHatModel::createBodyLayer);
     }
 }
 

@@ -17,6 +17,8 @@ loom {
     forge {
         convertAccessWideners = true
         extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
+
+        mixinConfig "herbalbrews-forge.mixins.json"
     }
 }
 
