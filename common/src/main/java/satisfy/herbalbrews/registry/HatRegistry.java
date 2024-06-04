@@ -12,12 +12,10 @@ import satisfy.herbalbrews.client.model.WitchHatModel;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HatRegistry
-{
+public class HatRegistry {
     private static final Map<Item, HatModel> models = new HashMap<>();
 
-    public static Model getHatModel(Item item, ModelPart baseHead)
-    {
+    public static Model getHatModel(Item item, ModelPart baseHead) {
         EntityModelSet modelSet = Minecraft.getInstance().getEntityModels();
         HatModel model = models.computeIfAbsent(item, key -> {
             if (key == ObjectRegistry.TOP_HAT.get()) {

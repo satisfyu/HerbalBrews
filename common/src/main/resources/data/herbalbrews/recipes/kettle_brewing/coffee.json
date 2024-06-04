@@ -9,9 +9,6 @@
       "item": "minecraft:water_bucket"
     }
   ],
-  "container": {
-    "item": "minecraft:glass_bottle"
-  },
   "result": {
     "item": "herbalbrews:coffee"
   }

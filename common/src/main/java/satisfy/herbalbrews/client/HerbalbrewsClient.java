@@ -1,21 +1,17 @@
 package satisfy.herbalbrews.client;
 
 import dev.architectury.registry.client.level.entity.EntityModelLayerRegistry;
-import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import dev.architectury.registry.client.rendering.RenderTypeRegistry;
 import dev.architectury.registry.menu.MenuRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.RenderType;
-import satisfy.herbalbrews.client.block.CompletionistBannerRenderer;
 import satisfy.herbalbrews.client.gui.CauldronGui;
 import satisfy.herbalbrews.client.gui.TeaKettleGui;
 import satisfy.herbalbrews.client.model.TopHatModel;
 import satisfy.herbalbrews.client.model.WitchHatModel;
 import satisfy.herbalbrews.registry.ObjectRegistry;
 import satisfy.herbalbrews.registry.ScreenHandlerTypeRegistry;
-
-import static satisfy.herbalbrews.registry.BlockEntityRegistry.COMPLETIONIST_BANNER_ENTITY;
 
 @Environment(EnvType.CLIENT)
 public class HerbalbrewsClient {
@@ -35,19 +31,12 @@ public class HerbalbrewsClient {
         MenuRegistry.registerScreenFactory(ScreenHandlerTypeRegistry.CAULDRON_SCREEN_HANDLER.get(), CauldronGui::new);
 
     }
-
-
+    
     public static void preInitClient() {
-        registerEntityRenderers();
         registerEntityModelLayer();
     }
 
-    public static void registerEntityRenderers() {
-        BlockEntityRendererRegistry.register(COMPLETIONIST_BANNER_ENTITY.get(), CompletionistBannerRenderer::new);
-    }
-
     public static void registerEntityModelLayer() {
-        EntityModelLayerRegistry.register(CompletionistBannerRenderer.LAYER_LOCATION, CompletionistBannerRenderer::createBodyLayer);
         EntityModelLayerRegistry.register(TopHatModel.LAYER_LOCATION, TopHatModel::createBodyLayer);
         EntityModelLayerRegistry.register(WitchHatModel.LAYER_LOCATION, WitchHatModel::createBodyLayer);
     }
