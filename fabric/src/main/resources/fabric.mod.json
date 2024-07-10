@@ -16,19 +16,19 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "satisfy.herbalbrews.fabric.HerbalBrewsFabric"
+      "net.satisfy.herbalbrews.fabric.HerbalBrewsFabric"
     ],
     "client": [
-      "satisfy.herbalbrews.fabric.client.HerbalbrewsClientFabric"
+      "net.satisfy.herbalbrews.fabric.client.HerbalbrewsClientFabric"
     ],
     "doapi": [
-      "satisfy.herbalbrews.util.DoApiImpl"
+      "net.satisfy.herbalbrews.util.DoApiImpl"
     ],
     "rei_client": [
-      "satisfy.herbalbrews.fabric.rei.HerbalbrewsREIClientPluginFabric"
+      "net.satisfy.herbalbrews.fabric.rei.HerbalbrewsREIClientPluginFabric"
     ],
     "jei_mod_plugin": [
-      "satisfy.herbalbrews.compat.jei.HerbalBrewsJEIPlugin"
+      "net.satisfy.herbalbrews.compat.jei.HerbalBrewsJEIPlugin"
     ]
   },
   "depends": {
