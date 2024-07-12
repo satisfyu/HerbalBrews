@@ -16,7 +16,7 @@ public class RevitalizingEffect extends MobEffect {
     public void applyEffectTick(LivingEntity entity, int amplifier) {
         if (entity instanceof Player) {
             entity.level().getEntitiesOfClass(Player.class, entity.getBoundingBox().inflate(10.0), Player::isAlive)
-                    .forEach(player -> player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 50, amplifier + 1, false, false, false)));
+                    .forEach(player -> player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 50, amplifier, false, false, false)));
         }
     }
 
