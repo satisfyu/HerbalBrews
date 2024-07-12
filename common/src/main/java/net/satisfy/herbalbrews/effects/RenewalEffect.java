@@ -17,8 +17,8 @@ public class RenewalEffect extends MobEffect {
         if (entity instanceof Player) {
             entity.level().getEntitiesOfClass(Player.class, entity.getBoundingBox().inflate(10.0), this::isAffectedEntity)
                     .forEach(player -> {
-                        player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 50, amplifier + 1, false, false, false));
-                        player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 50, amplifier + 1, false, false, false));
+                        player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 50, amplifier, false, false, false));
+                        player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 50, amplifier, false, false, false));
                     });
         }
     }

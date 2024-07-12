@@ -25,9 +25,8 @@ public class ToughEffect extends MobEffect {
     }
 
     private void applyEffects(Player player, int amplifier) {
-        player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 50, amplifier + 1, false, false, false));
-        player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 50, amplifier + 1, false, false, false));
-        player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 50, amplifier + 1, false, false, false));
+        player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 50, amplifier+1, false, false, false));
+        player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 50, amplifier+1, false, false, false));
     }
 
     @Override

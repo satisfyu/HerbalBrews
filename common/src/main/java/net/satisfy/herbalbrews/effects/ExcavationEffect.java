@@ -24,7 +24,6 @@ public class ExcavationEffect extends MobEffect {
     }
 
     private void applyEffects(Player player, int amplifier) {
-        player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 50, amplifier + 1, false, false, false));
         player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 50, amplifier + 1, false, false, false));
         player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 50, amplifier + 1, false, false, false));
     }
