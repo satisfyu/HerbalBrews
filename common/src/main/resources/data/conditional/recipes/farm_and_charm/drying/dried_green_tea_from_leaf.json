@@ -1,0 +1,20 @@
+{
+  "type": "doapi:conditional",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "farm_and_charm"
+    }
+  ],
+  "recipe:": {
+    "type": "farm_and_charm:drying",
+    "ingredient": {
+      "item": "herbalbrews:green_tea_leaf"
+    },
+    "recipe_type": "MEAT",
+    "result": {
+      "item": "herbalbrews:dried_green_tea",
+      "count": 1
+    }
+  }
+}
