@@ -1,8 +1,8 @@
 {
-  "boiling": {
-    "subtitle": "subtitles.herbalbrews.tea_kettle",
+  "tea_kettle_boiling": {
+    "subtitle": "subtitles.herbalbrews.tea_kettle_boiling",
     "sounds": [
-      "herbalbrews:boiling"
+      "herbalbrews:tea_kettle_boiling"
     ]
   }
 }

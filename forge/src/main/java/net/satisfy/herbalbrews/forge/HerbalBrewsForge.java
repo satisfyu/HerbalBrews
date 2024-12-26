@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.satisfy.herbalbrews.HerbalBrews;
-import net.satisfy.herbalbrews.registry.CompostableRegistry;
+import net.satisfy.herbalbrews.core.registry.CompostableRegistry;
 
 @Mod(HerbalBrews.MOD_ID)
 public class HerbalBrewsForge {

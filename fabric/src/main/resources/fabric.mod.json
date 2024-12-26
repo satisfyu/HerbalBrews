@@ -19,22 +19,21 @@
       "net.satisfy.herbalbrews.fabric.HerbalBrewsFabric"
     ],
     "client": [
-      "net.satisfy.herbalbrews.fabric.client.HerbalbrewsClientFabric"
+      "net.satisfy.herbalbrews.fabric.core.client.HerbalbrewsClientFabric"
     ],
-    "doapi": [
-      "net.satisfy.herbalbrews.util.DoApiImpl"
+    "modmenu": [
+      "net.satisfy.herbalbrews.fabric.core.config.ModMenu"
     ],
     "rei_client": [
-      "net.satisfy.herbalbrews.fabric.rei.HerbalbrewsREIClientPluginFabric"
+      "net.satisfy.herbalbrews.fabric.core.rei.HerbalbrewsREIClientPluginFabric"
     ],
     "jei_mod_plugin": [
-      "net.satisfy.herbalbrews.compat.jei.HerbalBrewsJEIPlugin"
+      "net.satisfy.herbalbrews.core.compat.jei.HerbalBrewsJEIPlugin"
     ]
   },
   "depends": {
     "fabric": "*",
     "minecraft": ">=1.20",
-    "architectury": ">=9.0.8",
-    "doapi": ">=1.2.10"
+    "architectury": ">=9.0.8"
   }
 }

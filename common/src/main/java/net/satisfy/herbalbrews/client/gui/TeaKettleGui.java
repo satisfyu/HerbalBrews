@@ -1,49 +1,45 @@
 package net.satisfy.herbalbrews.client.gui;
 
-import de.cristelknight.doapi.client.recipebook.screen.AbstractRecipeBookGUIScreen;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.satisfy.herbalbrews.client.gui.handler.TeaKettleGuiHandler;
+import net.satisfy.herbalbrews.core.util.HerbalBrewsIdentifier;
+import org.joml.Vector2i;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.satisfy.herbalbrews.HerbalBrews;
-import net.satisfy.herbalbrews.client.gui.handler.TeaKettleGuiHandler;
-import net.satisfy.herbalbrews.client.recipebook.TeaKettleRecipeBook;
 
-@Environment(EnvType.CLIENT)
-public class TeaKettleGui extends AbstractRecipeBookGUIScreen<TeaKettleGuiHandler> {
-    public static final ResourceLocation BACKGROUND;
-
-    public static final int ARROW_X = 92;
-    public static final int ARROW_Y = 10;
+public class TeaKettleGui extends AbstractContainerScreen<TeaKettleGuiHandler> {
+    private static final ResourceLocation BACKGROUND = new HerbalBrewsIdentifier("textures/gui/tea_kettle.png");
+    private static final int ARROW_X = 92;
+    private static final int ARROW_Y = 10;
+    private final Vector2i screenPos = new Vector2i();
 
     public TeaKettleGui(TeaKettleGuiHandler handler, Inventory inventory, Component title) {
-        super(handler, inventory, title, new TeaKettleRecipeBook(), BACKGROUND);
+        super(handler, inventory, title);
     }
 
     @Override
     protected void init() {
-        this.titleLabelX += 2;
-        this.titleLabelY += 3;
         super.init();
+        screenPos.set(leftPos, topPos);
+        titleLabelX += 2;
+        titleLabelY += 3;
     }
 
     @Override
-    protected void renderProgressArrow(GuiGraphics guiGraphics) {
+    protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+        guiGraphics.blit(BACKGROUND, screenPos.x(), screenPos.y(), 0, 0, imageWidth, imageHeight);
         int progress = this.menu.getScaledProgress(17);
-        guiGraphics.blit(BACKGROUND, leftPos + ARROW_X, topPos + ARROW_Y, 178, 16, progress, 29);
-    }
-
-    @Override
-    protected void renderBurnIcon(GuiGraphics guiGraphics, int posX, int posY) {
+        guiGraphics.blit(BACKGROUND, screenPos.x() + ARROW_X, screenPos.y() + ARROW_Y, 178, 16, progress, 29);
         if (menu.isBeingBurned()) {
-            guiGraphics.blit(BACKGROUND, posX + 124, posY + 51, 176, 0, 17, 16);
+            guiGraphics.blit(BACKGROUND, screenPos.x() + 124, screenPos.y() + 51, 176, 0, 17, 16);
         }
     }
 
-
-    static {
-        BACKGROUND = new ResourceLocation(HerbalBrews.MOD_ID, "textures/gui/tea_kettle.png");
+    @Override
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
+        super.render(guiGraphics, mouseX, mouseY, delta);
+        renderTooltip(guiGraphics, mouseX, mouseY);
     }
 }

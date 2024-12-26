@@ -32,7 +32,6 @@ configurations {
 
 repositories {
     maven {
-        name "terraform wood api, trinkets"
         url "https://maven.terraformersmc.com"
     }
 }
@@ -40,8 +39,6 @@ repositories {
 dependencies {
     forge "net.minecraftforge:forge:${rootProject.forge_version}"
     modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
-    modImplementation "maven.modrinth:do-api:${project.doapi_version}-forge"
-    modImplementation "com.terraformersmc.terraform-api:terraform-wood-api-v1:${project.terraform_wood_api_version}"
     modImplementation "me.shedaniel:RoughlyEnoughItems-forge:$rei_version"
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }

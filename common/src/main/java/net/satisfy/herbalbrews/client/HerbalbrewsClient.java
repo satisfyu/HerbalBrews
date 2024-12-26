@@ -1,6 +1,7 @@
 package net.satisfy.herbalbrews.client;
 
 import dev.architectury.registry.client.level.entity.EntityModelLayerRegistry;
+import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import dev.architectury.registry.client.rendering.RenderTypeRegistry;
 import dev.architectury.registry.menu.MenuRegistry;
 import net.fabricmc.api.EnvType;
@@ -10,8 +11,10 @@ import net.satisfy.herbalbrews.client.gui.CauldronGui;
 import net.satisfy.herbalbrews.client.gui.TeaKettleGui;
 import net.satisfy.herbalbrews.client.model.TopHatModel;
 import net.satisfy.herbalbrews.client.model.WitchHatModel;
-import net.satisfy.herbalbrews.registry.ObjectRegistry;
-import net.satisfy.herbalbrews.registry.ScreenHandlerTypeRegistry;
+import net.satisfy.herbalbrews.client.renderer.CompletionistBannerRenderer;
+import net.satisfy.herbalbrews.core.registry.EntityTypeRegistry;
+import net.satisfy.herbalbrews.core.registry.ObjectRegistry;
+import net.satisfy.herbalbrews.core.registry.ScreenHandlerTypeRegistry;
 
 @Environment(EnvType.CLIENT)
 public class HerbalbrewsClient {
@@ -29,7 +32,8 @@ public class HerbalbrewsClient {
 
         MenuRegistry.registerScreenFactory(ScreenHandlerTypeRegistry.TEA_KETTLE_SCREEN_HANDLER.get(), TeaKettleGui::new);
         MenuRegistry.registerScreenFactory(ScreenHandlerTypeRegistry.CAULDRON_SCREEN_HANDLER.get(), CauldronGui::new);
-
+        BlockEntityRendererRegistry.register(EntityTypeRegistry.HERBALBREWS_BANNER.get(), CompletionistBannerRenderer::new);
+        EntityModelLayerRegistry.register(CompletionistBannerRenderer.LAYER_LOCATION, CompletionistBannerRenderer::createBodyLayer);
     }
     
     public static void preInitClient() {

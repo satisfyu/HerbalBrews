@@ -1,103 +1,91 @@
 package net.satisfy.herbalbrews.client.gui.handler;
 
-import de.cristelknight.doapi.client.recipebook.IRecipeBookGroup;
-import de.cristelknight.doapi.client.recipebook.handler.AbstractRecipeBookGUIScreenHandler;
-import de.cristelknight.doapi.common.world.slot.ExtendedSlot;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.satisfy.herbalbrews.client.gui.handler.slot.OutputSlot;
-import net.satisfy.herbalbrews.client.recipebook.group.CauldronRecipeBookGroup;
-import net.satisfy.herbalbrews.recipe.CauldronRecipe;
-import net.satisfy.herbalbrews.registry.RecipeTypeRegistry;
-import net.satisfy.herbalbrews.registry.ScreenHandlerTypeRegistry;
+import net.satisfy.herbalbrews.core.registry.ScreenHandlerTypeRegistry;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
-public class CauldronGuiHandler extends AbstractRecipeBookGUIScreenHandler {
+public class CauldronGuiHandler extends AbstractContainerMenu {
+    private final Container container;
+    private final ContainerData data;
 
     public CauldronGuiHandler(int syncId, Inventory playerInventory) {
         this(syncId, playerInventory, new SimpleContainer(6), new SimpleContainerData(2));
     }
-    public CauldronGuiHandler(int syncId, Inventory playerInventory, Container inventory, ContainerData propertyDelegate) {
-        super(ScreenHandlerTypeRegistry.CAULDRON_SCREEN_HANDLER.get(), syncId, 5, playerInventory, inventory, propertyDelegate);
-        buildBlockEntityContainer(playerInventory, inventory);
-        buildPlayerContainer(playerInventory);
-    }
 
-
-    private void buildBlockEntityContainer(Inventory playerInventory, Container inventory) {
-        this.addSlot(new ExtendedSlot(inventory, 0, 79, 51, stack -> stack.is(Items.GLASS_BOTTLE)));
-        this.addSlot(new ExtendedSlot(inventory, 1, 33, 26, this::isIngredient));
-        this.addSlot(new ExtendedSlot(inventory, 2, 51, 26, this::isIngredient));
-        this.addSlot(new ExtendedSlot(inventory, 3, 33, 44, this::isIngredient));
-        this.addSlot(new ExtendedSlot(inventory, 4, 51, 44, this::isIngredient));
-        this.addSlot(new OutputSlot(playerInventory.player, inventory, 5, 128,  35));
-    }
-
-    private void buildPlayerContainer(Inventory playerInventory) {
-        int i;
-        for (i = 0; i < 3; ++i) {
-            for (int j = 0; j < 9; ++j) {
-                this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+    public CauldronGuiHandler(int syncId, Inventory playerInventory, Container container, ContainerData data) {
+        super(ScreenHandlerTypeRegistry.CAULDRON_SCREEN_HANDLER.get(), syncId);
+        this.container = container;
+        this.data = data;
+        addDataSlots(this.data);
+        addSlot(new Slot(container, 0, 79, 51) {
+            public boolean mayPlace(ItemStack stack) {
+                return stack.is(Items.GLASS_BOTTLE);
+            }
+        });
+        addSlot(new Slot(container, 1, 33, 26) {
+            public boolean mayPlace(ItemStack stack) {
+                return isIngredient(stack);
+            }
+        });
+        addSlot(new Slot(container, 2, 51, 26) {
+            public boolean mayPlace(ItemStack stack) {
+                return isIngredient(stack);
+            }
+        });
+        addSlot(new Slot(container, 3, 33, 44) {
+            public boolean mayPlace(ItemStack stack) {
+                return isIngredient(stack);
+            }
+        });
+        addSlot(new Slot(container, 4, 51, 44) {
+            public boolean mayPlace(ItemStack stack) {
+                return isIngredient(stack);
+            }
+        });
+        addSlot(new Slot(container, 5, 128, 35) {
+            public boolean mayPlace(ItemStack stack) {
+                return false;
+            }
+        });
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 9; j++) {
+                addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
-        for (i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
+        for (int i = 0; i < 9; i++) {
+            addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
         }
-    }
-
-    private boolean isIngredient(ItemStack stack) {
-        return this.world.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.CAULDRON_RECIPE_TYPE.get()).stream().anyMatch(recipe -> recipe.getIngredients().stream().anyMatch(x -> x.test(stack)));
     }
 
     public int getScaledProgress(int arrowWidth) {
-        final int progress = this.propertyDelegate.get(0);
-        final int totalProgress = this.propertyDelegate.get(1);
+        int progress = data.get(0);
+        int total = data.get(1);
         if (progress == 0) {
             return 0;
         }
-        return progress * arrowWidth/ totalProgress + 1;
+        return progress * arrowWidth / total + 1;
+    }
+
+    private boolean isIngredient(ItemStack stack) {
+        return stack.is(Items.SUGAR) || stack.is(Items.NETHER_WART) || stack.is(Items.REDSTONE);
     }
 
     @Override
-    public List<IRecipeBookGroup> getGroups() {
-        return CauldronRecipeBookGroup.CAULDRON_GROUPS;
+    public @NotNull ItemStack quickMoveStack(Player player, int i) {
+        return ItemStack.EMPTY;
     }
 
     @Override
-    public boolean hasIngredient(Recipe<?> recipe) {
-        if (recipe instanceof CauldronRecipe cauldronRecipe) {
-            for (Ingredient ingredient : cauldronRecipe.getIngredients()) {
-                boolean found = false;
-                for (Slot slot : this.slots) {
-                    if (ingredient.test(slot.getItem())) {
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found) {
-                    return false;
-                }
-            }
-            for (Slot slot : this.slots) {
-                if (slot.getItem().getItem() == Items.GLASS_BOTTLE.asItem()) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public int getCraftingSlotCount() {
-        return 5;
+    public boolean stillValid(Player player) {
+        return container.stillValid(player);
     }
 }

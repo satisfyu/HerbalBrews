@@ -6,7 +6,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.satisfy.herbalbrews.blocks.entity.TeaKettleBlockEntity;
+import net.satisfy.herbalbrews.core.blocks.entity.TeaKettleBlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 public class OutputSlot extends Slot {

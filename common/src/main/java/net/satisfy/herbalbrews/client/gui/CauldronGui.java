@@ -1,39 +1,42 @@
 package net.satisfy.herbalbrews.client.gui;
 
-import de.cristelknight.doapi.client.recipebook.screen.AbstractRecipeBookGUIScreen;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.satisfy.herbalbrews.client.gui.handler.CauldronGuiHandler;
-import net.satisfy.herbalbrews.client.recipebook.CauldronRecipeBook;
-import net.satisfy.herbalbrews.util.HerbalBrewsIdentifier;
+import net.satisfy.herbalbrews.core.util.HerbalBrewsIdentifier;
+import org.joml.Vector2i;
 
-@Environment(EnvType.CLIENT)
-public class CauldronGui extends AbstractRecipeBookGUIScreen<CauldronGuiHandler> {
-
-    public static ResourceLocation BACKGROUND = new HerbalBrewsIdentifier("textures/gui/cauldron.png");
-
-    public static final int ARROW_X = 94;
-    public static final int ARROW_Y = 37;
+public class CauldronGui extends AbstractContainerScreen<CauldronGuiHandler> {
+    private static final ResourceLocation BACKGROUND = new HerbalBrewsIdentifier("textures/gui/cauldron.png");
+    private static final int ARROW_X = 94;
+    private static final int ARROW_Y = 37;
+    private final Vector2i screenPos = new Vector2i();
 
     public CauldronGui(CauldronGuiHandler handler, Inventory inventory, Component title) {
-        super(handler, inventory, title, new CauldronRecipeBook(), BACKGROUND);
+        super(handler, inventory, title);
     }
 
     @Override
     protected void init() {
-        this.titleLabelX += 2;
-        this.titleLabelY -= 3;
         super.init();
+        screenPos.set(leftPos, topPos);
+        titleLabelX += 2;
+        titleLabelY -= 3;
     }
 
     @Override
-    protected void renderProgressArrow(GuiGraphics guiGraphics) {
+    protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+        guiGraphics.blit(BACKGROUND, screenPos.x(), screenPos.y(), 0, 0, imageWidth, imageHeight);
         int progress = this.menu.getScaledProgress(23);
-        guiGraphics.blit(BACKGROUND, leftPos + ARROW_X, topPos + ARROW_Y, 177, 17, progress, 10);
+        guiGraphics.blit(BACKGROUND, screenPos.x() + ARROW_X, screenPos.y() + ARROW_Y, 177, 17, progress, 10);
     }
 
+    @Override
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
+        super.render(guiGraphics, mouseX, mouseY, delta);
+        renderTooltip(guiGraphics, mouseX, mouseY);
+    }
 }

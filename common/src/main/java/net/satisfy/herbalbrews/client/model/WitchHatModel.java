@@ -8,7 +8,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.Entity;
-import net.satisfy.herbalbrews.util.HerbalBrewsIdentifier;
+import net.satisfy.herbalbrews.core.util.HerbalBrewsIdentifier;
 
 public class WitchHatModel<T extends Entity> extends EntityModel<T> implements HatModel {
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new HerbalBrewsIdentifier("witch_hat_helmet"), "main");
