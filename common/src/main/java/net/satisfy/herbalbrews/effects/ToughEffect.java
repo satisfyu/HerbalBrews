@@ -14,9 +14,11 @@ public class ToughEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity entity, int amplifier) {
-        if (entity instanceof Player) {
-            entity.level().getEntitiesOfClass(Player.class, entity.getBoundingBox().inflate(10.0), this::isAffectedEntity)
-                    .forEach(player -> applyEffects(player, amplifier));
+        if (entity instanceof Player player && isAffectedEntity(player)) {
+            if (player.getHealth() <= 8.0F) {
+                player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 40, 0, false, false, false)); // Schwache Heilung
+                player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 40, 0, false, false, false)); // Geringer Widerstand
+            }
         }
     }
 
@@ -24,14 +26,8 @@ public class ToughEffect extends MobEffect {
         return player.isAlive() && !player.isCreative();
     }
 
-    private void applyEffects(Player player, int amplifier) {
-        player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 50, amplifier + 1, false, false, false));
-        player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 50, amplifier + 1, false, false, false));
-        player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 50, amplifier + 1, false, false, false));
-    }
-
     @Override
     public boolean isDurationEffectTick(int duration, int amplifier) {
-        return true;
+        return duration % 100 == 0;
     }
 }

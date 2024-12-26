@@ -14,14 +14,14 @@ public class BalancedEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity entity, int amplifier) {
-        if (entity instanceof Player) {
-            entity.level().getEntitiesOfClass(Player.class, entity.getBoundingBox().inflate(10.0), Player::isAlive)
-                    .forEach(player -> player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 50, 1, false, false, false)));
+        if (entity instanceof Player player && player.isAlive()) {
+            player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 200, 0, false, false, true));
         }
     }
 
     @Override
     public boolean isDurationEffectTick(int duration, int amplifier) {
-        return true;
+        return duration % 200 == 0;
     }
+
 }
