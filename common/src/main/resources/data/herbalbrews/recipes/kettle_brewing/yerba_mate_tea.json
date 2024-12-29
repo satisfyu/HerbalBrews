@@ -1,15 +1,26 @@
 {
   "type": "herbalbrews:kettle_brewing",
   "experience": 0.8,
+  "crafting_duration": 35,
+  "fluid": [
+    {
+      "amount": 20
+    }
+  ],
+  "heat_needed": [
+    {
+      "amount": 75
+    }
+  ],
   "ingredients": [
     {
       "item": "herbalbrews:yerba_mate_leaf"
     },
     {
-      "item": "minecraft:water_bucket"
+      "item": "minecraft:sugar"
     },
     {
-      "item": "minecraft:sugar"
+      "item": "minecraft:glass_bottle"
     }
   ],
   "result": {

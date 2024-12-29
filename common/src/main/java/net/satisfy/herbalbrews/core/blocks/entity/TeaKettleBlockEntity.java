@@ -36,8 +36,8 @@ import java.util.Objects;
 public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTicker<TeaKettleBlockEntity>, ImplementedInventory, MenuProvider {
     private final NonNullList<ItemStack> inventory = NonNullList.withSize(MAX_CAPACITY, ItemStack.EMPTY);
     private static final int MAX_CAPACITY = 8;
-    public static final int MAX_COOKING_TIME = 600;
     private int cookingTime;
+    private int requiredDuration;
     public static final int OUTPUT_SLOT = 0;
     private static final int INGREDIENTS_AREA = 5;
     private static final int WATER_SLOT = 6;
@@ -58,18 +58,19 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
         this.delegate = new ContainerData() {
             @Override
             public int get(int index) {
-                return switch (index) {
+                return switch(index){
                     case 0 -> cookingTime;
                     case 1 -> isBeingBurned ? 1 : 0;
                     case 2 -> waterLevel;
                     case 3 -> heatLevel;
+                    case 4 -> requiredDuration;
                     default -> 0;
                 };
             }
 
             @Override
             public void set(int index, int value) {
-                switch (index) {
+                switch(index){
                     case 0:
                         cookingTime = value;
                         break;
@@ -83,12 +84,15 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
                     case 3:
                         heatLevel = value;
                         break;
+                    case 4:
+                        requiredDuration = value;
+                        break;
                 }
             }
 
             @Override
             public int getCount() {
-                return 4;
+                return 5;
             }
         };
     }
@@ -102,6 +106,7 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
         this.waterLevel = nbt.getInt("WaterLevel");
         this.heatLevel = nbt.getInt("HeatLevel");
         this.experience = nbt.getFloat("Experience");
+        this.requiredDuration = nbt.getInt("RequiredDuration");
     }
 
     @Override
@@ -113,6 +118,7 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
         nbt.putInt("WaterLevel", this.waterLevel);
         nbt.putInt("HeatLevel", this.heatLevel);
         nbt.putFloat("Experience", this.experience);
+        nbt.putInt("RequiredDuration", this.requiredDuration);
     }
 
     @SuppressWarnings("deprecation")
@@ -192,6 +198,9 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
         if (waterLevel < 0) {
             waterLevel = 0;
         }
+
+        requiredDuration = recipe.getRequiredDuration();
+        cookingTime = 0;
     }
 
     private ItemStack getRemainderItem(ItemStack stack) {
@@ -236,24 +245,19 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
             }
         }
 
-        if (this.isBeingBurned) {
-            TeaKettleRecipe recipe = world.getRecipeManager().getRecipeFor(RecipeTypeRegistry.TEA_KETTLE_RECIPE_TYPE.get(), this, world).orElse(null);
+        TeaKettleRecipe recipe = world.getRecipeManager().getRecipeFor(RecipeTypeRegistry.TEA_KETTLE_RECIPE_TYPE.get(), this, world).orElse(null);
 
-            boolean canCraft = canCraft(recipe);
-            if (canCraft) {
-                this.cookingTime++;
-                if (this.cookingTime >= MAX_COOKING_TIME) {
-                    this.cookingTime = 0;
-                    craft(recipe);
-                }
-            } else {
+        boolean canCraft = canCraft(recipe);
+        if (canCraft) {
+            this.cookingTime++;
+            if (this.cookingTime >= requiredDuration) {
                 this.cookingTime = 0;
+                craft(recipe);
             }
-            if (canCraft) {
-                world.setBlock(pos, state.setValue(TeaKettleBlock.COOKING, true).setValue(TeaKettleBlock.LIT, true), Block.UPDATE_ALL);
-            } else {
-                world.setBlock(pos, state.setValue(TeaKettleBlock.COOKING, false).setValue(TeaKettleBlock.LIT, true), Block.UPDATE_ALL);
-            }
+            world.setBlock(pos, state.setValue(TeaKettleBlock.COOKING, true).setValue(TeaKettleBlock.LIT, this.isBeingBurned), Block.UPDATE_ALL);
+        } else {
+            this.cookingTime = 0;
+            world.setBlock(pos, state.setValue(TeaKettleBlock.COOKING, false), Block.UPDATE_ALL);
         }
 
         if (!getItem(WATER_SLOT).isEmpty()) {
@@ -270,6 +274,7 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
         }
 
         this.delegate.set(3, this.heatLevel);
+        this.delegate.set(4, this.requiredDuration);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package net.satisfy.herbalbrews.client.gui;
 
 import net.satisfy.herbalbrews.client.gui.handler.TeaKettleGuiHandler;
-import net.satisfy.herbalbrews.core.blocks.entity.TeaKettleBlockEntity;
 import net.satisfy.herbalbrews.core.util.HerbalBrewsIdentifier;
 import org.joml.Vector2i;
 import net.minecraft.client.gui.GuiGraphics;
@@ -63,6 +62,7 @@ public class TeaKettleGui extends AbstractContainerScreen<TeaKettleGuiHandler> {
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
+        this.renderBackground(guiGraphics);
         super.render(guiGraphics, mouseX, mouseY, delta);
         if (isMouseOverWaterArea(mouseX, mouseY)) {
             int waterLevel = this.menu.getWaterLevel();
@@ -75,7 +75,7 @@ public class TeaKettleGui extends AbstractContainerScreen<TeaKettleGuiHandler> {
             guiGraphics.renderTooltip(this.font, tooltip, mouseX, mouseY);
         }
         if (isMouseOverProgressArrow(mouseX, mouseY)) {
-            int remainingTicks = TeaKettleBlockEntity.MAX_COOKING_TIME - this.menu.getCookingTime();
+            int remainingTicks = this.menu.getRequiredDuration() - this.menu.getCookingTime();
             String formattedTime = formatTicks(remainingTicks);
             Component tooltip = Component.translatable("tooltip.herbalbrews.tea_kettle.remaining_time", formattedTime);
             guiGraphics.renderTooltip(this.font, tooltip, mouseX, mouseY);

@@ -47,7 +47,7 @@ public class TeaKettleCategory implements DisplayCategory<TeaKettleDisplay> {
         Point startPoint = new Point(bounds.getX() + 16, bounds.getCenterY() - 18);
         List<Widget> widgets = Lists.newArrayList();
         widgets.add(Widgets.createRecipeBase(bounds));
-        widgets.add(Widgets.createArrow(new Point(startPoint.x + 60, startPoint.y + 9)).animationDurationTicks(TeaKettleBlockEntity.MAX_COOKING_TIME));
+     //   widgets.add(Widgets.createArrow(new Point(startPoint.x + 60, startPoint.y + 9)).animationDurationTicks(TeaKettleBlockEntity.MAX_COOKING_TIME));
 
         widgets.add(Widgets.createResultSlotBackground(new Point(startPoint.x + 96, startPoint.y + 9)));
         widgets.add(Widgets.createSlot(new Point(startPoint.x + 96, startPoint.y + 9)).entries(display.getOutputEntries().get(0)).disableBackground().markOutput());

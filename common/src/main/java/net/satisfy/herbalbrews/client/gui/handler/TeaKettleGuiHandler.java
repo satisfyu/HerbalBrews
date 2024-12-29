@@ -10,7 +10,6 @@ import net.minecraft.world.inventory.FurnaceResultSlot;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.satisfy.herbalbrews.core.blocks.entity.TeaKettleBlockEntity;
 import net.satisfy.herbalbrews.core.registry.ScreenHandlerTypeRegistry;
 import net.satisfy.herbalbrews.core.registry.TagsRegistry;
 import org.jetbrains.annotations.NotNull;
@@ -20,7 +19,7 @@ public class TeaKettleGuiHandler extends AbstractContainerMenu {
     private final ContainerData propertyDelegate;
 
     public TeaKettleGuiHandler(int syncId, Inventory playerInventory) {
-        this(syncId, playerInventory, new SimpleContainer(8), new SimpleContainerData(4));
+        this(syncId, playerInventory, new SimpleContainer(8), new SimpleContainerData(5));
     }
 
     public TeaKettleGuiHandler(int syncId, Inventory playerInventory, Container container, ContainerData propertyDelegate) {
@@ -67,11 +66,11 @@ public class TeaKettleGuiHandler extends AbstractContainerMenu {
 
     public int getScaledProgress(int arrowWidth) {
         int progress = propertyDelegate.get(0);
-        int total = TeaKettleBlockEntity.MAX_COOKING_TIME;
-        if (progress == 0) {
+        int total = propertyDelegate.get(4);
+        if (total <= 0) {
             return 0;
         }
-        return progress * arrowWidth / total + 1;
+        return progress * arrowWidth / total;
     }
 
     public int getWaterLevel() {
@@ -84,6 +83,10 @@ public class TeaKettleGuiHandler extends AbstractContainerMenu {
 
     public int getCookingTime() {
         return propertyDelegate.get(0);
+    }
+
+    public int getRequiredDuration() {
+        return propertyDelegate.get(4);
     }
 
     @Override

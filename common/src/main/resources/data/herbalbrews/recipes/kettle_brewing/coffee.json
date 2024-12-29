@@ -1,22 +1,26 @@
 {
   "type": "herbalbrews:kettle_brewing",
   "experience": 0.8,
+  "crafting_duration": 20,
   "fluid": [
     {
-      "amount": 10
+      "amount": 50
     }
   ],
   "heat_needed": [
     {
-      "amount": 60
+      "amount": 25
     }
   ],
   "ingredients": [
     {
       "item": "herbalbrews:coffee_beans"
+    },
+    {
+      "item": "minecraft:glass_bottle"
     }
   ],
   "result": {
-    "item": "herbalbrews:coffee"
+    "item": "herbalbrews:green_tea"
   }
 }

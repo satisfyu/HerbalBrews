@@ -16,20 +16,21 @@ import net.satisfy.herbalbrews.core.registry.RecipeTypeRegistry;
 import net.satisfy.herbalbrews.core.util.HerbalBrewsUtil;
 import org.jetbrains.annotations.NotNull;
 
-@SuppressWarnings("unused")
 public class TeaKettleRecipe implements Recipe<Container> {
     final ResourceLocation id;
     private final NonNullList<Ingredient> inputs;
     private final ItemStack output;
     private final int requiredWater;
     private final int requiredHeat;
+    private final int requiredDuration;
 
-    public TeaKettleRecipe(ResourceLocation id, NonNullList<Ingredient> inputs, ItemStack output, int requiredWater, int requiredHeat) {
+    public TeaKettleRecipe(ResourceLocation id, NonNullList<Ingredient> inputs, ItemStack output, int requiredWater, int requiredHeat, int requiredDuration) {
         this.id = id;
         this.inputs = inputs;
         this.output = output;
         this.requiredWater = requiredWater;
         this.requiredHeat = requiredHeat;
+        this.requiredDuration = requiredDuration;
     }
 
     @Override
@@ -80,6 +81,10 @@ public class TeaKettleRecipe implements Recipe<Container> {
 
     public int getRequiredHeat() {
         return this.requiredHeat;
+    }
+
+    public int getRequiredDuration() {
+        return this.requiredDuration;
     }
 
     @Override
@@ -133,7 +138,11 @@ public class TeaKettleRecipe implements Recipe<Container> {
                     requiredHeat = GsonHelper.getAsInt(heatArray.get(0).getAsJsonObject(), "amount");
                 }
             }
-            return new TeaKettleRecipe(id, ingredients, output, requiredWater, requiredHeat);
+            int requiredDuration = 0;
+            if (json.has("crafting_duration")) {
+                requiredDuration = GsonHelper.getAsInt(json, "crafting_duration") * 20;
+            }
+            return new TeaKettleRecipe(id, ingredients, output, requiredWater, requiredHeat, requiredDuration);
         }
 
         @Override
@@ -143,7 +152,8 @@ public class TeaKettleRecipe implements Recipe<Container> {
             ItemStack output = buf.readItem();
             int requiredWater = buf.readInt();
             int requiredHeat = buf.readInt();
-            return new TeaKettleRecipe(id, ingredients, output, requiredWater, requiredHeat);
+            int requiredDuration = buf.readInt();
+            return new TeaKettleRecipe(id, ingredients, output, requiredWater, requiredHeat, requiredDuration);
         }
 
         @Override
@@ -153,15 +163,12 @@ public class TeaKettleRecipe implements Recipe<Container> {
             buf.writeItem(recipe.output);
             buf.writeInt(recipe.requiredWater);
             buf.writeInt(recipe.requiredHeat);
+            buf.writeInt(recipe.requiredDuration);
         }
     }
 
     public static class Type implements RecipeType<TeaKettleRecipe> {
         private Type() {
         }
-
-        public static final Type INSTANCE = new Type();
-
-        public static final String ID = "kettle_brewing";
     }
 }
