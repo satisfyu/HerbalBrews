@@ -12,6 +12,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.satisfy.herbalbrews.core.blocks.entity.TeaKettleBlockEntity;
 import net.satisfy.herbalbrews.core.registry.ScreenHandlerTypeRegistry;
+import net.satisfy.herbalbrews.core.registry.TagsRegistry;
 import org.jetbrains.annotations.NotNull;
 
 public class TeaKettleGuiHandler extends AbstractContainerMenu {
@@ -19,7 +20,7 @@ public class TeaKettleGuiHandler extends AbstractContainerMenu {
     private final ContainerData propertyDelegate;
 
     public TeaKettleGuiHandler(int syncId, Inventory playerInventory) {
-        this(syncId, playerInventory, new SimpleContainer(7), new SimpleContainerData(2));
+        this(syncId, playerInventory, new SimpleContainer(6), new SimpleContainerData(2));
     }
 
     public TeaKettleGuiHandler(int syncId, Inventory playerInventory, Container container, ContainerData propertyDelegate) {
@@ -27,12 +28,17 @@ public class TeaKettleGuiHandler extends AbstractContainerMenu {
         this.container = container;
         this.propertyDelegate = propertyDelegate;
         addDataSlots(this.propertyDelegate);
-        addSlot(new FurnaceResultSlot(playerInventory.player, container, 0, 124, 26));
-        for (int row = 0; row < 2; row++) {
-            for (int slot = 0; slot < 3; slot++) {
-                addSlot(new Slot(container, 1 + slot + row + (row * 2), 30 + (slot * 18), 17 + (row * 18)));
+        addSlot(new FurnaceResultSlot(playerInventory.player, container, 0, 91, 22));
+        addSlot(new Slot(container, 1, 13, 12));
+        addSlot(new Slot(container, 2, 31, 12));
+        addSlot(new Slot(container, 3, 13, 30));
+        addSlot(new Slot(container, 4, 31, 30));
+        addSlot(new Slot(container, 5, 31, 52) {
+            @Override
+            public boolean mayPlace(ItemStack stack) {
+                return stack.is(TagsRegistry.CONTAINER_ITEMS);
             }
-        }
+        });
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 9; j++) {
                 addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));

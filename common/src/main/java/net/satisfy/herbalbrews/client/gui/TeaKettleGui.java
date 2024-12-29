@@ -11,8 +11,8 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class TeaKettleGui extends AbstractContainerScreen<TeaKettleGuiHandler> {
     private static final ResourceLocation BACKGROUND = new HerbalBrewsIdentifier("textures/gui/tea_kettle.png");
-    private static final int ARROW_X = 92;
-    private static final int ARROW_Y = 10;
+    private static final int ARROW_X = 54;
+    private static final int ARROW_Y = 22;
     private final Vector2i screenPos = new Vector2i();
 
     public TeaKettleGui(TeaKettleGuiHandler handler, Inventory inventory, Component title) {
@@ -23,17 +23,16 @@ public class TeaKettleGui extends AbstractContainerScreen<TeaKettleGuiHandler> {
     protected void init() {
         super.init();
         screenPos.set(leftPos, topPos);
-        titleLabelX += 2;
-        titleLabelY += 3;
+        titleLabelX = (imageWidth - font.width(title)) / 2;
     }
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
         guiGraphics.blit(BACKGROUND, screenPos.x(), screenPos.y(), 0, 0, imageWidth, imageHeight);
-        int progress = this.menu.getScaledProgress(17);
-        guiGraphics.blit(BACKGROUND, screenPos.x() + ARROW_X, screenPos.y() + ARROW_Y, 178, 16, progress, 29);
+        int progress = this.menu.getScaledProgress(24);
+        guiGraphics.blit(BACKGROUND, screenPos.x() + ARROW_X, screenPos.y() + ARROW_Y, 176, 14, progress, 17);
         if (menu.isBeingBurned()) {
-            guiGraphics.blit(BACKGROUND, screenPos.x() + 124, screenPos.y() + 51, 176, 0, 17, 16);
+            guiGraphics.blit(BACKGROUND, screenPos.x() + 152, screenPos.y() + 63, 176, 0, 14, 14);
         }
     }
 

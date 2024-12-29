@@ -29,7 +29,7 @@ public class TeaKettleRecipe implements Recipe<Container> {
 
     @Override
     public boolean matches(Container inventory, Level world) {
-        return HerbalBrewsUtil.matchesRecipe(inventory, inputs, 0, 6);
+        return HerbalBrewsUtil.matchesRecipe(inventory, inputs, 0, 5);
     }
 
     public ItemStack assemble() {

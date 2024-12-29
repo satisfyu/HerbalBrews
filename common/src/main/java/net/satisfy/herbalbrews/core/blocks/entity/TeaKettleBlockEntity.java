@@ -37,17 +37,16 @@ import java.util.Objects;
 @SuppressWarnings("deprecation")
 public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTicker<TeaKettleBlockEntity>, ImplementedInventory, MenuProvider {
     private final NonNullList<ItemStack> inventory = NonNullList.withSize(MAX_CAPACITY, ItemStack.EMPTY);
-    private static final int MAX_CAPACITY = 7;
+    private static final int MAX_CAPACITY = 6;
     public static final int MAX_COOKING_TIME = 600;
     private int cookingTime;
     public static final int OUTPUT_SLOT = 0;
-    private static final int INGREDIENTS_AREA = 6;
-    private static final int[] INPUT_SLOTS = new int[]{1, 2, 3, 4, 5, 6};
+    private static final int INGREDIENTS_AREA = 5;
+    private static final int[] INPUT_SLOTS = new int[]{1, 2, 3, 4, 5};
     private boolean isBeingBurned;
     protected float experience;
 
     private final ContainerData delegate;
-
 
     public TeaKettleBlockEntity(BlockPos pos, BlockState state) {
         super(EntityTypeRegistry.TEA_KETTLE_BLOCK_ENTITY.get(), pos, state);
@@ -223,7 +222,6 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
             return player.distanceToSqr((double) this.worldPosition.getX() + 0.5, (double) this.worldPosition.getY() + 0.5, (double) this.worldPosition.getZ() + 0.5) <= 64.0;
         }
     }
-
 
     @Override
     public @NotNull Component getDisplayName() {
