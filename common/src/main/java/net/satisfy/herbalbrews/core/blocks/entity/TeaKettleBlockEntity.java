@@ -1,7 +1,6 @@
 package net.satisfy.herbalbrews.core.blocks.entity;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -22,8 +21,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.satisfy.herbalbrews.core.blocks.TeaKettleBlock;
 import net.satisfy.herbalbrews.client.gui.handler.TeaKettleGuiHandler;
+import net.satisfy.herbalbrews.core.blocks.TeaKettleBlock;
 import net.satisfy.herbalbrews.core.recipe.TeaKettleRecipe;
 import net.satisfy.herbalbrews.core.registry.EntityTypeRegistry;
 import net.satisfy.herbalbrews.core.registry.RecipeTypeRegistry;
@@ -47,11 +46,14 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
     private boolean isBeingBurned;
     protected float experience;
     private int waterLevel;
+    private int heatLevel;
 
     private final ContainerData delegate;
 
     public TeaKettleBlockEntity(BlockPos pos, BlockState state) {
         super(EntityTypeRegistry.TEA_KETTLE_BLOCK_ENTITY.get(), pos, state);
+        this.isBeingBurned = false;
+        this.heatLevel = 0;
         this.delegate = new ContainerData() {
             @Override
             public int get(int index) {
@@ -59,6 +61,7 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
                     case 0 -> cookingTime;
                     case 1 -> isBeingBurned ? 1 : 0;
                     case 2 -> waterLevel;
+                    case 3 -> heatLevel;
                     default -> 0;
                 };
             }
@@ -66,26 +69,27 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
             @Override
             public void set(int index, int value) {
                 switch (index) {
-                    case 0 -> cookingTime = value;
-                    case 1 -> isBeingBurned = value != 0;
-                    case 2 -> waterLevel = value;
+                    case 0:
+                        cookingTime = value;
+                        break;
+                    case 1:
+                        isBeingBurned = value != 0;
+                        heatLevel = isBeingBurned ? 30 : 0;
+                        break;
+                    case 2:
+                        waterLevel = value;
+                        break;
+                    case 3:
+                        heatLevel = value;
+                        break;
                 }
             }
 
             @Override
             public int getCount() {
-                return 3;
+                return 4;
             }
         };
-    }
-
-    public void dropExperience(ServerLevel world, Vec3 pos) {
-        ExperienceOrb.award(world, pos, (int) experience);
-    }
-
-    @Override
-    public int @NotNull [] getSlotsForFace(Direction side) {
-        return INPUT_SLOTS;
     }
 
     @Override
@@ -95,6 +99,7 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
         this.cookingTime = nbt.getInt("CookingTime");
         this.isBeingBurned = nbt.getBoolean("IsBeingBurned");
         this.waterLevel = nbt.getInt("WaterLevel");
+        this.heatLevel = nbt.getInt("HeatLevel");
         this.experience = nbt.getFloat("Experience");
     }
 
@@ -105,6 +110,7 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
         nbt.putInt("CookingTime", this.cookingTime);
         nbt.putBoolean("IsBeingBurned", this.isBeingBurned);
         nbt.putInt("WaterLevel", this.waterLevel);
+        nbt.putInt("HeatLevel", this.heatLevel);
         nbt.putFloat("Experience", this.experience);
     }
 
@@ -123,7 +129,7 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
         if (recipe == null || recipe.getResultItem().isEmpty()) {
             return false;
         } else if (this.getItem(OUTPUT_SLOT).isEmpty()) {
-            return waterLevel >= recipe.getRequiredWater();
+            return waterLevel >= recipe.getRequiredWater() && heatLevel >= recipe.getRequiredHeat();
         } else {
             final ItemStack recipeOutput = recipe.getResultItem();
             final ItemStack outputSlotStack = this.getItem(OUTPUT_SLOT);
@@ -132,9 +138,9 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
             if (!ItemStack.isSameItem(outputSlotStack, recipeOutput)) {
                 return false;
             } else if (outputSlotCount < this.getMaxStackSize() && outputSlotCount < outputSlotStack.getMaxStackSize()) {
-                return waterLevel >= recipe.getRequiredWater();
+                return waterLevel >= recipe.getRequiredWater() && heatLevel >= recipe.getRequiredHeat();
             } else {
-                if (waterLevel < recipe.getRequiredWater()) {
+                if (waterLevel < recipe.getRequiredWater() || heatLevel < recipe.getRequiredHeat()) {
                     return false;
                 }
                 return outputSlotCount < recipeOutput.getMaxStackSize();
@@ -193,15 +199,22 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
         return ItemStack.EMPTY;
     }
 
+    @Override
     public void tick(Level world, BlockPos pos, BlockState state, TeaKettleBlockEntity blockEntity) {
         if (world.isClientSide()) {
             return;
         }
         boolean previousBurned = isBeingBurned;
-        this.isBeingBurned = isBeingBurned();
-        if (!previousBurned && this.isBeingBurned) {
+        boolean currentBurned = isBeingBurned();
+        this.isBeingBurned = currentBurned;
+        if (!previousBurned && currentBurned) {
             world.setBlock(pos, state.setValue(TeaKettleBlock.LIT, true), Block.UPDATE_ALL);
+            this.heatLevel = 30;
+        } else if (previousBurned && !currentBurned) {
+            world.setBlock(pos, state.setValue(TeaKettleBlock.LIT, false), Block.UPDATE_ALL);
+            this.heatLevel = 0;
         }
+
         if (this.isBeingBurned) {
             TeaKettleRecipe recipe = world.getRecipeManager().getRecipeFor(RecipeTypeRegistry.TEA_KETTLE_RECIPE_TYPE.get(), this, world).orElse(null);
 
@@ -245,6 +258,10 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
         return this.waterLevel;
     }
 
+    public int getHeatLevel() {
+        return this.heatLevel;
+    }
+
     @Override
     public boolean stillValid(Player player) {
         assert this.level != null;
@@ -253,6 +270,10 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
         } else {
             return player.distanceToSqr((double) this.worldPosition.getX() + 0.5, (double) this.worldPosition.getY() + 0.5, (double) this.worldPosition.getZ() + 0.5) <= 64.0;
         }
+    }
+
+    public void dropExperience(ServerLevel world, Vec3 pos) {
+        ExperienceOrb.award(world, pos, (int) experience);
     }
 
     @Override

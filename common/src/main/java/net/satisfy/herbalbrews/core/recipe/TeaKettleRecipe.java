@@ -1,5 +1,6 @@
 package net.satisfy.herbalbrews.core.recipe;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import net.minecraft.core.NonNullList;
@@ -22,22 +23,31 @@ public class TeaKettleRecipe implements Recipe<Container> {
     private final NonNullList<Ingredient> inputs;
     private final ItemStack output;
     private final int requiredWater;
+    private final int requiredHeat;
 
-    public TeaKettleRecipe(ResourceLocation id, NonNullList<Ingredient> inputs, ItemStack output, int requiredWater) {
+    public TeaKettleRecipe(ResourceLocation id, NonNullList<Ingredient> inputs, ItemStack output, int requiredWater, int requiredHeat) {
         this.id = id;
         this.inputs = inputs;
         this.output = output;
         this.requiredWater = requiredWater;
+        this.requiredHeat = requiredHeat;
     }
 
     @Override
     public boolean matches(Container inventory, Level world) {
-        return HerbalBrewsUtil.matchesRecipe(inventory, inputs, 0, 5) && waterLevelSufficient(inventory);
+        return HerbalBrewsUtil.matchesRecipe(inventory, inputs, 0, 5) && waterLevelSufficient(inventory) && heatLevelSufficient(inventory);
     }
 
     private boolean waterLevelSufficient(Container inventory) {
         if (inventory instanceof TeaKettleBlockEntity teaKettle) {
             return teaKettle.getWaterLevel() >= requiredWater;
+        }
+        return false;
+    }
+
+    private boolean heatLevelSufficient(Container inventory) {
+        if (inventory instanceof TeaKettleBlockEntity teaKettle) {
+            return teaKettle.getHeatLevel() >= requiredHeat;
         }
         return false;
     }
@@ -67,6 +77,10 @@ public class TeaKettleRecipe implements Recipe<Container> {
 
     public int getRequiredWater() {
         return this.requiredWater;
+    }
+
+    public int getRequiredHeat() {
+        return this.requiredHeat;
     }
 
     @Override
@@ -113,7 +127,14 @@ public class TeaKettleRecipe implements Recipe<Container> {
                     requiredWater = GsonHelper.getAsInt(fluidArray.get(0).getAsJsonObject(), "amount");
                 }
             }
-            return new TeaKettleRecipe(id, ingredients, output, requiredWater);
+            int requiredHeat = 0;
+            if (json.has("heat_needed")) {
+                var heatArray = GsonHelper.getAsJsonArray(json, "heat_needed");
+                if (!heatArray.isEmpty()) {
+                    requiredHeat = GsonHelper.getAsInt(heatArray.get(0).getAsJsonObject(), "amount");
+                }
+            }
+            return new TeaKettleRecipe(id, ingredients, output, requiredWater, requiredHeat);
         }
 
         @Override
@@ -122,7 +143,8 @@ public class TeaKettleRecipe implements Recipe<Container> {
             ingredients.replaceAll(ignored -> Ingredient.fromNetwork(buf));
             ItemStack output = buf.readItem();
             int requiredWater = buf.readInt();
-            return new TeaKettleRecipe(id, ingredients, output, requiredWater);
+            int requiredHeat = buf.readInt();
+            return new TeaKettleRecipe(id, ingredients, output, requiredWater, requiredHeat);
         }
 
         @Override
@@ -131,6 +153,7 @@ public class TeaKettleRecipe implements Recipe<Container> {
             recipe.inputs.forEach(entry -> entry.toNetwork(buf));
             buf.writeItem(recipe.output);
             buf.writeInt(recipe.requiredWater);
+            buf.writeInt(recipe.requiredHeat);
         }
     }
 
@@ -140,6 +163,6 @@ public class TeaKettleRecipe implements Recipe<Container> {
 
         public static final Type INSTANCE = new Type();
 
-        public static final String ID = "cooking";
+        public static final String ID = "kettle_brewing";
     }
 }

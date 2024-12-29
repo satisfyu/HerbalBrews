@@ -6,6 +6,11 @@
       "amount": 10
     }
   ],
+  "heat_needed": [
+    {
+      "amount": 25
+    }
+  ],
   "ingredients": [
     {
       "item": "herbalbrews:dried_black_tea"

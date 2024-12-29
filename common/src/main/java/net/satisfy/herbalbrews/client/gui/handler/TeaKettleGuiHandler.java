@@ -20,7 +20,7 @@ public class TeaKettleGuiHandler extends AbstractContainerMenu {
     private final ContainerData propertyDelegate;
 
     public TeaKettleGuiHandler(int syncId, Inventory playerInventory) {
-        this(syncId, playerInventory, new SimpleContainer(7), new SimpleContainerData(3));
+        this(syncId, playerInventory, new SimpleContainer(7), new SimpleContainerData(4));
     }
 
     public TeaKettleGuiHandler(int syncId, Inventory playerInventory, Container container, ContainerData propertyDelegate) {
@@ -70,6 +70,10 @@ public class TeaKettleGuiHandler extends AbstractContainerMenu {
 
     public int getWaterLevel() {
         return propertyDelegate.get(2);
+    }
+
+    public int getHeatLevel() {
+        return propertyDelegate.get(3);
     }
 
     public int getCookingTime() {

@@ -22,6 +22,12 @@ public class TeaKettleGui extends AbstractContainerScreen<TeaKettleGuiHandler> {
     private static final int WATER_HEIGHT = 43;
     private static final int WATER_TEXTURE_X = 183;
     private static final int WATER_TEXTURE_Y = 31;
+    private static final int HEAT_X = 156;
+    private static final int HEAT_Y = 16;
+    private static final int HEAT_WIDTH = 5;
+    private static final int HEAT_HEIGHT = 43;
+    private static final int HEAT_TEXTURE_X = 176;
+    private static final int HEAT_TEXTURE_Y = 31;
     private final Vector2i screenPos = new Vector2i();
 
     public TeaKettleGui(TeaKettleGuiHandler handler, Inventory inventory, Component title) {
@@ -46,25 +52,30 @@ public class TeaKettleGui extends AbstractContainerScreen<TeaKettleGuiHandler> {
         int waterLevel = this.menu.getWaterLevel();
         int filledHeight = (waterLevel * WATER_HEIGHT) / 100;
         guiGraphics.blit(BACKGROUND, screenPos.x() + WATER_X, screenPos.y() + WATER_Y + WATER_HEIGHT - filledHeight, WATER_TEXTURE_X, WATER_TEXTURE_Y + WATER_HEIGHT - filledHeight, WATER_WIDTH, filledHeight);
+        int heatLevel = this.menu.getHeatLevel();
+        int filledHeatHeight = (heatLevel * HEAT_HEIGHT) / 100;
+        guiGraphics.blit(BACKGROUND, screenPos.x() + HEAT_X, screenPos.y() + HEAT_Y + HEAT_HEIGHT - filledHeatHeight, HEAT_TEXTURE_X, HEAT_TEXTURE_Y + HEAT_HEIGHT - filledHeatHeight, HEAT_WIDTH, filledHeatHeight);
     }
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
         super.render(guiGraphics, mouseX, mouseY, delta);
-
         if (isMouseOverWaterArea(mouseX, mouseY)) {
             int waterLevel = this.menu.getWaterLevel();
             Component tooltip = Component.translatable("tooltip.herbalbrews.tea_kettle.water_level", waterLevel);
             guiGraphics.renderTooltip(this.font, tooltip, mouseX, mouseY);
         }
-
+        if (isMouseOverHeatArea(mouseX, mouseY)) {
+            int heatLevel = this.menu.getHeatLevel();
+            Component tooltip = Component.translatable("tooltip.herbalbrews.tea_kettle.heat_level", heatLevel);
+            guiGraphics.renderTooltip(this.font, tooltip, mouseX, mouseY);
+        }
         if (isMouseOverProgressArrow(mouseX, mouseY)) {
             int remainingTicks = TeaKettleBlockEntity.MAX_COOKING_TIME - this.menu.getCookingTime();
             String formattedTime = formatTicks(remainingTicks);
             Component tooltip = Component.translatable("tooltip.herbalbrews.tea_kettle.remaining_time", formattedTime);
             guiGraphics.renderTooltip(this.font, tooltip, mouseX, mouseY);
         }
-
         super.renderTooltip(guiGraphics, mouseX, mouseY);
     }
 
@@ -72,6 +83,12 @@ public class TeaKettleGui extends AbstractContainerScreen<TeaKettleGuiHandler> {
         int left = screenPos.x() + WATER_X;
         int top = screenPos.y() + WATER_Y;
         return mouseX >= left && mouseX < left + WATER_WIDTH && mouseY >= top && mouseY < top + WATER_HEIGHT;
+    }
+
+    private boolean isMouseOverHeatArea(int mouseX, int mouseY) {
+        int left = screenPos.x() + HEAT_X;
+        int top = screenPos.y() + HEAT_Y;
+        return mouseX >= left && mouseX < left + HEAT_WIDTH && mouseY >= top && mouseY < top + HEAT_HEIGHT;
     }
 
     private boolean isMouseOverProgressArrow(int mouseX, int mouseY) {
