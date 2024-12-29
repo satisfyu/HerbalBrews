@@ -1,6 +1,5 @@
 package net.satisfy.herbalbrews.core.recipe;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import net.minecraft.core.NonNullList;
@@ -90,7 +89,7 @@ public class TeaKettleRecipe implements Recipe<Container> {
 
     @Override
     public @NotNull RecipeSerializer<?> getSerializer() {
-        return RecipeTypeRegistry.TEAK_KETTLE_RECIPE_SERIALIZER.get();
+        return RecipeTypeRegistry.TEA_KETTLE_RECIPE_SERIALIZER.get();
     }
 
     @Override

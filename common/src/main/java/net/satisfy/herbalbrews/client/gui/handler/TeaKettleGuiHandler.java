@@ -20,7 +20,7 @@ public class TeaKettleGuiHandler extends AbstractContainerMenu {
     private final ContainerData propertyDelegate;
 
     public TeaKettleGuiHandler(int syncId, Inventory playerInventory) {
-        this(syncId, playerInventory, new SimpleContainer(7), new SimpleContainerData(4));
+        this(syncId, playerInventory, new SimpleContainer(8), new SimpleContainerData(4));
     }
 
     public TeaKettleGuiHandler(int syncId, Inventory playerInventory, Container container, ContainerData propertyDelegate) {
@@ -43,6 +43,12 @@ public class TeaKettleGuiHandler extends AbstractContainerMenu {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return stack.is(TagsRegistry.SMALL_WATER_FILL) || stack.is(TagsRegistry.LARGE_WATER_FILL);
+            }
+        });
+        addSlot(new Slot(container, 7, 151, 62) {
+            @Override
+            public boolean mayPlace(ItemStack stack) {
+                return stack.is(TagsRegistry.HEAT_ITEMS);
             }
         });
         for (int i = 0; i < 3; i++) {

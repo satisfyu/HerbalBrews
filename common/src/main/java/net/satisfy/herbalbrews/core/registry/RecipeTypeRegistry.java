@@ -18,7 +18,7 @@ public class RecipeTypeRegistry {
     private static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(HerbalBrews.MOD_ID, Registries.RECIPE_TYPE);
 
     public static final RegistrySupplier<RecipeType<TeaKettleRecipe>> TEA_KETTLE_RECIPE_TYPE = create("kettle_brewing");
-    public static final RegistrySupplier<RecipeSerializer<TeaKettleRecipe>> TEAK_KETTLE_RECIPE_SERIALIZER = create("kettle_brewing", TeaKettleRecipe.Serializer::new);
+    public static final RegistrySupplier<RecipeSerializer<TeaKettleRecipe>> TEA_KETTLE_RECIPE_SERIALIZER = create("kettle_brewing", TeaKettleRecipe.Serializer::new);
     public static final RegistrySupplier<RecipeType<CauldronRecipe>> CAULDRON_RECIPE_TYPE = create("cauldron_brewing");
     public static final RegistrySupplier<RecipeSerializer<CauldronRecipe>> CAULDRON_RECIPE_SERIALIZER = create("cauldron_brewing", CauldronRecipe.Serializer::new);
 

@@ -29,10 +29,11 @@
   "tooltip.herbalbrews.canbeplaced": "Kann platziert werden",
   "tooltip.herbalbrews.tea_kettle.water_level": "Wasserstand: %d%%",
   "tooltip.herbalbrews.tea_kettle.remaining_time": "Verbleibende Zeit: %s",
-  "tooltip.herbalbrews.thankyou_1": "Eine Belohnung für das Herstellen aller Teesorten",
-  "tooltip.herbalbrews.thankyou_2": "Wenn platziert:",
-  "tooltip.herbalbrews.thankyou_3": "Vielen Dank, dass du Herbal Brews spielst!",
-  "tooltip.herbalbrews.thankyou_4": "Gewährt Absorption in einem Umkreis von 8 Blöcken",
+  "tooltip.herbalbrews.tea_kettle.heat_increase": "Füge \u00a7e[Blaze Powder]\u00a7r hinzu, um die Hitze zu erhöhen",
+  "tooltip.herbalbrews.banner.thankyou_1": "Eine Belohnung für das Herstellen aller Teesorten",
+  "tooltip.herbalbrews.banner.thankyou_2": "Wenn platziert:",
+  "tooltip.herbalbrews.banner.thankyou_3": "Vielen Dank, dass du Herbal Brews spielst!",
+  "tooltip.herbalbrews.banner.thankyou_4": "Gewährt Absorption in einem Umkreis von 8 Blöcken",
   "block.herbalbrews.cauldron": "Braukessel",
   "block.herbalbrews.coffee_plant": "Kaffeebohnen",
   "block.herbalbrews.dried_green_tea_leaf_block": "Getrockneter Grüner Teeblätterblock",
@@ -92,5 +93,6 @@
   "herbalbrews.advancement.dry_3": "Mische es auf!",
   "herbalbrews.advancement.dry_3.desc": "Stelle einen Block aus Gemischten Teeblättern her, indem du 4 Getrocknete Grünteeblätter und 4 Getrocknete Schwarze Teeblätter kombinierst, platziere ihn und warte, bis er vollständig getrocknet ist",
   "block.herbalbrews.milk_coffee_block": "Milchkaffee",
-  "block.herbalbrews.hibiscus_tea_block": "Hibiskustee"
+  "block.herbalbrews.hibiscus_tea_block": "Hibiskustee",
+  "tooltip.herbalbrews.tea_kettle.heat_level": "Hitzelevel: %d%%"
 }

@@ -33,21 +33,22 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-@SuppressWarnings("deprecation")
 public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTicker<TeaKettleBlockEntity>, ImplementedInventory, MenuProvider {
     private final NonNullList<ItemStack> inventory = NonNullList.withSize(MAX_CAPACITY, ItemStack.EMPTY);
-    private static final int MAX_CAPACITY = 7;
+    private static final int MAX_CAPACITY = 8;
     public static final int MAX_COOKING_TIME = 600;
     private int cookingTime;
     public static final int OUTPUT_SLOT = 0;
     private static final int INGREDIENTS_AREA = 5;
-    private static final int[] INPUT_SLOTS = new int[]{1, 2, 3, 4, 5};
     private static final int WATER_SLOT = 6;
+    private static final int HEATING_SLOT = 7;
     private boolean isBeingBurned;
     protected float experience;
     private int waterLevel;
     private int heatLevel;
-
+    private static final int MAX_HEAT_LEVEL = 100;
+    private int heatDecreaseCounter = 0;
+    private static final int HEAT_DECREASE_INTERVAL = 200;
     private final ContainerData delegate;
 
     public TeaKettleBlockEntity(BlockPos pos, BlockState state) {
@@ -114,6 +115,7 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
         nbt.putFloat("Experience", this.experience);
     }
 
+    @SuppressWarnings("deprecation")
     public boolean isBeingBurned() {
         if (getLevel() == null)
             throw new NullPointerException("Null world invoked");
@@ -204,15 +206,34 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
         if (world.isClientSide()) {
             return;
         }
+
         boolean previousBurned = isBeingBurned;
         boolean currentBurned = isBeingBurned();
         this.isBeingBurned = currentBurned;
+
         if (!previousBurned && currentBurned) {
             world.setBlock(pos, state.setValue(TeaKettleBlock.LIT, true), Block.UPDATE_ALL);
-            this.heatLevel = 30;
+            this.heatLevel = Math.max(this.heatLevel, 30);
         } else if (previousBurned && !currentBurned) {
             world.setBlock(pos, state.setValue(TeaKettleBlock.LIT, false), Block.UPDATE_ALL);
             this.heatLevel = 0;
+        }
+
+        ItemStack heatingItem = getItem(HEATING_SLOT);
+        if (!heatingItem.isEmpty() && heatingItem.is(TagsRegistry.HEAT_ITEMS)) {
+            this.heatLevel = Math.min(this.heatLevel + (int)(0.35 * MAX_HEAT_LEVEL), MAX_HEAT_LEVEL);
+            heatingItem.shrink(1);
+            setItem(HEATING_SLOT, heatingItem);
+            setChanged();
+        }
+
+        heatDecreaseCounter++;
+        if (heatDecreaseCounter >= HEAT_DECREASE_INTERVAL) {
+            heatDecreaseCounter = 0;
+            if (this.heatLevel > (this.isBeingBurned ? 30 : 0)) {
+                this.heatLevel = Math.max(this.heatLevel - 1, this.isBeingBurned ? 30 : 0);
+                setChanged();
+            }
         }
 
         if (this.isBeingBurned) {
@@ -247,6 +268,8 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
                 setChanged();
             }
         }
+
+        this.delegate.set(3, this.heatLevel);
     }
 
     @Override

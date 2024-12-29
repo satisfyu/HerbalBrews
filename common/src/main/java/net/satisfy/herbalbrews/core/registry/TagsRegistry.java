@@ -11,5 +11,6 @@ public class TagsRegistry {
     public static final TagKey<Item> CONTAINER_ITEMS = TagKey.create(Registries.ITEM, new HerbalBrewsIdentifier("container_items"));
     public static final TagKey<Item> SMALL_WATER_FILL = TagKey.create(Registries.ITEM, new HerbalBrewsIdentifier("small_water_fill"));
     public static final TagKey<Item> LARGE_WATER_FILL = TagKey.create(Registries.ITEM, new HerbalBrewsIdentifier("large_water_fill"));
+    public static final TagKey<Item> HEAT_ITEMS = TagKey.create(Registries.ITEM, new HerbalBrewsIdentifier("heat_items"));
 
 }
