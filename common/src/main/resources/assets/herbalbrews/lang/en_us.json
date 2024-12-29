@@ -64,6 +64,8 @@
   "rei.herbalbrews.cauldron_category": "Brewing Cauldron",
   "rei.herbalbrews.tea_kettle_category": "Tea Kettle",
   "category.rei.cooking.time": "",
+  "tooltip.herbalbrews.tea_kettle.water_level": "Water Level: %d%%",
+  "tooltip.herbalbrews.tea_kettle.remaining_time": "Remaining Time: %s",
   "tooltip.herbalbrews.canbeplaced": "Can be placed",
   "tooltip.herbalbrews.banner.thankyou_1": "A reward for crafting all Tea Variants",
   "tooltip.herbalbrews.banner.thankyou_2": "When placed:",

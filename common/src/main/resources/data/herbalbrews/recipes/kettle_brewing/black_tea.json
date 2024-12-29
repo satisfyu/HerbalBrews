@@ -1,12 +1,14 @@
 {
   "type": "herbalbrews:kettle_brewing",
   "experience": 0.8,
+  "fluid": [
+    {
+      "amount": 10
+    }
+  ],
   "ingredients": [
     {
       "item": "herbalbrews:dried_black_tea"
-    },
-    {
-      "item": "minecraft:water_bucket"
     },
     {
       "item": "minecraft:sugar"

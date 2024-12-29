@@ -27,6 +27,8 @@
   "item.herbalbrews.green_tea_leaf": "Grünes Teeblatt",
   "item.herbalbrews.herbalbrews_standard": "Fertigstellungs-Banner: §aHerbal Brews",
   "tooltip.herbalbrews.canbeplaced": "Kann platziert werden",
+  "tooltip.herbalbrews.tea_kettle.water_level": "Wasserstand: %d%%",
+  "tooltip.herbalbrews.tea_kettle.remaining_time": "Verbleibende Zeit: %s",
   "tooltip.herbalbrews.thankyou_1": "Eine Belohnung für das Herstellen aller Teesorten",
   "tooltip.herbalbrews.thankyou_2": "Wenn platziert:",
   "tooltip.herbalbrews.thankyou_3": "Vielen Dank, dass du Herbal Brews spielst!",

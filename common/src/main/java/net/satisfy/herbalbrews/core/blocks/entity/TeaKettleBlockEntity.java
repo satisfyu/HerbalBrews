@@ -37,14 +37,16 @@ import java.util.Objects;
 @SuppressWarnings("deprecation")
 public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTicker<TeaKettleBlockEntity>, ImplementedInventory, MenuProvider {
     private final NonNullList<ItemStack> inventory = NonNullList.withSize(MAX_CAPACITY, ItemStack.EMPTY);
-    private static final int MAX_CAPACITY = 6;
+    private static final int MAX_CAPACITY = 7;
     public static final int MAX_COOKING_TIME = 600;
     private int cookingTime;
     public static final int OUTPUT_SLOT = 0;
     private static final int INGREDIENTS_AREA = 5;
     private static final int[] INPUT_SLOTS = new int[]{1, 2, 3, 4, 5};
+    private static final int WATER_SLOT = 6;
     private boolean isBeingBurned;
     protected float experience;
+    private int waterLevel;
 
     private final ContainerData delegate;
 
@@ -56,6 +58,7 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
                 return switch (index) {
                     case 0 -> cookingTime;
                     case 1 -> isBeingBurned ? 1 : 0;
+                    case 2 -> waterLevel;
                     default -> 0;
                 };
             }
@@ -65,12 +68,13 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
                 switch (index) {
                     case 0 -> cookingTime = value;
                     case 1 -> isBeingBurned = value != 0;
+                    case 2 -> waterLevel = value;
                 }
             }
 
             @Override
             public int getCount() {
-                return 2;
+                return 3;
             }
         };
     }
@@ -89,6 +93,8 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
         super.load(nbt);
         ContainerHelper.loadAllItems(nbt, this.inventory);
         this.cookingTime = nbt.getInt("CookingTime");
+        this.isBeingBurned = nbt.getBoolean("IsBeingBurned");
+        this.waterLevel = nbt.getInt("WaterLevel");
         this.experience = nbt.getFloat("Experience");
     }
 
@@ -97,6 +103,8 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
         super.saveAdditional(nbt);
         ContainerHelper.saveAllItems(nbt, this.inventory);
         nbt.putInt("CookingTime", this.cookingTime);
+        nbt.putBoolean("IsBeingBurned", this.isBeingBurned);
+        nbt.putInt("WaterLevel", this.waterLevel);
         nbt.putFloat("Experience", this.experience);
     }
 
@@ -115,7 +123,7 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
         if (recipe == null || recipe.getResultItem().isEmpty()) {
             return false;
         } else if (this.getItem(OUTPUT_SLOT).isEmpty()) {
-            return true;
+            return waterLevel >= recipe.getRequiredWater();
         } else {
             final ItemStack recipeOutput = recipe.getResultItem();
             final ItemStack outputSlotStack = this.getItem(OUTPUT_SLOT);
@@ -124,8 +132,11 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
             if (!ItemStack.isSameItem(outputSlotStack, recipeOutput)) {
                 return false;
             } else if (outputSlotCount < this.getMaxStackSize() && outputSlotCount < outputSlotStack.getMaxStackSize()) {
-                return true;
+                return waterLevel >= recipe.getRequiredWater();
             } else {
+                if (waterLevel < recipe.getRequiredWater()) {
+                    return false;
+                }
                 return outputSlotCount < recipeOutput.getMaxStackSize();
             }
         }
@@ -168,6 +179,11 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
         } else if (outputSlotStack.is(recipeOutput.getItem())) {
             outputSlotStack.grow(recipeOutput.getCount());
         }
+
+        waterLevel -= recipe.getRequiredWater();
+        if (waterLevel < 0) {
+            waterLevel = 0;
+        }
     }
 
     private ItemStack getRemainderItem(ItemStack stack) {
@@ -181,36 +197,52 @@ public class TeaKettleBlockEntity extends BlockEntity implements BlockEntityTick
         if (world.isClientSide()) {
             return;
         }
+        boolean previousBurned = isBeingBurned;
         this.isBeingBurned = isBeingBurned();
-        if (!this.isBeingBurned) {
-            if (state.getValue(TeaKettleBlock.LIT))
-                world.setBlock(pos, state.setValue(TeaKettleBlock.LIT, false), Block.UPDATE_ALL);
-            return;
+        if (!previousBurned && this.isBeingBurned) {
+            world.setBlock(pos, state.setValue(TeaKettleBlock.LIT, true), Block.UPDATE_ALL);
         }
-        TeaKettleRecipe recipe = world.getRecipeManager().getRecipeFor(RecipeTypeRegistry.TEA_KETTLE_RECIPE_TYPE.get(), this, world).orElse(null);
+        if (this.isBeingBurned) {
+            TeaKettleRecipe recipe = world.getRecipeManager().getRecipeFor(RecipeTypeRegistry.TEA_KETTLE_RECIPE_TYPE.get(), this, world).orElse(null);
 
-        boolean canCraft = canCraft(recipe);
-        if (canCraft) {
-            this.cookingTime++;
-            if (this.cookingTime >= MAX_COOKING_TIME) {
+            boolean canCraft = canCraft(recipe);
+            if (canCraft) {
+                this.cookingTime++;
+                if (this.cookingTime >= MAX_COOKING_TIME) {
+                    this.cookingTime = 0;
+                    craft(recipe);
+                }
+            } else {
                 this.cookingTime = 0;
-                craft(recipe);
             }
-        } else if (!canCraft(recipe)) {
-            this.cookingTime = 0;
+            if (canCraft) {
+                world.setBlock(pos, state.setValue(TeaKettleBlock.COOKING, true).setValue(TeaKettleBlock.LIT, true), Block.UPDATE_ALL);
+            } else {
+                world.setBlock(pos, state.setValue(TeaKettleBlock.COOKING, false).setValue(TeaKettleBlock.LIT, true), Block.UPDATE_ALL);
+            }
         }
-        if (canCraft) {
-            world.setBlock(pos, state.setValue(TeaKettleBlock.COOKING, true).setValue(TeaKettleBlock.LIT, true), Block.UPDATE_ALL);
-        } else if (state.getValue(TeaKettleBlock.COOKING)) {
-            world.setBlock(pos, state.setValue(TeaKettleBlock.COOKING, false).setValue(TeaKettleBlock.LIT, true), Block.UPDATE_ALL);
-        } else if (state.getValue(TeaKettleBlock.LIT) != isBeingBurned) {
-            world.setBlock(pos, state.setValue(TeaKettleBlock.LIT, isBeingBurned), Block.UPDATE_ALL);
+
+        if (!getItem(WATER_SLOT).isEmpty()) {
+            ItemStack waterItem = getItem(WATER_SLOT);
+            if (waterItem.is(TagsRegistry.SMALL_WATER_FILL)) {
+                waterLevel = Math.min(waterLevel + 25, 100);
+                waterItem.shrink(1);
+                setChanged();
+            } else if (waterItem.is(TagsRegistry.LARGE_WATER_FILL)) {
+                waterLevel = Math.min(waterLevel + 50, 100);
+                waterItem.shrink(1);
+                setChanged();
+            }
         }
     }
 
     @Override
     public NonNullList<ItemStack> getItems() {
         return inventory;
+    }
+
+    public int getWaterLevel() {
+        return this.waterLevel;
     }
 
     @Override
