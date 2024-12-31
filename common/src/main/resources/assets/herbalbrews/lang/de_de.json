@@ -30,6 +30,7 @@
   "tooltip.herbalbrews.tea_kettle.water_level": "Wasserstand: %d%%",
   "tooltip.herbalbrews.tea_kettle.remaining_time": "Verbleibende Zeit: %s",
   "tooltip.herbalbrews.tea_kettle.heat_increase": "Füge \u00a7e[Blaze Powder]\u00a7r hinzu, um die Hitze zu erhöhen",
+  "tooltip.herbalbrews.tea_kettle.water_slot": "Füge \u00a7e[Wasser]\u00a7r hinzu, um den Wasserstand zu erhöhen",
   "tooltip.herbalbrews.banner.thankyou_1": "Eine Belohnung für das Herstellen aller Teesorten",
   "tooltip.herbalbrews.banner.thankyou_2": "Wenn platziert:",
   "tooltip.herbalbrews.banner.thankyou_3": "Vielen Dank, dass du Herbal Brews spielst!",

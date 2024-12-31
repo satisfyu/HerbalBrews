@@ -69,6 +69,10 @@ public class TeaKettleGui extends AbstractContainerScreen<TeaKettleGuiHandler> {
             Component tooltip = Component.translatable("tooltip.herbalbrews.tea_kettle.water_level", waterLevel);
             guiGraphics.renderTooltip(this.font, tooltip, mouseX, mouseY);
         }
+        if (isMouseOverWaterSlot(mouseX, mouseY)) {
+            Component tooltip = Component.translatable("tooltip.herbalbrews.tea_kettle.water_slot");
+            guiGraphics.renderTooltip(this.font, tooltip, mouseX, mouseY);
+        }
         if (isMouseOverHeatArea(mouseX, mouseY)) {
             int heatLevel = this.menu.getHeatLevel();
             Component tooltip = Component.translatable("tooltip.herbalbrews.tea_kettle.heat_level", heatLevel);
@@ -110,6 +114,12 @@ public class TeaKettleGui extends AbstractContainerScreen<TeaKettleGuiHandler> {
         int left = screenPos.x() + HEATING_SLOT_X;
         int top = screenPos.y() + HEATING_SLOT_Y;
         return mouseX >= left && mouseX < left + HEATING_SLOT_WIDTH && mouseY >= top && mouseY < top + HEATING_SLOT_HEIGHT;
+    }
+
+    private boolean isMouseOverWaterSlot(int mouseX, int mouseY) {
+        int left = screenPos.x() + 118;
+        int top = screenPos.y() + 25;
+        return mouseX >= left && mouseX < left + 18 && mouseY >= top && mouseY < top + 18;
     }
 
     private String formatTicks(int ticks) {

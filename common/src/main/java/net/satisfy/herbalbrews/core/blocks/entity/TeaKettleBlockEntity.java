@@ -1,6 +1,7 @@
 package net.satisfy.herbalbrews.core.blocks.entity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -20,7 +21,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
 import net.satisfy.herbalbrews.client.gui.handler.TeaKettleGuiHandler;
 import net.satisfy.herbalbrews.core.blocks.TeaKettleBlock;
 import net.satisfy.herbalbrews.core.recipe.TeaKettleRecipe;
@@ -172,6 +172,12 @@ public class TeaKettleBlockEntity extends BlockEntity implements ImplementedInve
             if (!ingredientConsumed) return;
         }
         ItemStack recipeOutput = recipe.assemble();
+        if (recipe.getEffect() != null && recipe.getEffectDuration() > 0) {
+            CompoundTag tag = recipeOutput.getOrCreateTag();
+            tag.putString("Effect", Objects.requireNonNull(BuiltInRegistries.MOB_EFFECT.getKey(recipe.getEffect())).toString());
+            tag.putInt("EffectDuration", recipe.getEffectDuration());
+            recipeOutput.setTag(tag);
+        }
         ItemStack outputSlotStack = this.getItem(OUTPUT_SLOT);
         if (outputSlotStack.isEmpty()) setItem(OUTPUT_SLOT, recipeOutput);
         else if (outputSlotStack.is(recipeOutput.getItem())) outputSlotStack.grow(recipeOutput.getCount());
@@ -261,11 +267,15 @@ public class TeaKettleBlockEntity extends BlockEntity implements ImplementedInve
             ItemStack waterItem = getItem(WATER_SLOT);
             if (waterItem.is(TagsRegistry.SMALL_WATER_FILL)) {
                 waterLevel = Math.min(waterLevel + 25, 100);
+                ItemStack remainderStack = getRemainderItem(waterItem);
                 waterItem.shrink(1);
+                setItem(WATER_SLOT, remainderStack.isEmpty() ? ItemStack.EMPTY : remainderStack);
                 setChanged();
             } else if (waterItem.is(TagsRegistry.LARGE_WATER_FILL)) {
                 waterLevel = Math.min(waterLevel + 50, 100);
+                ItemStack remainderStack = getRemainderItem(waterItem);
                 waterItem.shrink(1);
+                setItem(WATER_SLOT, remainderStack.isEmpty() ? ItemStack.EMPTY : remainderStack);
                 setChanged();
             }
         }
@@ -293,7 +303,7 @@ public class TeaKettleBlockEntity extends BlockEntity implements ImplementedInve
         return player.distanceToSqr(this.worldPosition.getX() + 0.5, this.worldPosition.getY() + 0.5, this.worldPosition.getZ() + 0.5) <= 64.0;
     }
 
-    public void dropExperience(ServerLevel world, Vec3 pos) {
+    public void dropExperience(ServerLevel world, net.minecraft.world.phys.Vec3 pos) {
         ExperienceOrb.award(world, pos, (int) experience);
     }
 
@@ -306,5 +316,41 @@ public class TeaKettleBlockEntity extends BlockEntity implements ImplementedInve
     @Override
     public AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
         return new TeaKettleGuiHandler(syncId, inv, this, this.delegate);
+    }
+
+    @Override
+    public int @NotNull [] getSlotsForFace(Direction side) {
+        if (side == Direction.DOWN) {
+            return new int[]{OUTPUT_SLOT, WATER_SLOT};
+        } else {
+            return new int[]{1, 2, 3, 4, 5, 6, 7};
+        }
+    }
+
+    @Override
+    public boolean canPlaceItemThroughFace(int index, ItemStack stack, Direction direction) {
+        if (direction == Direction.DOWN) {
+            return false;
+        } else {
+            if (stack.is(TagsRegistry.CONTAINER_ITEMS)) {
+                return index == 5;
+            }
+            if (stack.is(TagsRegistry.HEAT_ITEMS)) {
+                return index == 7;
+            }
+            if (stack.is(TagsRegistry.SMALL_WATER_FILL) || stack.is(TagsRegistry.LARGE_WATER_FILL)) {
+                return index == WATER_SLOT;
+            }
+            return index >= 1 && index <= 4;
+        }
+    }
+
+    @Override
+    public boolean canTakeItemThroughFace(int index, ItemStack stack, Direction direction) {
+        if (direction == Direction.DOWN) {
+            return index == OUTPUT_SLOT || index == WATER_SLOT;
+        } else {
+            return index == OUTPUT_SLOT || index == WATER_SLOT;
+        }
     }
 }
