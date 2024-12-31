@@ -4,10 +4,10 @@
     "item": "minecraft:netherite_ingot"
   },
   "base": {
-    "item": "herbalbrews:herbalbrews_standard"
+    "item": "herbalbrews:herbalbrews_banner"
   },
   "result": {
-    "item": "herbalbrews:herbalbrews_standard",
+    "item": "herbalbrews:herbalbrews_banner",
     "count": 2
   },
   "template": {

@@ -1,7 +1,5 @@
 package net.satisfy.herbalbrews.core.blocks;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -11,12 +9,10 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.Containers;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.MenuProvider;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -47,7 +43,6 @@ import net.satisfy.herbalbrews.core.registry.EntityTypeRegistry;
 import net.satisfy.herbalbrews.core.registry.SoundEventRegistry;
 import net.satisfy.herbalbrews.core.util.HerbalBrewsUtil;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.List;
@@ -58,12 +53,11 @@ import java.util.function.Supplier;
 public class TeaKettleBlock extends BaseEntityBlock {
     private static final Supplier<VoxelShape> voxelShapeSupplier = () -> {
         VoxelShape shape = Shapes.empty();
-     shape = Shapes.joinUnoptimized(shape, Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.5, 0.8125), BooleanOp.OR);
-     shape = Shapes.joinUnoptimized(shape, Shapes.box(0.0625, 0.125, 0.4375, 0.1875, 0.5, 0.5625), BooleanOp.OR);
-     shape = Shapes.joinUnoptimized(shape, Shapes.box(0.3125, 0.5, 0.3125, 0.6875, 0.5625, 0.6875), BooleanOp.OR);
-     shape = Shapes.joinUnoptimized(shape, Shapes.box(0.4375, 0.5625, 0.4375, 0.5625, 0.625, 0.5625), BooleanOp.OR);
-     shape = Shapes.joinUnoptimized(shape, Shapes.box(0, 0.5, 0.4375, 0.1875, 0.625, 0.5625), BooleanOp.OR);
-
+        shape = Shapes.joinUnoptimized(shape, Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.5, 0.8125), BooleanOp.OR);
+        shape = Shapes.joinUnoptimized(shape, Shapes.box(0.0625, 0.125, 0.4375, 0.1875, 0.5, 0.5625), BooleanOp.OR);
+        shape = Shapes.joinUnoptimized(shape, Shapes.box(0.3125, 0.5, 0.3125, 0.6875, 0.5625, 0.6875), BooleanOp.OR);
+        shape = Shapes.joinUnoptimized(shape, Shapes.box(0.4375, 0.5625, 0.4375, 0.5625, 0.625, 0.5625), BooleanOp.OR);
+        shape = Shapes.joinUnoptimized(shape, Shapes.box(0, 0.5, 0.4375, 0.1875, 0.625, 0.5625), BooleanOp.OR);
         return shape;
     };
 
@@ -82,7 +76,6 @@ public class TeaKettleBlock extends BaseEntityBlock {
         this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH).setValue(COOKING, false).setValue(LIT, false));
     }
 
-
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
         return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection());
@@ -93,10 +86,9 @@ public class TeaKettleBlock extends BaseEntityBlock {
         return SHAPE.get(state.getValue(FACING));
     }
 
-
     @Override
     public @NotNull InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        final BlockEntity entity = world.getBlockEntity(pos);
+        BlockEntity entity = world.getBlockEntity(pos);
         if (entity instanceof MenuProvider factory) {
             player.openMenu(factory);
             return InteractionResult.SUCCESS;
@@ -104,7 +96,6 @@ public class TeaKettleBlock extends BaseEntityBlock {
             return super.use(state, world, pos, player, hand, hit);
         }
     }
-
 
     @Override
     public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moved) {
@@ -121,24 +112,41 @@ public class TeaKettleBlock extends BaseEntityBlock {
     }
 
     @Override
-    @Environment(EnvType.CLIENT)
     public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
-        if (state.getValue(COOKING) || state.getValue(LIT)) {
-            double d = (double) pos.getX() + 0.5D;
-            double e = pos.getY() + 8.0F + 5.0F;
-            double f = (double) pos.getZ() + 0.5D;
+        if (world.isClientSide()) {
+            BlockEntity blockEntity = world.getBlockEntity(pos);
+            if (blockEntity instanceof TeaKettleBlockEntity be && be.doEffect) {
+                double d = pos.getX() + 0.5;
+                double e = pos.getY() + 0.5;
+                double f = pos.getZ() + 0.5;
+                world.playLocalSound(d, e, f, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, 1.0F, false);
+                double radius = 0.75;
+                int particleCount = 16;
+                for (int i = 0; i < particleCount; i++) {
+                    double angle = 2.0 * Math.PI * i / particleCount;
+                    double offsetX = radius * Math.cos(angle);
+                    double offsetZ = radius * Math.sin(angle);
+                    double px = d + offsetX;
+                    double pz = f + offsetZ;
+                    world.addParticle(ParticleTypes.FLAME, px, e, pz, 0, 0.02, 0);
+                }
+                be.doEffect = false;
+            }
+        }
 
+        if (state.getValue(COOKING) || state.getValue(LIT)) {
+            double d = pos.getX() + 0.5;
+            double e = pos.getY() + 8.0F + 5.0F;
+            double f = pos.getZ() + 0.5;
             if (random.nextDouble() < 0.3) {
                 world.playLocalSound(d, e, f, SoundEventRegistry.TEA_KETTLE_BOILING.get(), SoundSource.BLOCKS, 0.05F, 1.0F, false);
             }
             SimpleParticleType cozySmokeParticle = ParticleTypes.SMOKE;
             addParticle(world, cozySmokeParticle, pos.getX(), pos.getY() + 0.5, pos.getZ(), random, 0.02);
-
             addParticle(world, ParticleTypes.SMOKE, pos.getX(), pos.getY() + 2.2, pos.getZ(), random, 0.002);
         }
     }
 
-    @Environment(EnvType.CLIENT)
     private void addParticle(Level world, ParticleOptions particleOptions, double x, double y, double z, RandomSource random, double velocityY) {
         world.addAlwaysVisibleParticle(
                 particleOptions,
@@ -154,11 +162,9 @@ public class TeaKettleBlock extends BaseEntityBlock {
     @Override
     public void stepOn(Level world, BlockPos pos, BlockState state, Entity entity) {
         boolean isLit = state.getValue(LIT);
-        if (isLit && !entity.fireImmune() && entity instanceof LivingEntity livingEntity &&
-                !EnchantmentHelper.hasFrostWalker(livingEntity)) {
+        if (isLit && !entity.fireImmune() && entity instanceof LivingEntity livingEntity && !EnchantmentHelper.hasFrostWalker(livingEntity)) {
             entity.hurt(world.damageSources().hotFloor(), 1.f);
         }
-
         super.stepOn(world, pos, state, entity);
     }
 
@@ -172,13 +178,11 @@ public class TeaKettleBlock extends BaseEntityBlock {
         return RenderShape.MODEL;
     }
 
-    @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, EntityTypeRegistry.TEA_KETTLE_BLOCK_ENTITY.get(), (world1, pos, state1, be) -> be.tick(world1, pos, state1, be));
+        return createTickerHelper(type, EntityTypeRegistry.TEA_KETTLE_BLOCK_ENTITY.get(), (world1, pos, state1, be) -> be.tick(world1, pos, state1));
     }
 
-    @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new TeaKettleBlockEntity(pos, state);

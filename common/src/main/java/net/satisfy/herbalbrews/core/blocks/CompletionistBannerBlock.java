@@ -117,12 +117,12 @@ public class CompletionistBannerBlock extends BaseEntityBlock {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable BlockGetter level, List<Component> tooltip, net.minecraft.world.item.TooltipFlag flag) {
         if (PlatformHelper.shouldShowTooltip()) {
-            tooltip.add(Component.translatable("tooltip.herbalbrews.banner.thankyou_1").withStyle(style -> style.withColor(TextColor.fromRgb(0x513A8B))));
+            tooltip.add(Component.translatable("tooltip.herbalbrews.banner.thankyou_1").withStyle(style -> style.withColor(TextColor.fromRgb(0x9ACD32))));
             tooltip.add(Component.empty());
-            tooltip.add(Component.translatable("tooltip.herbalbrews.banner.thankyou_2").withStyle(style -> style.withColor(TextColor.fromRgb(0x513A8B))));
-            tooltip.add(Component.translatable("tooltip.herbalbrews.banner.thankyou_4").withStyle(style -> style.withColor(TextColor.fromRgb(0x513A8B))));
+            tooltip.add(Component.translatable("tooltip.herbalbrews.banner.thankyou_2").withStyle(style -> style.withColor(TextColor.fromRgb(0x9ACD32))));
+            tooltip.add(Component.translatable("tooltip.herbalbrews.banner.thankyou_4").withStyle(style -> style.withColor(TextColor.fromRgb(0x9ACD32))));
             tooltip.add(Component.empty());
-            tooltip.add(Component.translatable("tooltip.herbalbrews.banner.thankyou_3").withStyle(style -> style.withColor(TextColor.fromRgb(0x513A8B))));
+            tooltip.add(Component.translatable("tooltip.herbalbrews.banner.thankyou_3").withStyle(style -> style.withColor(TextColor.fromRgb(0x9ACD32))));
         }
     }
 }

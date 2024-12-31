@@ -25,7 +25,7 @@
   "item.herbalbrews.dried_black_tea": "Getrockneter Schwarzer Tee",
   "item.herbalbrews.dried_oolong_tea": "Getrockneter Oolong Tee",
   "item.herbalbrews.green_tea_leaf": "Grünes Teeblatt",
-  "item.herbalbrews.herbalbrews_standard": "Fertigstellungs-Banner: §aHerbal Brews",
+  "block.herbalbrews.herbalbrews_banner": "Fertigstellungs-Banner: §aHerbal Brews",
   "tooltip.herbalbrews.canbeplaced": "Kann platziert werden",
   "tooltip.herbalbrews.tea_kettle.water_level": "Wasserstand: %d%%",
   "tooltip.herbalbrews.tea_kettle.remaining_time": "Verbleibende Zeit: %s",

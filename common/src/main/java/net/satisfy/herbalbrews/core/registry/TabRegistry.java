@@ -4,6 +4,7 @@ import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.satisfy.herbalbrews.HerbalBrews;
@@ -14,7 +15,8 @@ public class TabRegistry {
 
     public static final RegistrySupplier<CreativeModeTab> HERBALBREWS_TAB = HERBALBREWS_TABS.register("herbalbrews", () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, 1)
             .icon(() -> new ItemStack(ObjectRegistry.TEA_KETTLE.get()))
-            .title(Component.translatable("creative_tab.herbalbrews"))
+            .title(Component.translatable("creative_tab.herbalbrews")
+                    .withStyle(style -> style.withColor(TextColor.fromRgb(0x9ACD32))))
             .displayItems((parameters, out) -> {
                 out.accept(ObjectRegistry.STOVE.get());
                 out.accept(ObjectRegistry.TEA_LEAF_CRATE.get());

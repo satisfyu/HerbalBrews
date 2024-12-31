@@ -44,7 +44,7 @@ public class TeaKettleGuiHandler extends AbstractContainerMenu {
                 return stack.is(TagsRegistry.SMALL_WATER_FILL) || stack.is(TagsRegistry.LARGE_WATER_FILL);
             }
         });
-        addSlot(new Slot(container, 7, 151, 62) {
+        addSlot(new Slot(container, 7, 95, 58) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return stack.is(TagsRegistry.HEAT_ITEMS);
@@ -90,8 +90,50 @@ public class TeaKettleGuiHandler extends AbstractContainerMenu {
     }
 
     @Override
-    public @NotNull ItemStack quickMoveStack(Player player, int i) {
-        return ItemStack.EMPTY;
+    public @NotNull ItemStack quickMoveStack(Player player, int index) {
+        Slot slot = this.slots.get(index);
+        if (!slot.hasItem()) {
+            return ItemStack.EMPTY;
+        }
+        ItemStack item = slot.getItem();
+        ItemStack copy = item.copy();
+        if (index < 8) {
+            if (!this.moveItemStackTo(item, 8, this.slots.size(), true)) {
+                return ItemStack.EMPTY;
+            }
+            slot.onQuickCraft(item, copy);
+        } else {
+            if (item.is(TagsRegistry.HEAT_ITEMS)) {
+                if (!this.moveItemStackTo(item, 7, 8, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (item.is(TagsRegistry.SMALL_WATER_FILL) || item.is(TagsRegistry.LARGE_WATER_FILL)) {
+                if (!this.moveItemStackTo(item, 6, 7, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (item.is(TagsRegistry.CONTAINER_ITEMS)) {
+                if (!this.moveItemStackTo(item, 5, 6, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else {
+                if (index < 35) {
+                    if (!this.moveItemStackTo(item, 35, 44, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else {
+                    if (!this.moveItemStackTo(item, 8, 35, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                }
+            }
+        }
+        if (item.isEmpty()) {
+            slot.set(ItemStack.EMPTY);
+        } else {
+            slot.setChanged();
+        }
+        slot.onTake(player, item);
+        return copy;
     }
 
     @Override
