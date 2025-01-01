@@ -9,7 +9,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.PotionItem;
 import net.satisfy.herbalbrews.core.registry.ScreenHandlerTypeRegistry;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,7 +18,7 @@ public class CauldronGuiHandler extends AbstractContainerMenu {
     private final ContainerData data;
 
     public CauldronGuiHandler(int syncId, Inventory playerInventory) {
-        this(syncId, playerInventory, new SimpleContainer(6), new SimpleContainerData(2));
+        this(syncId, playerInventory, new SimpleContainer(4), new SimpleContainerData(2));
     }
 
     public CauldronGuiHandler(int syncId, Inventory playerInventory, Container container, ContainerData data) {
@@ -26,39 +26,34 @@ public class CauldronGuiHandler extends AbstractContainerMenu {
         this.container = container;
         this.data = data;
         addDataSlots(this.data);
-        addSlot(new Slot(container, 0, 79, 51) {
+        addSlot(new Slot(container, 0, 57, 21) {
+            @Override
             public boolean mayPlace(ItemStack stack) {
-                return stack.is(Items.GLASS_BOTTLE);
+                return stack.getItem() instanceof PotionItem;
             }
         });
-        addSlot(new Slot(container, 1, 33, 26) {
+        addSlot(new Slot(container, 1, 79, 27) {
+            @Override
             public boolean mayPlace(ItemStack stack) {
-                return isIngredient(stack);
+                return stack.getItem() instanceof PotionItem;
             }
         });
-        addSlot(new Slot(container, 2, 51, 26) {
+        addSlot(new Slot(container, 2, 101, 21) {
+            @Override
             public boolean mayPlace(ItemStack stack) {
-                return isIngredient(stack);
+                return stack.getItem() instanceof PotionItem;
             }
         });
-        addSlot(new Slot(container, 3, 33, 44) {
-            public boolean mayPlace(ItemStack stack) {
-                return isIngredient(stack);
-            }
-        });
-        addSlot(new Slot(container, 4, 51, 44) {
-            public boolean mayPlace(ItemStack stack) {
-                return isIngredient(stack);
-            }
-        });
-        addSlot(new Slot(container, 5, 128, 35) {
+        addSlot(new Slot(container, 3, 79, 68) {
+            @Override
             public boolean mayPlace(ItemStack stack) {
                 return false;
             }
         });
+        // Spieler-Inventar hinzufügen
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 9; j++) {
-                addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+                addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 89 + i * 18));
             }
         }
         for (int i = 0; i < 9; i++) {
@@ -66,21 +61,17 @@ public class CauldronGuiHandler extends AbstractContainerMenu {
         }
     }
 
-    public int getScaledProgress(int arrowWidth) {
+    public int getScaledProgress(int maxHeight) {
         int progress = data.get(0);
         int total = data.get(1);
         if (progress == 0) {
             return 0;
         }
-        return progress * arrowWidth / total + 1;
-    }
-
-    private boolean isIngredient(ItemStack stack) {
-        return stack.is(Items.SUGAR) || stack.is(Items.NETHER_WART) || stack.is(Items.REDSTONE);
+        return progress * maxHeight / total;
     }
 
     @Override
-    public @NotNull ItemStack quickMoveStack(Player player, int i) {
+    public @NotNull ItemStack quickMoveStack(Player player, int index) {
         return ItemStack.EMPTY;
     }
 

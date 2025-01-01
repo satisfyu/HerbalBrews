@@ -12,7 +12,7 @@ import net.satisfy.herbalbrews.client.model.WitchHatModel;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HatRegistry {
+public class ArmorRegistry {
     private static final Map<Item, HatModel> models = new HashMap<>();
 
     public static Model getHatModel(Item item, ModelPart baseHead) {

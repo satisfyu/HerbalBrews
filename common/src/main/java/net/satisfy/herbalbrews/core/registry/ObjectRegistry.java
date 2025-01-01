@@ -15,10 +15,7 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.satisfy.herbalbrews.HerbalBrews;
 import net.satisfy.herbalbrews.core.blocks.*;
 import net.satisfy.herbalbrews.core.blocks.CauldronBlock;
-import net.satisfy.herbalbrews.core.items.DrinkBlockItem;
-import net.satisfy.herbalbrews.core.items.DrinkItem;
-import net.satisfy.herbalbrews.core.items.HatItem;
-import net.satisfy.herbalbrews.core.items.JugItem;
+import net.satisfy.herbalbrews.core.items.*;
 import net.satisfy.herbalbrews.core.util.HerbalBrewsIdentifier;
 import net.satisfy.herbalbrews.core.util.HerbalBrewsUtil;
 
@@ -54,12 +51,7 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> COPPER_TEA_KETTLE = registerWithItem("copper_tea_kettle", () -> new TeaKettleBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
     public static final RegistrySupplier<Block> TEA_KETTLE = registerWithItem("tea_kettle", () -> new TeaKettleBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
     public static final RegistrySupplier<Block> CAULDRON = registerWithItem("cauldron", () -> new CauldronBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).lightLevel((blockState) -> 11)));
-    public static final RegistrySupplier<Item> ARMOR_FLASK = registerItem("armor_flask", () -> new DrinkItem(getSettings()));
-    public static final RegistrySupplier<Item> ARMOR_FLASK_BIG = registerItem("armor_flask_big", () -> new DrinkItem(getSettings()));
-    public static final RegistrySupplier<Item> DAMAGE_FLASK = registerItem("damage_flask", () -> new DrinkItem(getSettings()));
-    public static final RegistrySupplier<Item> DAMAGE_FLASK_BIG = registerItem("damage_flask_big", () -> new DrinkItem(getSettings()));
-    public static final RegistrySupplier<Item> FERAL_FLASK = registerItem("feral_flask", () -> new DrinkItem(getSettings()));
-    public static final RegistrySupplier<Item> FERAL_FLASK_BIG = registerItem("feral_flask_big", () -> new DrinkItem(getSettings()));
+    public static final RegistrySupplier<Item> FLASK = registerItem("flask", () -> new FlaskItem(getSettings()));
     public static final RegistrySupplier<Item> TEA_BLOSSOM = registerItem("tea_blossom", () -> new BlockItem(TEA_PLANT.get(), getSettings().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.1f).fast().alwaysEat().build())));
     public static final RegistrySupplier<Item> GREEN_TEA_LEAF = registerItem("green_tea_leaf", () -> new Item(getSettings()));
     public static final RegistrySupplier<Item> YERBA_MATE_LEAF = registerItem("yerba_mate_leaf", () -> new BlockItem(YERBA_MATE_PLANT.get(), getSettings().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.1f).fast().alwaysEat().build())));

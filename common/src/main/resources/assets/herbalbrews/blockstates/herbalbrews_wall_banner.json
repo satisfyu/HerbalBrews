@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "vinery:block/herbalbrews_banner"
+      "model": "herbalbrews:block/herbalbrews_banner"
     }
   }
 }

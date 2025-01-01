@@ -11,7 +11,7 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.satisfy.herbalbrews.core.items.HatItem;
-import net.satisfy.herbalbrews.core.registry.HatRegistry;
+import net.satisfy.herbalbrews.core.registry.ArmorRegistry;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
@@ -32,7 +32,7 @@ public abstract class HatItemMixin extends ArmorItem
                     @Override
                     public @NotNull Model getGenericArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original)
                     {
-                        return HatRegistry.getHatModel(itemStack.getItem(), original.getHead());
+                        return ArmorRegistry.getHatModel(itemStack.getItem(), original.getHead());
                     }
                 }
         );

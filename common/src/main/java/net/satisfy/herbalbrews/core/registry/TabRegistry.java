@@ -54,12 +54,7 @@ public class TabRegistry {
                 out.accept(ObjectRegistry.OOLONG_TEA.get());
                 out.accept(ObjectRegistry.COFFEE.get());
                 out.accept(ObjectRegistry.MILK_COFFEE.get());
-                out.accept(ObjectRegistry.ARMOR_FLASK.get());
-                out.accept(ObjectRegistry.ARMOR_FLASK_BIG.get());
-                out.accept(ObjectRegistry.DAMAGE_FLASK.get());
-                out.accept(ObjectRegistry.DAMAGE_FLASK_BIG.get());
-                out.accept(ObjectRegistry.FERAL_FLASK.get());
-                out.accept(ObjectRegistry.FERAL_FLASK_BIG.get());
+                out.accept(ObjectRegistry.FLASK.get());
                 out.accept(ObjectRegistry.HERBALBREWS_BANNER.get());
             })
             .build());

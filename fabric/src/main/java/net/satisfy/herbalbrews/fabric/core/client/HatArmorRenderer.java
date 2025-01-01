@@ -10,14 +10,14 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.satisfy.herbalbrews.core.items.HatItem;
-import net.satisfy.herbalbrews.core.registry.HatRegistry;
+import net.satisfy.herbalbrews.core.registry.ArmorRegistry;
 
 public class HatArmorRenderer implements ArmorRenderer {
     @Override
     public void render(PoseStack matrices, MultiBufferSource vertexConsumers, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, HumanoidModel<LivingEntity> contextModel) {
         HatItem hat = (HatItem) stack.getItem();
 
-        Model model = HatRegistry.getHatModel(hat, contextModel.getHead());
+        Model model = ArmorRegistry.getHatModel(hat, contextModel.getHead());
 
         model.renderToBuffer(matrices, vertexConsumers.getBuffer(model.renderType(hat.getHatTexture())), light, OverlayTexture.NO_OVERLAY, 1F, 1F, 1F, 1F);
     }

@@ -8,9 +8,10 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
-import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.satisfy.herbalbrews.core.registry.RecipeTypeRegistry;
 import net.satisfy.herbalbrews.core.util.HerbalBrewsUtil;
@@ -19,10 +20,10 @@ import org.jetbrains.annotations.NotNull;
 public class CauldronRecipe implements Recipe<Container> {
 
     private final ResourceLocation identifier;
-    private final NonNullList<Ingredient> inputs;
+    private final NonNullList<net.minecraft.world.item.crafting.Ingredient> inputs;
     private final ItemStack output;
 
-    public CauldronRecipe(ResourceLocation identifier, NonNullList<Ingredient> inputs, ItemStack output) {
+    public CauldronRecipe(ResourceLocation identifier, NonNullList<net.minecraft.world.item.crafting.Ingredient> inputs, ItemStack output) {
         this.identifier = identifier;
         this.inputs = inputs;
         this.output = output;
@@ -30,18 +31,7 @@ public class CauldronRecipe implements Recipe<Container> {
 
     @Override
     public boolean matches(Container inventory, Level world) {
-        StackedContents recipeMatcher = new StackedContents();
-        int matchingStacks = 0;
-
-        for(int i = 1; i < 5; ++i) {
-            ItemStack itemStack = inventory.getItem(i);
-            if (!itemStack.isEmpty()) {
-                ++matchingStacks;
-                recipeMatcher.accountStack(itemStack, 1);
-            }
-        }
-
-        return matchingStacks == this.inputs.size() && recipeMatcher.canCraft(this, null);
+        return false;
     }
 
     @Override
@@ -50,14 +40,14 @@ public class CauldronRecipe implements Recipe<Container> {
     }
 
     @Override
-    public @NotNull NonNullList<Ingredient> getIngredients() {
+    public @NotNull NonNullList<net.minecraft.world.item.crafting.Ingredient> getIngredients() {
         return this.inputs;
     }
 
 
     @Override
     public boolean canCraftInDimensions(int width, int height) {
-        return true;
+        return false;
     }
 
     @Override
@@ -91,24 +81,24 @@ public class CauldronRecipe implements Recipe<Container> {
             final var ingredients = HerbalBrewsUtil.deserializeIngredients(GsonHelper.getAsJsonArray(json, "ingredients"));
             if (ingredients.isEmpty()) {
                 throw new JsonParseException("No ingredients for Brewing Cauldron");
-            } else if (ingredients.size() > 4) {
+            } else if (ingredients.size() > 3) {
                 throw new JsonParseException("Too many ingredients for Brewing Cauldron");
             } else {
-                return new CauldronRecipe(id, ingredients, ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result")));
+                return new CauldronRecipe(id, ingredients, net.minecraft.world.item.crafting.ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result")));
             }
         }
 
         @Override
         public @NotNull CauldronRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
-            final var ingredients  = NonNullList.withSize(buf.readVarInt(), Ingredient.EMPTY);
-            ingredients.replaceAll(ignored -> Ingredient.fromNetwork(buf));
+            final var ingredients  = NonNullList.withSize(buf.readVarInt(), net.minecraft.world.item.crafting.Ingredient.EMPTY);
+            ingredients.replaceAll(ignored -> net.minecraft.world.item.crafting.Ingredient.fromNetwork(buf));
             return new CauldronRecipe(id, ingredients, buf.readItem());
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf buf, CauldronRecipe recipe) {
             buf.writeVarInt(recipe.inputs.size());
-            for (Ingredient ingredient : recipe.inputs) {
+            for (net.minecraft.world.item.crafting.Ingredient ingredient : recipe.inputs) {
                 ingredient.toNetwork(buf);
             }
 

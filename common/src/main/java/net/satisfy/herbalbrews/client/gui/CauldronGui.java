@@ -11,8 +11,12 @@ import org.joml.Vector2i;
 
 public class CauldronGui extends AbstractContainerScreen<CauldronGuiHandler> {
     private static final ResourceLocation BACKGROUND = new HerbalBrewsIdentifier("textures/gui/cauldron.png");
-    private static final int ARROW_X = 94;
-    private static final int ARROW_Y = 37;
+    private static final int PROGRESS_X = 113;
+    private static final int PROGRESS_Y = 34;
+    private static final int PROGRESS_TEX_X = 176;
+    private static final int PROGRESS_TEX_Y = 0;
+    private static final int PROGRESS_WIDTH = 11;
+    private static final int PROGRESS_HEIGHT = 29;
     private final Vector2i screenPos = new Vector2i();
 
     public CauldronGui(CauldronGuiHandler handler, Inventory inventory, Component title) {
@@ -30,12 +34,13 @@ public class CauldronGui extends AbstractContainerScreen<CauldronGuiHandler> {
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
         guiGraphics.blit(BACKGROUND, screenPos.x(), screenPos.y(), 0, 0, imageWidth, imageHeight);
-        int progress = this.menu.getScaledProgress(23);
-        guiGraphics.blit(BACKGROUND, screenPos.x() + ARROW_X, screenPos.y() + ARROW_Y, 177, 17, progress, 10);
+        int progress = this.menu.getScaledProgress(PROGRESS_HEIGHT);
+        guiGraphics.blit(BACKGROUND, screenPos.x() + PROGRESS_X, screenPos.y() + PROGRESS_Y + (PROGRESS_HEIGHT - progress), PROGRESS_TEX_X, PROGRESS_TEX_Y, PROGRESS_WIDTH, progress);
     }
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
+        this.renderBackground(guiGraphics);
         super.render(guiGraphics, mouseX, mouseY, delta);
         renderTooltip(guiGraphics, mouseX, mouseY);
     }

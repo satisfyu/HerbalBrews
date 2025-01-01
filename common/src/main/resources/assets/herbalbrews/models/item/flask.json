@@ -1,0 +1,14 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "herbalbrews:item/flask_1"
+  },
+  "overrides": [
+    { "predicate": { "custom_model_data": 1 }, "model": "herbalbrews:item/flask_1" },
+    { "predicate": { "custom_model_data": 2 }, "model": "herbalbrews:item/flask_2" },
+    { "predicate": { "custom_model_data": 3 }, "model": "herbalbrews:item/flask_3" },
+    { "predicate": { "custom_model_data": 4 }, "model": "herbalbrews:item/flask_4" },
+    { "predicate": { "custom_model_data": 5 }, "model": "herbalbrews:item/flask_5" },
+    { "predicate": { "custom_model_data": 6 }, "model": "herbalbrews:item/flask_6" }
+  ]
+}

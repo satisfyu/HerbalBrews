@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "herbalbrews:item/fire_protection_flask"
+    "layer0": "herbalbrews:item/flask_1"
   }
 }

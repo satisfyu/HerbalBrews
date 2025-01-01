@@ -100,8 +100,8 @@ public class CauldronBlock extends Block implements EntityBlock {
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
         if (!world.isClientSide) {
             return (lvl, pos, blkState, t) -> {
-                if (t instanceof CauldronBlockEntity cookingPot) {
-                    cookingPot.tick(lvl, pos, blkState, cookingPot);
+                if (t instanceof CauldronBlockEntity cauldron) {
+                    cauldron.tick(lvl, pos, blkState, cauldron);
                 }
             };
         }
