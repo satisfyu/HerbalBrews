@@ -32,7 +32,7 @@ public class TeaKettleCategory implements IRecipeCategory<TeaKettleRecipe> {
     private static final int ARROW_V = 16;
     private static final int ARROW_WIDTH = 17;
     private static final int ARROW_HEIGHT = 29;
-    private static final int MAX_TIME = 200; // Example cooking time
+    private static final int MAX_TIME = 200;
     private final IDrawable background;
     private final IDrawable icon;
     private final IDrawable burnIcon;

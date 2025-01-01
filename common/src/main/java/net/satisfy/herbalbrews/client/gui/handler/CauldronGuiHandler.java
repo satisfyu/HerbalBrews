@@ -26,38 +26,37 @@ public class CauldronGuiHandler extends AbstractContainerMenu {
         this.container = container;
         this.data = data;
         addDataSlots(this.data);
-        addSlot(new Slot(container, 0, 57, 21) {
+        addSlot(new Slot(container, 0, 57, 16) { 
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return stack.getItem() instanceof PotionItem;
             }
         });
-        addSlot(new Slot(container, 1, 79, 27) {
+        addSlot(new Slot(container, 1, 79, 22) { 
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return stack.getItem() instanceof PotionItem;
             }
         });
-        addSlot(new Slot(container, 2, 101, 21) {
+        addSlot(new Slot(container, 2, 101, 16) { 
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return stack.getItem() instanceof PotionItem;
             }
         });
-        addSlot(new Slot(container, 3, 79, 68) {
+        addSlot(new Slot(container, 3, 79, 58) { 
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return false;
             }
         });
-        // Spieler-Inventar hinzufügen
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 9; j++) {
-                addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 89 + i * 18));
+                addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18)); 
             }
         }
         for (int i = 0; i < 9; i++) {
-            addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
+            addSlot(new Slot(playerInventory, i, 8 + i * 18, 142)); 
         }
     }
 
@@ -72,7 +71,25 @@ public class CauldronGuiHandler extends AbstractContainerMenu {
 
     @Override
     public @NotNull ItemStack quickMoveStack(Player player, int index) {
-        return ItemStack.EMPTY;
+        ItemStack stack = ItemStack.EMPTY;
+        Slot slot = this.slots.get(index);
+        if (slot.hasItem()) {
+            ItemStack originalStack = slot.getItem();
+            stack = originalStack.copy();
+            if (index < 4) {
+                if (!this.moveItemStackTo(originalStack, 4, this.slots.size(), true)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (!this.moveItemStackTo(originalStack, 0, 4, false)) {
+                return ItemStack.EMPTY;
+            }
+            if (originalStack.isEmpty()) {
+                slot.set(ItemStack.EMPTY);
+            } else {
+                slot.setChanged();
+            }
+        }
+        return stack;
     }
 
     @Override

@@ -130,7 +130,7 @@ public class CauldronBlock extends Block implements EntityBlock {
                 double px = x + offsetX + 0.5 * dir.getStepX(), py = y + offsetY, pz = z + offsetZ + 0.5 * dir.getStepZ();
 
                 world.addParticle(ParticleTypes.SMOKE, px, py, pz, 0.0, 0.0, 0.0);
-                world.addParticle(ParticleTypes.SOUL_FIRE_FLAME, px, py, pz, 0.0, 0.0, 0.0);
+                world.addParticle(ParticleTypes.SMALL_FLAME, px, py, pz, 0.0, 0.0, 0.0);
 
                 if (random.nextDouble() < 0.6)
                     world.addParticle(ParticleTypes.BUBBLE_POP, px + 0.5 * dir.getStepX() * random.nextDouble(), py + 0.7 * random.nextDouble(), pz + 0.5 * dir.getStepZ() * random.nextDouble(), 0.0, 0.0, 0.0);

@@ -1,0 +1,17 @@
+{
+  "type": "herbalbrews:cauldron_brewing",
+  "ingredients": [
+    {
+      "item": "minecraft:potion"
+    },
+    {
+      "item": "minecraft:potion"
+    },
+    {
+      "item": "minecraft:potion"
+    }
+  ],
+  "result": {
+    "item": "herbalbrews:flask"
+  }
+}

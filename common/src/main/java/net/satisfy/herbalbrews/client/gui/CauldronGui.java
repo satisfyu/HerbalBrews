@@ -11,8 +11,8 @@ import org.joml.Vector2i;
 
 public class CauldronGui extends AbstractContainerScreen<CauldronGuiHandler> {
     private static final ResourceLocation BACKGROUND = new HerbalBrewsIdentifier("textures/gui/cauldron.png");
-    private static final int PROGRESS_X = 113;
-    private static final int PROGRESS_Y = 34;
+    private static final int PROGRESS_X = 114;
+    private static final int PROGRESS_Y = 38;
     private static final int PROGRESS_TEX_X = 176;
     private static final int PROGRESS_TEX_Y = 0;
     private static final int PROGRESS_WIDTH = 11;
@@ -27,8 +27,6 @@ public class CauldronGui extends AbstractContainerScreen<CauldronGuiHandler> {
     protected void init() {
         super.init();
         screenPos.set(leftPos, topPos);
-        titleLabelX += 2;
-        titleLabelY -= 3;
     }
 
     @Override
