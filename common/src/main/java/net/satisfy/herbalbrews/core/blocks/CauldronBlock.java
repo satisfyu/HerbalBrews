@@ -33,6 +33,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -155,25 +156,13 @@ public class CauldronBlock extends Block implements EntityBlock {
 
     private static final Supplier<VoxelShape> voxelShapeSupplier = () -> {
         VoxelShape shape = Shapes.empty();
-        shape = Shapes.or(shape, Shapes.box(0, 0, 0, 0.125, 0.1875, 0.25));
-        shape = Shapes.or(shape, Shapes.box(0.125, 0, 0, 0.25, 0.1875, 0.125));
-        shape = Shapes.or(shape, Shapes.box(0.75, 0, 0, 1, 0.1875, 0.125));
-        shape = Shapes.or(shape, Shapes.box(0.875, 0, 0.125, 1, 0.1875, 0.25));
-        shape = Shapes.or(shape, Shapes.box(0.875, 0, 0.75, 1, 0.1875, 1));
-        shape = Shapes.or(shape, Shapes.box(0.75, 0, 0.875, 0.875, 0.1875, 1));
-        shape = Shapes.or(shape, Shapes.box(0, 0, 0.875, 0.25, 0.1875, 1));
-        shape = Shapes.or(shape, Shapes.box(0, 0, 0.75, 0.125, 0.1875, 0.875));
-        shape = Shapes.or(shape, Shapes.box(0, 0.1875, 0, 1, 0.6875, 1));
-        shape = Shapes.or(shape, Shapes.box(0.0625, 0.6875, 0.0625, 0.9375, 0.8125, 0.9375));
-        shape = Shapes.or(shape, Shapes.box(0, 0.8125, 0.8125, 1, 1, 1));
-        shape = Shapes.or(shape, Shapes.box(0, 0.8125, 0, 1, 1, 0.1875));
-        shape = Shapes.or(shape, Shapes.box(0, 0.8125, 0.1875, 0.1875, 1, 0.8125));
-        shape = Shapes.or(shape, Shapes.box(0.8125, 0.8125, 0.1875, 1, 1, 0.8125));
-        shape = Shapes.or(shape, Shapes.box(0.125, 0.0625, 0.125, 0.875, 0.25, 0.875));
-        shape = Shapes.or(shape, Shapes.box(0.0625, 0.000625, 0.0625, 0.9375, 0.063125, 0.9375));
-        shape = Shapes.or(shape, Shapes.box(0.1875, 0.0625, 0.6875, 0.8125, 0.1875, 0.8125));
-        shape = Shapes.or(shape, Shapes.box(0.1875, 0.0625, 0.4375, 0.8125, 0.1875, 0.5625));
-        shape = Shapes.or(shape, Shapes.box(0.1875, 0.0625, 0.1875, 0.8125, 0.1875, 0.3125));
+        shape = Shapes.join(shape, Shapes.box(0, 0, 0, 0.25, 0.1875, 0.25), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.75, 0, 0, 1, 0.1875, 0.25), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.75, 0, 0.75, 1, 0.1875, 1), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0, 0, 0.75, 0.25, 0.1875, 1), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0, 0.1875, 0, 1, 0.6875, 1), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.0625, 0.6875, 0.0625, 0.9375, 0.8125, 0.9375), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0, 0.8125, 0, 1, 1, 1), BooleanOp.OR);
         return shape;
     };
 

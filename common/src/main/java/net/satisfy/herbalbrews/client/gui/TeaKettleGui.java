@@ -60,6 +60,7 @@ public class TeaKettleGui extends AbstractContainerScreen<TeaKettleGuiHandler> {
         guiGraphics.blit(BACKGROUND, screenPos.x() + HEAT_X, screenPos.y() + HEAT_Y + HEAT_HEIGHT - filledHeatHeight, HEAT_TEXTURE_X, HEAT_TEXTURE_Y + HEAT_HEIGHT - filledHeatHeight, HEAT_WIDTH, filledHeatHeight);
     }
 
+
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
         this.renderBackground(guiGraphics);

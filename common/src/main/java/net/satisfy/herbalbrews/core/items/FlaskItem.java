@@ -14,6 +14,7 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffectUtil;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
@@ -37,25 +38,70 @@ public class FlaskItem extends Item {
     }
 
     @Override
-    public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        ItemStack stack = player.getItemInHand(hand);
-
-        if (!stack.hasTag() || !Objects.requireNonNull(stack.getTag()).contains("CustomModelData")) {
-            CompoundTag tag = stack.getOrCreateTag();
-            int randomTexture = level.random.nextInt(6) + 1;
-            tag.putInt("CustomModelData", randomTexture);
-            stack.setTag(tag);
-
-            // Debugging-Ausgabe
-            System.out.println("Set CustomModelData: " + randomTexture);
-        }
-
-        return super.use(level, player, hand);
+    public int getUseDuration(ItemStack stack) {
+        return 32;
     }
 
+    @Override
+    public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (!stack.hasTag() || !Objects.requireNonNull(stack.getTag()).contains("CustomModelData")) {
+            setRandomTexture(level, stack);
+        }
+        player.startUsingItem(hand);
+        return InteractionResultHolder.consume(stack);
+    }
 
     @Override
-    @SuppressWarnings("unused")
+    public @NotNull ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
+        if (!level.isClientSide && entity instanceof Player player) {
+            applyPotionEffects(stack, player);
+            if (!player.getAbilities().instabuild) {
+                stack.shrink(1);
+            }
+        }
+        return stack;
+    }
+
+    private void setRandomTexture(@Nullable Level level, ItemStack stack) {
+        CompoundTag tag = stack.getOrCreateTag();
+        if (!tag.contains("CustomModelData")) {
+            int randomTexture;
+            if (level != null) {
+                randomTexture = level.getRandom().nextInt(6) + 1;
+            } else {
+                randomTexture = (int) (Math.random() * 6) + 1;
+            }
+            tag.putInt("CustomModelData", randomTexture);
+            System.out.println("Set CustomModelData: " + randomTexture);
+        }
+    }
+
+    private void applyPotionEffects(ItemStack stack, Player player) {
+        CompoundTag tag = stack.getTag();
+        if (tag != null && tag.contains("CustomPotionEffects", 9)) {
+            ListTag effects = tag.getList("CustomPotionEffects", 10);
+            for (int i = 0; i < effects.size(); i++) {
+                CompoundTag effectTag = effects.getCompound(i);
+                int effectId = effectTag.getInt("Id");
+                MobEffect effect = BuiltInRegistries.MOB_EFFECT.byId(effectId);
+                if (effect != null) {
+                    int duration = effectTag.getInt("Duration");
+                    int amplifier = effectTag.getByte("Amplifier");
+                    MobEffectInstance effectInstance = new MobEffectInstance(effect, duration, amplifier);
+                    player.addEffect(effectInstance);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onCraftedBy(ItemStack stack, Level world, Player player) {
+        super.onCraftedBy(stack, world, player);
+        setRandomTexture(world, stack);
+    }
+
+    @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag context) {
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains("CustomPotionEffects", 9)) {
@@ -68,14 +114,9 @@ public class FlaskItem extends Item {
                     int duration = effectTag.getInt("Duration");
                     int amplifier = effectTag.getByte("Amplifier");
                     MobEffectInstance effectInstance = new MobEffectInstance(effect, duration, amplifier);
-
                     MutableComponent effectName = Component.translatable(effect.getDescriptionId());
                     if (effectInstance.getDuration() > 20) {
-                        effectName = Component.translatable(
-                                "potion.withDuration",
-                                effectName,
-                                MobEffectUtil.formatDuration(effectInstance, 1.0f)
-                        );
+                        effectName = Component.translatable("potion.withDuration", effectName, MobEffectUtil.formatDuration(effectInstance, 1.0f));
                     }
                     tooltip.add(effectName.withStyle(effect.getCategory().getTooltipFormatting()));
                 }
@@ -92,7 +133,6 @@ public class FlaskItem extends Item {
                 String attributeName = modifierTag.getString("AttributeName");
                 Attribute attribute = BuiltInRegistries.ATTRIBUTE.get(new ResourceLocation(attributeName));
                 if (attribute != null) {
-                    String operation = modifierTag.getString("Operation");
                     double amount = modifierTag.getDouble("Amount");
                     AttributeModifier.Operation op = AttributeModifier.Operation.values()[modifierTag.getByte("Operation")];
                     String uuid = modifierTag.getString("UUID");
@@ -105,32 +145,20 @@ public class FlaskItem extends Item {
         if (!list3.isEmpty()) {
             tooltip.add(Component.empty());
             tooltip.add(Component.translatable("potion.whenDrank").withStyle(ChatFormatting.DARK_PURPLE));
-
             for (Pair<Attribute, AttributeModifier> pair : list3) {
-                AttributeModifier entityAttributeModifier3 = pair.getSecond();
-                double d = entityAttributeModifier3.getAmount();
+                AttributeModifier modifier = pair.getSecond();
+                double d = modifier.getAmount();
                 double e;
-                if (entityAttributeModifier3.getOperation() != AttributeModifier.Operation.MULTIPLY_BASE && entityAttributeModifier3.getOperation() != AttributeModifier.Operation.MULTIPLY_TOTAL) {
-                    e = entityAttributeModifier3.getAmount();
+                if (modifier.getOperation() != AttributeModifier.Operation.MULTIPLY_BASE && modifier.getOperation() != AttributeModifier.Operation.MULTIPLY_TOTAL) {
+                    e = modifier.getAmount();
                 } else {
-                    e = entityAttributeModifier3.getAmount() * 100.0;
+                    e = modifier.getAmount() * 100.0;
                 }
-
                 if (d > 0.0) {
-                    tooltip.add(
-                            Component.translatable(
-                                            "attribute.modifier.plus." + entityAttributeModifier3.getOperation().toValue(),
-                                            ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(e), Component.translatable(pair.getFirst().getDescriptionId()))
-                                    .withStyle(ChatFormatting.BLUE)
-                    );
+                    tooltip.add(Component.translatable("attribute.modifier.plus." + modifier.getOperation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(e), Component.translatable(pair.getFirst().getDescriptionId())).withStyle(ChatFormatting.BLUE));
                 } else if (d < 0.0) {
                     e *= -1.0;
-                    tooltip.add(
-                            Component.translatable(
-                                            "attribute.modifier.take." + entityAttributeModifier3.getOperation().toValue(),
-                                            ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(e), Component.translatable(pair.getFirst().getDescriptionId()))
-                                    .withStyle(ChatFormatting.RED)
-                    );
+                    tooltip.add(Component.translatable("attribute.modifier.take." + modifier.getOperation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(e), Component.translatable(pair.getFirst().getDescriptionId())).withStyle(ChatFormatting.RED));
                 }
             }
         }
@@ -138,19 +166,8 @@ public class FlaskItem extends Item {
 
     @Override
     public void inventoryTick(ItemStack stack, Level world, net.minecraft.world.entity.Entity entity, int itemSlot, boolean isSelected) {
-        if (!world.isClientSide) {
-            updateTextureIndex(stack);
-        }
-    }
-
-    private void updateTextureIndex(ItemStack stack) {
-        if (stack.getOrCreateTag().contains("Effect") && stack.getOrCreateTag().contains("EffectDuration")) {
-            String effectId = stack.getOrCreateTag().getString("Effect");
-            int duration = stack.getOrCreateTag().getInt("EffectDuration");
-            int hash = Math.abs(effectId.hashCode() + duration) % 6 + 1;
-            stack.getOrCreateTag().putInt("CustomModelData", hash);
-        } else {
-            stack.getOrCreateTag().putInt("CustomModelData", 1);
+        if (!world.isClientSide && (!stack.hasTag() || !Objects.requireNonNull(stack.getTag()).contains("CustomModelData"))) {
+            setRandomTexture(world, stack);
         }
     }
 }

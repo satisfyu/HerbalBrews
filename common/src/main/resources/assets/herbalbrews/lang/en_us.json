@@ -64,6 +64,7 @@
   "tooltip.herbalbrews.tea_kettle.heat_increase": "Add \u00a7e[Blaze Powder]\u00a7r to raise Heat levels",
   "tooltip.herbalbrews.tea_kettle.water_slot": "Add \u00a7e[Water]\u00a7r to raise Water levels",
   "tooltip.herbalbrews.tea_kettle.remaining_time": "Remaining Time: %s",
+  "tooltip.herbalbrews.cauldron.remaining_time": "Remaining Time: %s",
   "tooltip.herbalbrews.canbeplaced": "Can be placed",
   "tooltip.herbalbrews.banner.thankyou_1": "A reward for crafting all Tea Variants",
   "tooltip.herbalbrews.banner.thankyou_2": "When placed:",

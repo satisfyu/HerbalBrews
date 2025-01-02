@@ -7,6 +7,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.effect.MobEffect;
@@ -41,7 +42,7 @@ public class CauldronBlockEntity extends BlockEntity implements ImplementedInven
     private static final int[] SLOTS_FOR_DOWN = new int[]{3};
     private NonNullList<ItemStack> inventory;
     private int brewingTime = 0;
-    private int totalBrewingTime = 5;
+    private int totalBrewingTime = 1200;
     private final ContainerData propertyDelegate = new ContainerData() {
 
         @Override
@@ -93,10 +94,9 @@ public class CauldronBlockEntity extends BlockEntity implements ImplementedInven
         boolean dirty = false;
         if (canCraft()) {
             this.brewingTime++;
-
             if (this.brewingTime >= this.totalBrewingTime) {
                 this.brewingTime = 0;
-                craft();
+                craft(world);
                 dirty = true;
             }
         } else {
@@ -118,17 +118,12 @@ public class CauldronBlockEntity extends BlockEntity implements ImplementedInven
         return output.isEmpty();
     }
 
-    private void craft() {
+    private void craft(Level world) {
         List<MobEffectInstance> combinedEffects = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             ItemStack potionStack = this.getItem(i);
             List<MobEffectInstance> potionEffects = PotionUtils.getMobEffects(potionStack);
-            for (MobEffectInstance effectInstance : potionEffects) {
-                String effectName = effectInstance.getEffect().getDescriptionId().toLowerCase();
-                if (!effectName.contains("health") && !effectName.contains("regeneration")) {
-                    combinedEffects.add(new MobEffectInstance(effectInstance.getEffect(), effectInstance.getDuration(), effectInstance.getAmplifier()));
-                }
-            }
+            combinedEffects.addAll(potionEffects);
         }
 
         if (combinedEffects.isEmpty()) {
@@ -146,6 +141,10 @@ public class CauldronBlockEntity extends BlockEntity implements ImplementedInven
         ItemStack outputPotion = new ItemStack(ObjectRegistry.FLASK.get());
         CompoundTag outputTag = outputPotion.getOrCreateTag();
         ListTag newEffectsList = new ListTag();
+
+        RandomSource random = world != null ? world.getRandom() : RandomSource.create();
+        int randomTexture = random.nextInt(6) + 1;
+        outputTag.putInt("CustomModelData", randomTexture);
 
         for (MobEffectInstance effectInstance : uniqueEffectsMap.values()) {
             CompoundTag effectTag = new CompoundTag();
@@ -192,7 +191,7 @@ public class CauldronBlockEntity extends BlockEntity implements ImplementedInven
         }
         if (slot < 3) {
             if (!dirty) {
-                this.totalBrewingTime = 50;
+                this.totalBrewingTime = 1200;
                 this.brewingTime = 0;
                 setChanged();
             }

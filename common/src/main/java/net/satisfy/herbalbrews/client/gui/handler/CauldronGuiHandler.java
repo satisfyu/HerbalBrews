@@ -26,25 +26,25 @@ public class CauldronGuiHandler extends AbstractContainerMenu {
         this.container = container;
         this.data = data;
         addDataSlots(this.data);
-        addSlot(new Slot(container, 0, 57, 16) { 
+        addSlot(new Slot(container, 0, 57, 16) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return stack.getItem() instanceof PotionItem;
             }
         });
-        addSlot(new Slot(container, 1, 79, 22) { 
+        addSlot(new Slot(container, 1, 79, 22) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return stack.getItem() instanceof PotionItem;
             }
         });
-        addSlot(new Slot(container, 2, 101, 16) { 
+        addSlot(new Slot(container, 2, 101, 16) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return stack.getItem() instanceof PotionItem;
             }
         });
-        addSlot(new Slot(container, 3, 79, 58) { 
+        addSlot(new Slot(container, 3, 79, 58) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return false;
@@ -52,11 +52,11 @@ public class CauldronGuiHandler extends AbstractContainerMenu {
         });
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 9; j++) {
-                addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18)); 
+                addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
         for (int i = 0; i < 9; i++) {
-            addSlot(new Slot(playerInventory, i, 8 + i * 18, 142)); 
+            addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
         }
     }
 
@@ -90,6 +90,14 @@ public class CauldronGuiHandler extends AbstractContainerMenu {
             }
         }
         return stack;
+    }
+
+    public int getCookingTime() {
+        return data.get(0);
+    }
+
+    public int getRequiredDuration() {
+        return data.get(1);
     }
 
     @Override
