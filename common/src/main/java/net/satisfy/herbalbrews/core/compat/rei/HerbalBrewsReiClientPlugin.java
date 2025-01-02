@@ -24,8 +24,8 @@ public class HerbalBrewsReiClientPlugin {
         registry.add(new TeaKettleCategory());
         registry.add(new CauldronCategory());
 
-        registry.addWorkstations(TeaKettleCategory.COOKING_CAULDRON_DISPLAY, EntryStacks.of(ObjectRegistry.TEA_KETTLE.get()));
-        registry.addWorkstations(TeaKettleCategory.COOKING_CAULDRON_DISPLAY, EntryStacks.of(ObjectRegistry.COPPER_TEA_KETTLE.get()));
+        registry.addWorkstations(TeaKettleCategory.TEA_KETTLE_DISPLAY, EntryStacks.of(ObjectRegistry.TEA_KETTLE.get()));
+        registry.addWorkstations(TeaKettleCategory.TEA_KETTLE_DISPLAY, EntryStacks.of(ObjectRegistry.COPPER_TEA_KETTLE.get()));
         registry.addWorkstations(CauldronDisplay.CAULDRON_DISPLAY, EntryStacks.of(ObjectRegistry.CAULDRON.get()));
 
     }

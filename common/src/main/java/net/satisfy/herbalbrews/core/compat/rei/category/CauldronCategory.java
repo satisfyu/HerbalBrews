@@ -39,20 +39,21 @@ public class CauldronCategory implements DisplayCategory<CauldronDisplay> {
         widgets.add(Widgets.createRecipeBase(bounds));
         widgets.add(Widgets.createArrow(new Point(startPoint.x + 54, startPoint.y - 1)).animationDurationTicks(50));
         widgets.add(Widgets.createResultSlotBackground(new Point(startPoint.x + 90, startPoint.y)));
-        widgets.add(Widgets.createSlot(new Point(startPoint.x + 90, startPoint.y)).entries(display.getOutputEntries().get(0)).disableBackground().markOutput());
-        for(int i = 0; i < 4; i++){
-            int x = i * 18;
-            int y = -4;
-            if(i > 1){
-                x = (i - 2) * 18;
-                y+=18;
-            }
-            x-=8;
-            if(i >= display.getInputEntries().size() - 1) widgets.add(Widgets.createSlotBackground(new Point(startPoint.x + x, startPoint.y + y)));
-            else widgets.add(Widgets.createSlot(new Point(startPoint.x + x, startPoint.y + y)).entries(display.getInputEntries().get(i + 1)).markInput());
+        widgets.add(Widgets.createSlot(new Point(startPoint.x + 90, startPoint.y))
+                .entries(display.getOutputEntries().get(0))
+                .disableBackground()
+                .markOutput());
 
-        }
-        widgets.add(Widgets.createSlot(new Point(startPoint.x + 36, startPoint.y + 18)).entries(display.getInputEntries().get(0)).markInput());
+        widgets.add(Widgets.createSlot(new Point(startPoint.x + 53 - 40, startPoint.y +11))
+                .entries(display.getInputEntries().get(0))
+                .markInput());
+        widgets.add(Widgets.createSlot(new Point(startPoint.x + 31 - 40, startPoint.y - 6))
+                .entries(display.getInputEntries().get(1))
+                .markInput());
+        widgets.add(Widgets.createSlot(new Point(startPoint.x + 75 - 40, startPoint.y - 6))
+                .entries(display.getInputEntries().get(2))
+                .markInput());
+
         return widgets;
     }
 }
