@@ -1,3 +1,4 @@
 accessWidener   v2  named
 accessible    class    net/minecraft/world/food/FoodProperties
 accessible    method   net/minecraft/world/food/FoodProperties <init> (IFZZZLjava/util/List;)V
+accessible method net/minecraft/tags/ItemTags bind (Ljava/lang/String;)Lnet/minecraft/tags/TagKey;
