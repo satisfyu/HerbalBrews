@@ -24,6 +24,8 @@
     }
   ],
   "result": {
-    "item": "herbalbrews:hibiscus_tea"
+    "item": "herbalbrews:hibiscus_tea",
+    "effect": "herbalbrews:feral",
+    "effectduration": 1800
   }
 }

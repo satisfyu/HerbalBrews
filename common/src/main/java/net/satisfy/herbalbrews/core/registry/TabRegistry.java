@@ -49,11 +49,11 @@ public class TabRegistry {
                 out.accept(ObjectRegistry.BLACK_TEA.get());
                 out.accept(ObjectRegistry.HIBISCUS_TEA.get());
                 out.accept(ObjectRegistry.LAVENDER_TEA.get());
-                out.accept(ObjectRegistry.YERBA_MATE_TEA.get());
-                out.accept(ObjectRegistry.ROOIBOS_TEA.get());
-                out.accept(ObjectRegistry.OOLONG_TEA.get());
                 out.accept(ObjectRegistry.COFFEE.get());
                 out.accept(ObjectRegistry.MILK_COFFEE.get());
+                out.accept(ObjectRegistry.ROOIBOS_TEA.get());
+                out.accept(ObjectRegistry.OOLONG_TEA.get());
+                out.accept(ObjectRegistry.YERBA_MATE_TEA.get());
                 out.accept(ObjectRegistry.FLASK.get());
                 out.accept(ObjectRegistry.HERBALBREWS_BANNER.get());
             })

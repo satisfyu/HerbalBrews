@@ -24,6 +24,9 @@
     }
   ],
   "result": {
-    "item": "herbalbrews:yerba_mate_tea"
+    "item": "herbalbrews:yerba_mate_tea",
+    "effect": "herbalbrews:bonding",
+    "effectduration": 1800
   }
 }
+

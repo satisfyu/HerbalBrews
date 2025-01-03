@@ -21,6 +21,9 @@
     }
   ],
   "result": {
-    "item": "herbalbrews:rooibos_tea"
+    "item": "herbalbrews:rooibos_tea",
+    "effect": "herbalbrews:excavation",
+    "effectduration": 1800
   }
 }
+

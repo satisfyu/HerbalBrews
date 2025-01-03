@@ -35,7 +35,7 @@ public class CauldronGui extends AbstractContainerScreen<CauldronGuiHandler> {
         int progress = this.menu.getScaledProgress(PROGRESS_HEIGHT);
         guiGraphics.blit(BACKGROUND, screenPos.x() + PROGRESS_X, screenPos.y() + PROGRESS_Y + (PROGRESS_HEIGHT - progress), PROGRESS_TEX_X, PROGRESS_TEX_Y + (PROGRESS_HEIGHT - progress), PROGRESS_WIDTH, progress);
     }
-    
+
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
         this.renderBackground(guiGraphics);

@@ -11,7 +11,7 @@ import net.minecraft.world.entity.Entity;
 import net.satisfy.herbalbrews.core.util.HerbalBrewsIdentifier;
 
 public class WitchHatModel<T extends Entity> extends EntityModel<T> implements HatModel {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new HerbalBrewsIdentifier("witch_hat_helmet"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new HerbalBrewsIdentifier("witch_hat"), "main");
     private final ModelPart witchHat;
 
     public WitchHatModel(ModelPart root) {

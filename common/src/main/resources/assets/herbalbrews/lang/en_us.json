@@ -70,6 +70,8 @@
   "tooltip.herbalbrews.banner.thankyou_2": "When placed:",
   "tooltip.herbalbrews.banner.thankyou_3": "Thank you for playing Herbal Brews!",
   "tooltip.herbalbrews.banner.thankyou_4": "Grants Absorption in a radius of 8 blocks",
+  "tooltip.herbalbrews.hat.damagetype": "[Magical Damage]",
+  "tooltip.herbalbrews.hat.damagereduction": "When worn: Reduces %s by 40%",
   "herbalbrews.advancement.root": "Welcome to HerbalBrews!",
   "herbalbrews.advancement.root.desc": "Thank you for downloading HerbalBrews",
   "herbalbrews.advancement.find_lavender": "Find Lavender",
@@ -91,5 +93,17 @@
   "herbalbrews.advancement.dry_2": "Let's do it again!",
   "herbalbrews.advancement.dry_2.desc": "Craft a Black Tea Leaf Block by combining 9 Green Tea, place it down and wait until it's fully dried",
   "herbalbrews.advancement.dry_3": "Mix it up!",
-  "herbalbrews.advancement.dry_3.desc": "Craft a Mixed Tea Leaf Block by combining 4 Dried Green Tea and 4 Dried Black Tea, place it down and wait until it's fully dried"
+  "herbalbrews.advancement.dry_3.desc": "Craft a Mixed Tea Leaf Block by combining 4 Dried Green Tea and 4 Dried Black Tea, place it down and wait until it's fully dried",
+  "text.autoconfig.herbalbrews.option.items": "Items",
+  "text.autoconfig.herbalbrews.option.items.banner": "Completionist Banner Settings",
+  "text.autoconfig.herbalbrews.option.items.banner.giveEffect": "Apply Effect When Placed:",
+  "text.autoconfig.herbalbrews.option.items.banner.showTooltip": "Show Tooltip:",
+  "text.autoconfig.herbalbrews.option.items.hat": "Hat Settings",
+  "text.autoconfig.herbalbrews.option.items.hat.damageReductionEnabled": "Damage Reduction Enabled:",
+  "text.autoconfig.herbalbrews.option.items.hat.damageReductionAmount": "Damage Reduction Amount:",
+  "text.autoconfig.herbalbrews.option.blocks": "Blocks",
+  "text.autoconfig.herbalbrews.option.blocks.dryingDuration": "Drying Duration in Ticks:",
+  "text.autoconfig.herbalbrews.option.blocks.brewingDuration.@PrefixText": "Note: Only affects Cauldron brewing. Tea Kettle Recipe Duration must be adjusted in the Recipe .json file.",
+  "text.autoconfig.herbalbrews.option.blocks.brewingDuration": "Brewing Duration in Ticks:"
 }
+

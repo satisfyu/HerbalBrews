@@ -15,6 +15,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.satisfy.herbalbrews.core.blocks.TeaLeafBlock;
 import net.satisfy.herbalbrews.core.registry.EntityTypeRegistry;
 import net.satisfy.herbalbrews.core.registry.ObjectRegistry;
+import net.satisfy.herbalbrews.platform.PlatformHelper; // Import hinzufügen
 
 public class TeaLeafBlockEntity extends BlockEntity implements BlockEntityTicker<TeaLeafBlockEntity> {
     private int timer = 0;
@@ -51,10 +52,11 @@ public class TeaLeafBlockEntity extends BlockEntity implements BlockEntityTicker
         if (level == null || level.isClientSide) {
             return;
         }
-        int randomTickSpeed = level.getGameRules().getInt(GameRules.RULE_RANDOMTICKING);
-        timer += randomTickSpeed;
 
-        if (timer >= 30 * 30) {
+        int dryingDuration = PlatformHelper.getDryingDuration();
+        timer++;
+
+        if (timer >= dryingDuration) {
             BlockState state = level.getBlockState(blockPos);
             int dryingStage = state.getValue(TeaLeafBlock.DRYING);
             if (dryingStage < 4) {

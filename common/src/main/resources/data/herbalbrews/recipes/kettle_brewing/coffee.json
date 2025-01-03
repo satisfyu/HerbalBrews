@@ -4,12 +4,12 @@
   "crafting_duration": 20,
   "fluid": [
     {
-      "amount": 50
+      "amount": 20
     }
   ],
   "heat_needed": [
     {
-      "amount": 25
+      "amount": 50
     }
   ],
   "ingredients": [
@@ -21,6 +21,8 @@
     }
   ],
   "result": {
-    "item": "herbalbrews:coffee"
+    "item": "herbalbrews:black_tea",
+    "effect": "herbalbrews:tough",
+    "effectduration": 1800
   }
 }

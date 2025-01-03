@@ -4,7 +4,7 @@
   "crafting_duration": 35,
   "fluid": [
     {
-      "amount": 25
+      "amount": 20
     }
   ],
   "heat_needed": [
@@ -21,6 +21,8 @@
     }
   ],
   "result": {
-    "item": "herbalbrews:oolong_tea"
+    "item": "herbalbrews:oolong_tea",
+    "effect": "herbalbrews:renewal",
+    "effectduration": 1800
   }
 }

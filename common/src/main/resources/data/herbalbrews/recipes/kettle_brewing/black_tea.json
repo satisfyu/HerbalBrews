@@ -24,8 +24,8 @@
   ],
   "result": {
     "item": "herbalbrews:black_tea",
-    "effect": "minecraft:night_vision",
-    "effectduration": 4334384
+    "effect": "herbalbrews:revitalizing",
+    "effectduration": 1800
   },
   "crafting_duration": 20
 }

@@ -47,6 +47,8 @@
   "block.herbalbrews.potted_wild_rooibos": "Topfpflanze Wilder Rooibos",
   "block.herbalbrews.potted_wild_yerba_mate": "Topfpflanze Wilde Yerba Mate",
   "block.herbalbrews.rooibos_plant": "Rooibos-Blatt",
+  "tooltip.herbalbrews.hat.damagetype": "[Magischer Schaden]",
+  "tooltip.herbalbrews.hat.damagereduction": "Wenn getragen: Verringert %s um 40%",
   "block.herbalbrews.tea_plant": "Tea Blossom",
   "block.herbalbrews.yerba_mate_plant": "Yerba Mate-Blatt",
   "effect.herbalbrews.excavation": "Ausgrabung",

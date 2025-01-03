@@ -13,4 +13,23 @@ public class PlatformHelper {
         throw new AssertionError();
     }
 
+    @ExpectPlatform
+    public static int getDryingDuration() {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static int getBrewingDuration() {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static boolean isHatDamageReductionEnabled() {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static int getHatDamageReductionAmount() {
+        throw new AssertionError();
+    }
 }

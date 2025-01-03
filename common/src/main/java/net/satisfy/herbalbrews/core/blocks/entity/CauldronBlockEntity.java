@@ -27,6 +27,7 @@ import net.satisfy.herbalbrews.client.gui.handler.CauldronGuiHandler;
 import net.satisfy.herbalbrews.core.registry.EntityTypeRegistry;
 import net.satisfy.herbalbrews.core.registry.ObjectRegistry;
 import net.satisfy.herbalbrews.core.world.ImplementedInventory;
+import net.satisfy.herbalbrews.platform.PlatformHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -42,7 +43,7 @@ public class CauldronBlockEntity extends BlockEntity implements ImplementedInven
     private static final int[] SLOTS_FOR_DOWN = new int[]{3};
     private NonNullList<ItemStack> inventory;
     private int brewingTime = 0;
-    private int totalBrewingTime = 1200;
+    private int totalBrewingTime;
     private final ContainerData propertyDelegate = new ContainerData() {
 
         @Override
@@ -93,14 +94,14 @@ public class CauldronBlockEntity extends BlockEntity implements ImplementedInven
         if (world.isClientSide) return;
         boolean dirty = false;
         if (canCraft()) {
-            this.brewingTime++;
-            if (this.brewingTime >= this.totalBrewingTime) {
-                this.brewingTime = 0;
+            brewingTime++;
+            if (brewingTime >= totalBrewingTime) {
+                brewingTime = 0;
                 craft(world);
                 dirty = true;
             }
         } else {
-            this.brewingTime = 0;
+            brewingTime = 0;
         }
         if (dirty) {
             setChanged();
@@ -191,7 +192,7 @@ public class CauldronBlockEntity extends BlockEntity implements ImplementedInven
         }
         if (slot < 3) {
             if (!dirty) {
-                this.totalBrewingTime = 1200;
+                this.totalBrewingTime = PlatformHelper.getBrewingDuration();
                 this.brewingTime = 0;
                 setChanged();
             }

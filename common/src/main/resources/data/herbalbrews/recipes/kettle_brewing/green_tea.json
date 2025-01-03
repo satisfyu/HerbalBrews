@@ -21,6 +21,8 @@
     }
   ],
   "result": {
-    "item": "herbalbrews:green_tea"
+    "item": "herbalbrews:green_tea",
+    "effect": "herbalbrews:balanced",
+    "effectduration": 1800
   }
 }

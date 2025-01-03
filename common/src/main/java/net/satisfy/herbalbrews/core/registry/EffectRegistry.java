@@ -17,15 +17,14 @@ public class EffectRegistry {
     private static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(HerbalBrews.MOD_ID, Registries.MOB_EFFECT);
     private static final Registrar<MobEffect> MOB_EFFECTS_REGISTRAR = MOB_EFFECTS.getRegistrar();
 
+    public static final RegistrySupplier<MobEffect> DEEPRUSH;
+    public static final RegistrySupplier<MobEffect> BONDING;
+    public static final RegistrySupplier<MobEffect> FORTUNE;
+
     public static final RegistrySupplier<MobEffect> BALANCED;
     public static final RegistrySupplier<MobEffect> FERAL;
-    public static final RegistrySupplier<MobEffect> ARMOR;
-    public static final RegistrySupplier<MobEffect> DAMAGE;
-    public static final RegistrySupplier<MobEffect> FORTUNE;
     public static final RegistrySupplier<MobEffect> EXCAVATION;
-    public static final RegistrySupplier<MobEffect> POISONOUSBREATH;
     public static final RegistrySupplier<MobEffect> RENEWAL;
-    public static final RegistrySupplier<MobEffect> REVITALIZING;
     public static final RegistrySupplier<MobEffect> TOUGH;
 
 
@@ -41,16 +40,17 @@ public class EffectRegistry {
     }
 
     static {
-        RENEWAL = registerEffect("renewal", RenewalEffect::new);
-        BALANCED = registerEffect("balanced", BalancedEffect::new);
+        //Updated Effects
+        DEEPRUSH = registerEffect("deeprush", DeeprushEffect::new);
+        BONDING = registerEffect("bonding", BondingEffect::new);
         FORTUNE = registerEffect("fortune", FortuneEffect::new);
+
+
+        RENEWAL = registerEffect("renewal", BondingEffect::new);
+        BALANCED = registerEffect("balanced", BalancedEffect::new);
         FERAL = registerEffect("feral", FeralEffect::new);
-        ARMOR = registerEffect("armor", ArmorEffect::new);
-        DAMAGE = registerEffect("damage", DamageEffect::new);
         EXCAVATION = registerEffect("excavation", ExcavationEffect::new);
         TOUGH = registerEffect("tough", ToughEffect::new);
-        REVITALIZING = registerEffect("revitalizing", RevitalizingEffect::new);
-        POISONOUSBREATH = registerEffect("poisonous", PoisonousbreathEffect::new);
     }
 }
 

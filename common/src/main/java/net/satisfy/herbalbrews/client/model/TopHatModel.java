@@ -11,7 +11,7 @@ import net.minecraft.world.entity.Entity;
 import net.satisfy.herbalbrews.core.util.HerbalBrewsIdentifier;
 
 public class TopHatModel<T extends Entity> extends EntityModel<T> implements HatModel {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new HerbalBrewsIdentifier("top_hat_helmet"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new HerbalBrewsIdentifier("top_hat"), "main");
     private final ModelPart topHat;
 
     public TopHatModel(ModelPart root) {
@@ -23,8 +23,12 @@ public class TopHatModel<T extends Entity> extends EntityModel<T> implements Hat
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
 
-        PartDefinition topHat = partdefinition.addOrReplaceChild("topHat", CubeListBuilder.create().texOffs(-15, 14).addBox(-7.5F, -6.0F, -7.5F, 15.0F, 0.0F, 15.0F, new CubeDeformation(0.0F))
-                .texOffs(0, 0).addBox(-4.5F, -11.0F, -4.5F, 9.0F, 5.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
+        PartDefinition topHat = partdefinition.addOrReplaceChild("topHat",
+                CubeListBuilder.create()
+                        .texOffs(-14, 16).addBox(-7.0F, -6.0F, -7.0F, 14.0F, 0.0F, 14.0F, new CubeDeformation(0.0F)) // Verschiebe um -6 Pixel
+                        .texOffs(0, 0).addBox(-4.0F, -14.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), // Verschiebe um -6 Pixel
+                PartPose.offset(0.0F, 0.0F, 0.0F)
+        );
 
         return LayerDefinition.create(meshdefinition, 48, 48);
     }
@@ -33,7 +37,7 @@ public class TopHatModel<T extends Entity> extends EntityModel<T> implements Hat
     @Override
     public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         poseStack.pushPose();
-        poseStack.scale(1F, 1F, 1F);
+        poseStack.scale(1.05F, 1.05F, 1.05F);
         topHat.render(poseStack, buffer, packedLight, packedOverlay);
         poseStack.popPose();
     }
