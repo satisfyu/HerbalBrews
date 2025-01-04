@@ -24,7 +24,7 @@ public class CauldronCategory implements DisplayCategory<CauldronDisplay> {
 
     @Override
     public Component getTitle() {
-        return Component.translatable("rei.herbalbrews.cauldron_category");
+        return ObjectRegistry.CAULDRON.get().getName();
     }
 
     @Override

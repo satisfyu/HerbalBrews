@@ -6,6 +6,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 
 import java.util.List;
 
@@ -18,23 +19,24 @@ public class DeeprushEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity entity, int amplifier) {
-        if (!(entity instanceof Player player)) {
-            return;
+        if (entity instanceof Player player && player.isAlive()) {
+            Level world = player.level();
+            List<Player> nearbyPlayers = world.getEntitiesOfClass(Player.class, player.getBoundingBox().inflate(RADIUS), this::isAffectedEntity);
+            int playerCount = nearbyPlayers.size() - 1;
+            if (playerCount < 0) playerCount = 0;
+            int finalAmplifier = calculateFinalAmplifier(player.getBlockY(), playerCount);
+            if (finalAmplifier > 0) {
+                nearbyPlayers.stream()
+                        .filter(p -> p.isAlive() && p != player && !p.isCreative())
+                        .forEach(p -> applyDigSpeedEffect(p, finalAmplifier));
+            }
         }
+    }
 
-        List<Player> players = player.level().getEntitiesOfClass(
-                Player.class,
-                player.getBoundingBox().inflate(RADIUS),
-                this::isAffectedEntity
-        );
-
-        int count = players.size();
-        if (count == 0) return;
-
-        int baseAmplifier = determineBaseAmplifierByYLevel(player.getBlockY());
-        int adjustedAmplifier = calculateAdjustedAmplifier(baseAmplifier, count);
-
-        players.forEach(p -> applyDigSpeedEffect(p, adjustedAmplifier));
+    private int calculateFinalAmplifier(int y, int playerCount) {
+        int baseAmplifier = determineBaseAmplifierByYLevel(y);
+        if (playerCount <= 0) return baseAmplifier;
+        return Math.max(0, baseAmplifier / playerCount);
     }
 
     private int determineBaseAmplifierByYLevel(int y) {
@@ -49,11 +51,6 @@ public class DeeprushEffect extends MobEffect {
         } else {
             return 4;
         }
-    }
-
-    private int calculateAdjustedAmplifier(int baseAmplifier, int playerCount) {
-        if (playerCount <= 0) return baseAmplifier;
-        return Math.max(0, baseAmplifier / playerCount);
     }
 
     private void applyDigSpeedEffect(Player player, int amplifier) {

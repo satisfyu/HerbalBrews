@@ -25,7 +25,7 @@
   ],
   "result": {
     "item": "herbalbrews:lavender_tea",
-    "effect": "herbalbrews:fortune",
+    "effect": "herbalbrews:feral",
     "effectduration": 1800
   }
 }

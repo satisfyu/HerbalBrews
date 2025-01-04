@@ -57,7 +57,7 @@ public class TeaKettleCategory implements IRecipeCategory<TeaKettleRecipe> {
         var kettleStack = new ItemStack(ObjectRegistry.TEA_KETTLE.get());
         this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, kettleStack);
         this.burnIcon = helper.createDrawable(texture, 176, 0, 14, 14);
-        this.title = Component.translatable("rei.herbalbrews.tea_kettle_category");
+        this.title = ObjectRegistry.TEA_KETTLE.get().getName();
     }
 
     @NotNull
@@ -153,6 +153,7 @@ public class TeaKettleCategory implements IRecipeCategory<TeaKettleRecipe> {
     }
 
     @Override
+    @SuppressWarnings("unused")
     public void draw(TeaKettleRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         arrow.draw(guiGraphics, ARROW_POS.x() - X_OFFSET, ARROW_POS.y() - Y_OFFSET);
         burnIcon.draw(guiGraphics, 152 - X_OFFSET, 62 - Y_OFFSET);

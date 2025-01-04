@@ -1,6 +1,7 @@
 package net.satisfy.herbalbrews.client.gui;
 
 import net.satisfy.herbalbrews.client.gui.handler.TeaKettleGuiHandler;
+import net.satisfy.herbalbrews.core.registry.ObjectRegistry;
 import net.satisfy.herbalbrews.core.util.HerbalBrewsIdentifier;
 import org.joml.Vector2i;
 import net.minecraft.client.gui.GuiGraphics;
@@ -33,8 +34,9 @@ public class TeaKettleGui extends AbstractContainerScreen<TeaKettleGuiHandler> {
     private static final int HEATING_SLOT_HEIGHT = 15;
     private final Vector2i screenPos = new Vector2i();
 
+    @SuppressWarnings("unused")
     public TeaKettleGui(TeaKettleGuiHandler handler, Inventory inventory, Component title) {
-        super(handler, inventory, title);
+        super(handler, inventory, ObjectRegistry.TEA_KETTLE.get().getName());
     }
 
     @Override

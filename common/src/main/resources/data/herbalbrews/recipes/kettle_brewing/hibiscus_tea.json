@@ -25,7 +25,7 @@
   ],
   "result": {
     "item": "herbalbrews:hibiscus_tea",
-    "effect": "herbalbrews:feral",
+    "effect": "herbalbrews:lifeleech",
     "effectduration": 1800
   }
 }

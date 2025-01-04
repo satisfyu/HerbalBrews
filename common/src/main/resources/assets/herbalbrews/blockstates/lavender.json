@@ -1,7 +1,18 @@
 {
   "variants": {
-    "": {
-      "model": "herbalbrews:block/lavender"
-    }
+    "": [
+      {
+        "model": "herbalbrews:block/lavender",
+        "weight": 1
+      },
+      {
+        "model": "herbalbrews:block/lavender_0",
+        "weight": 1
+      },
+      {
+        "model": "herbalbrews:block/lavender_1",
+        "weight": 1
+      }
+    ]
   }
 }

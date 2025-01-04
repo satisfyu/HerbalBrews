@@ -1,7 +1,30 @@
 {
   "variants": {
-    "": {
-      "model": "herbalbrews:block/hibiscus"
-    }
+    "": [
+      {
+        "model": "herbalbrews:block/hibiscus_0",
+        "weight": 1
+      },
+      {
+        "model": "herbalbrews:block/hibiscus_1",
+        "weight": 1
+      },
+      {
+        "model": "herbalbrews:block/hibiscus_2",
+        "weight": 1
+      },
+      {
+        "model": "herbalbrews:block/hibiscus_3",
+        "weight": 1
+      },
+      {
+        "model": "herbalbrews:block/hibiscus_4",
+        "weight": 1
+      },
+      {
+        "model": "herbalbrews:block/hibiscus_5",
+        "weight": 1
+      }
+    ]
   }
 }

@@ -26,7 +26,7 @@ public class TeaKettleCategory implements DisplayCategory<TeaKettleDisplay> {
 
     @Override
     public Component getTitle() {
-        return Component.translatable("rei.herbalbrews.tea_kettle_category");
+        return ObjectRegistry.TEA_KETTLE.get().getName();
     }
 
     @Override

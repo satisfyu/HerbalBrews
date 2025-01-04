@@ -22,8 +22,8 @@
   ],
   "result": {
     "item": "herbalbrews:rooibos_tea",
-    "effect": "herbalbrews:excavation",
-    "effectduration": 1800
+    "effect": "minecraft:regeneration",
+    "effectduration": 200
   }
 }
 

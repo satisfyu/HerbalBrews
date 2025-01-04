@@ -252,17 +252,24 @@ public class TeaKettleBlockEntity extends BlockEntity implements ImplementedInve
 
         TeaKettleRecipe recipe = world.getRecipeManager().getRecipeFor(RecipeTypeRegistry.TEA_KETTLE_RECIPE_TYPE.get(), this, world).orElse(null);
         boolean canCraft = canCraft(recipe);
+
         if (canCraft) {
-            this.cookingTime++;
-            if (this.cookingTime >= requiredDuration) {
-                this.cookingTime = 0;
-                craft(recipe);
+            if (requiredDuration <= 0) {
+                requiredDuration = recipe.getRequiredDuration();
+                cookingTime = 0;
+            } else {
+                cookingTime++;
+                if (cookingTime >= requiredDuration) {
+                    cookingTime = 0;
+                    craft(recipe);
+                }
             }
             world.setBlock(pos, state.setValue(TeaKettleBlock.COOKING, true).setValue(TeaKettleBlock.LIT, this.isBeingBurned), Block.UPDATE_ALL);
         } else {
             this.cookingTime = 0;
             world.setBlock(pos, state.setValue(TeaKettleBlock.COOKING, false), Block.UPDATE_ALL);
         }
+
         if (!getItem(WATER_SLOT).isEmpty()) {
             ItemStack waterItem = getItem(WATER_SLOT);
             if (waterItem.is(TagsRegistry.SMALL_WATER_FILL)) {
@@ -347,10 +354,6 @@ public class TeaKettleBlockEntity extends BlockEntity implements ImplementedInve
 
     @Override
     public boolean canTakeItemThroughFace(int index, ItemStack stack, Direction direction) {
-        if (direction == Direction.DOWN) {
-            return index == OUTPUT_SLOT || index == WATER_SLOT;
-        } else {
-            return index == OUTPUT_SLOT || index == WATER_SLOT;
-        }
+        return index == OUTPUT_SLOT || index == WATER_SLOT;
     }
 }

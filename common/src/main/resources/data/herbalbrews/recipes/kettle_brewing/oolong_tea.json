@@ -22,7 +22,7 @@
   ],
   "result": {
     "item": "herbalbrews:oolong_tea",
-    "effect": "herbalbrews:renewal",
+    "effect": "herbalbrews:fortune",
     "effectduration": 1800
   }
 }

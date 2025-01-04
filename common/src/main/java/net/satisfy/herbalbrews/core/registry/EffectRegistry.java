@@ -20,11 +20,9 @@ public class EffectRegistry {
     public static final RegistrySupplier<MobEffect> DEEPRUSH;
     public static final RegistrySupplier<MobEffect> BONDING;
     public static final RegistrySupplier<MobEffect> FORTUNE;
-
     public static final RegistrySupplier<MobEffect> BALANCED;
     public static final RegistrySupplier<MobEffect> FERAL;
-    public static final RegistrySupplier<MobEffect> EXCAVATION;
-    public static final RegistrySupplier<MobEffect> RENEWAL;
+    public static final RegistrySupplier<MobEffect> LIFELEECH;
     public static final RegistrySupplier<MobEffect> TOUGH;
 
 
@@ -40,16 +38,12 @@ public class EffectRegistry {
     }
 
     static {
-        //Updated Effects
         DEEPRUSH = registerEffect("deeprush", DeeprushEffect::new);
-        BONDING = registerEffect("bonding", BondingEffect::new);
         FORTUNE = registerEffect("fortune", FortuneEffect::new);
-
-
-        RENEWAL = registerEffect("renewal", BondingEffect::new);
         BALANCED = registerEffect("balanced", BalancedEffect::new);
+        LIFELEECH = registerEffect("lifeleech", LifeleechEffect::new);
+        BONDING = registerEffect("bonding", BondingEffect::new);
         FERAL = registerEffect("feral", FeralEffect::new);
-        EXCAVATION = registerEffect("excavation", ExcavationEffect::new);
         TOUGH = registerEffect("tough", ToughEffect::new);
     }
 }

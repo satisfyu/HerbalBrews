@@ -30,7 +30,7 @@ public class CauldronCategory implements IRecipeCategory<CauldronRecipe> {
         this.background = helper.createDrawable(texture, X_OFFSET, Y_OFFSET, BACKGROUND_WIDTH, BACKGROUND_HEIGHT);
         var cauldronStack = new ItemStack(ObjectRegistry.CAULDRON.get());
         this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, cauldronStack);
-        this.title = Component.translatable("rei.herbalbrews.cauldron_category");
+        this.title = ObjectRegistry.TEA_KETTLE.get().getName();
     }
 
     @NotNull
@@ -75,7 +75,7 @@ public class CauldronCategory implements IRecipeCategory<CauldronRecipe> {
                 .addItemStack(potion3);
 
         ItemStack outputFlask = new ItemStack(ObjectRegistry.FLASK.get());
-        outputFlask.getOrCreateTag().putString("Effect", "minecraft:regeneration"); 
+        outputFlask.getOrCreateTag().putString("Effect", "minecraft:regeneration");
         builder.addSlot(RecipeIngredientRole.OUTPUT, 79 - X_OFFSET, 58 - Y_OFFSET)
                 .addItemStack(outputFlask);
     }

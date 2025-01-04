@@ -14,15 +14,15 @@
   ],
   "ingredients": [
     {
-      "item": "herbalbrews:coffee_beans"
+      "item": "herbalbrews:coffee"
     },
     {
-      "item": "minecraft:glass_bottle"
+      "item": "minecraft:milk_bucket"
     }
   ],
   "result": {
-    "item": "herbalbrews:coffee",
+    "item": "herbalbrews:milk_coffee",
     "effect": "herbalbrews:deeprush",
-    "effectduration": 1800
+    "effectduration": 2600
   }
 }
