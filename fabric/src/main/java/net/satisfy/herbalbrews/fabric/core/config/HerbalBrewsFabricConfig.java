@@ -40,5 +40,6 @@ public class HerbalBrewsFabricConfig implements ConfigData {
         @ConfigEntry.Gui.PrefixText
         public int brewingDuration = 1200;
         public int dryingDuration = 900;
+        public int jugEffectDuration = 900;
     }
 }

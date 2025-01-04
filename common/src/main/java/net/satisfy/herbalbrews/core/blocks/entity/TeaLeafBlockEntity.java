@@ -15,7 +15,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.satisfy.herbalbrews.core.blocks.TeaLeafBlock;
 import net.satisfy.herbalbrews.core.registry.EntityTypeRegistry;
 import net.satisfy.herbalbrews.core.registry.ObjectRegistry;
-import net.satisfy.herbalbrews.platform.PlatformHelper; // Import hinzufügen
+import net.satisfy.herbalbrews.platform.PlatformHelper;
 
 public class TeaLeafBlockEntity extends BlockEntity implements BlockEntityTicker<TeaLeafBlockEntity> {
     private int timer = 0;

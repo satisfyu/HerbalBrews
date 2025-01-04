@@ -4,7 +4,6 @@ import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.food.Foods;
@@ -22,7 +21,6 @@ import net.satisfy.herbalbrews.core.util.HerbalBrewsUtil;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-@SuppressWarnings("unused")
 public class ObjectRegistry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(HerbalBrews.MOD_ID, Registries.ITEM);
     public static final Registrar<Item> ITEM_REGISTRAR = ITEMS.getRegistrar();
@@ -61,23 +59,23 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Item> DRIED_BLACK_TEA = registerItem("dried_black_tea", () -> new Item(getSettings().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.1f).fast().alwaysEat().build())));
     public static final RegistrySupplier<Item> DRIED_OOLONG_TEA = registerItem("dried_oolong_tea", () -> new Item(getSettings().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.1f).fast().alwaysEat().build())));
     public static final RegistrySupplier<Item> COFFEE_BEANS = registerItem("coffee_beans", () -> new BlockItem(COFFEE_PLANT.get(), getSettings().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.1f).fast().alwaysEat().build())));
-    public static final RegistrySupplier<Block> GREEN_TEA_BLOCK = registerTea("green_tea_block", () -> new TeaCupBlock(getTeaSettings()));
+    public static final RegistrySupplier<Block> GREEN_TEA_BLOCK = registerWithoutItem("green_tea_block", () -> new TeaCupBlock(getTeaSettings()));
+    public static final RegistrySupplier<Block> BLACK_TEA_BLOCK = registerWithoutItem("black_tea_block", () -> new TeaCupBlock(getTeaSettings()));
+    public static final RegistrySupplier<Block> LAVENDER_TEA_BLOCK = registerWithoutItem("lavender_tea_block", () -> new TeaCupBlock(getTeaSettings()));
+    public static final RegistrySupplier<Block> YERBA_MATE_TEA_BLOCK = registerWithoutItem("yerba_mate_tea_block", () -> new TeaCupBlock(getTeaSettings()));
+    public static final RegistrySupplier<Block> OOLONG_TEA_BLOCK = registerWithoutItem("oolong_tea_block", () -> new TeaCupBlock(getTeaSettings()));
+    public static final RegistrySupplier<Block> ROOIBOS_TEA_BLOCK = registerWithoutItem("rooibos_tea_block", () -> new TeaCupBlock(getTeaSettings()));
+    public static final RegistrySupplier<Block> HIBISCUS_TEA_BLOCK = registerWithoutItem("hibiscus_tea_block", () -> new TeaCupBlock(getTeaSettings()));
+    public static final RegistrySupplier<Block> MILK_COFFEE_BLOCK = registerWithoutItem("milk_coffee_block", () -> new TeaCupBlock(getTeaSettings()));
+    public static final RegistrySupplier<Block> COFFEE_BLOCK = registerWithoutItem("coffee_block", () -> new TeaCupBlock(getTeaSettings()));
     public static final RegistrySupplier<Item> GREEN_TEA = registerItem("green_tea", () -> new DrinkBlockItem(GREEN_TEA_BLOCK.get(), getSettings().food(new FoodProperties.Builder().nutrition(Foods.SWEET_BERRIES.getNutrition()).saturationMod(Foods.SWEET_BERRIES.getSaturationModifier()).alwaysEat().build())));
-    public static final RegistrySupplier<Block> BLACK_TEA_BLOCK = registerTea("black_tea_block", () -> new TeaCupBlock(getTeaSettings()));
     public static final RegistrySupplier<Item> BLACK_TEA = registerItem("black_tea", () -> new DrinkBlockItem(BLACK_TEA_BLOCK.get(), getSettings().food(new FoodProperties.Builder().nutrition(Foods.SWEET_BERRIES.getNutrition()).saturationMod(Foods.SWEET_BERRIES.getSaturationModifier()).alwaysEat().build())));
-    public static final RegistrySupplier<Block> LAVENDER_TEA_BLOCK = registerTea("lavender_tea_block", () -> new TeaCupBlock(getTeaSettings()));
     public static final RegistrySupplier<Item> LAVENDER_TEA = registerItem("lavender_tea", () -> new DrinkBlockItem(LAVENDER_TEA_BLOCK.get(), getSettings().food(new FoodProperties.Builder().nutrition(Foods.SWEET_BERRIES.getNutrition()).saturationMod(Foods.SWEET_BERRIES.getSaturationModifier()).alwaysEat().build())));
-    public static final RegistrySupplier<Block> YERBA_MATE_TEA_BLOCK = registerTea("yerba_mate_tea_block", () -> new TeaCupBlock(getTeaSettings()));
     public static final RegistrySupplier<Item> YERBA_MATE_TEA = registerItem("yerba_mate_tea", () -> new DrinkBlockItem(YERBA_MATE_TEA_BLOCK.get(), getSettings().food(new FoodProperties.Builder().nutrition(Foods.SWEET_BERRIES.getNutrition()).saturationMod(Foods.SWEET_BERRIES.getSaturationModifier()).alwaysEat().build())));
-    public static final RegistrySupplier<Block> OOLONG_TEA_BLOCK = registerTea("oolong_tea_block", () -> new TeaCupBlock(getTeaSettings()));
     public static final RegistrySupplier<Item> OOLONG_TEA = registerItem("oolong_tea", () -> new DrinkBlockItem(OOLONG_TEA_BLOCK.get(), getSettings().food(new FoodProperties.Builder().nutrition(Foods.SWEET_BERRIES.getNutrition()).saturationMod(Foods.SWEET_BERRIES.getSaturationModifier()).alwaysEat().build())));
-    public static final RegistrySupplier<Block> ROOIBOS_TEA_BLOCK = registerTea("rooibos_tea_block", () -> new TeaCupBlock(getTeaSettings()));
     public static final RegistrySupplier<Item> ROOIBOS_TEA = registerItem("rooibos_tea", () -> new DrinkBlockItem(ROOIBOS_TEA_BLOCK.get(), getSettings().food(new FoodProperties.Builder().nutrition(Foods.SWEET_BERRIES.getNutrition()).saturationMod(Foods.SWEET_BERRIES.getSaturationModifier()).alwaysEat().build())));
-    public static final RegistrySupplier<Block> HIBISCUS_TEA_BLOCK = registerTea("hibiscus_tea_block", () -> new TeaCupBlock(getTeaSettings()));
     public static final RegistrySupplier<Item> HIBISCUS_TEA = registerItem("hibiscus_tea", () -> new DrinkBlockItem(HIBISCUS_TEA_BLOCK.get(), getSettings().food(new FoodProperties.Builder().nutrition(Foods.SWEET_BERRIES.getNutrition()).saturationMod(Foods.SWEET_BERRIES.getSaturationModifier()).alwaysEat().build())));
-    public static final RegistrySupplier<Block> MILK_COFFEE_BLOCK = registerTea("milk_coffee_block", () -> new TeaCupBlock(getTeaSettings()));
     public static final RegistrySupplier<Item> MILK_COFFEE = registerItem("milk_coffee", () -> new DrinkBlockItem(MILK_COFFEE_BLOCK.get(), getSettings().food(new FoodProperties.Builder().nutrition(Foods.SWEET_BERRIES.getNutrition()).saturationMod(Foods.SWEET_BERRIES.getSaturationModifier()).alwaysEat().build())));
-    public static final RegistrySupplier<Block> COFFEE_BLOCK = registerTea("coffee_block", () -> new TeaCupBlock(getTeaSettings()));
     public static final RegistrySupplier<Item> COFFEE = registerItem("coffee", () -> new DrinkBlockItem(COFFEE_BLOCK.get(), getSettings().food(new FoodProperties.Builder().nutrition(Foods.SWEET_BERRIES.getNutrition()).saturationMod(Foods.SWEET_BERRIES.getSaturationModifier()).alwaysEat().build())));
     public static final RegistrySupplier<Item> WITCH_HAT = registerItem("witch_hat", () -> new HatItem(ArmorMaterials.LEATHER, ArmorItem.Type.HELMET, new Item.Properties().rarity(Rarity.EPIC), new HerbalBrewsIdentifier("textures/models/armor/witch_hat.png")));
     public static final RegistrySupplier<Item> TOP_HAT = registerItem("top_hat", () -> new HatItem(ArmorMaterials.LEATHER, ArmorItem.Type.HELMET, new Item.Properties().rarity(Rarity.EPIC), new HerbalBrewsIdentifier("textures/models/armor/top_hat.png")));
@@ -100,12 +98,6 @@ public class ObjectRegistry {
         return settings;
     }
 
-    private static Item.Properties getSettingsWithoutTab(Consumer<Item.Properties> consumer) {
-        Item.Properties settings = new Item.Properties();
-        consumer.accept(settings);
-        return settings;
-    }
-
     static Item.Properties getSettings() {
         return getSettings(settings -> {
         });
@@ -123,27 +115,7 @@ public class ObjectRegistry {
         return HerbalBrewsUtil.registerItem(ITEMS, ITEM_REGISTRAR, new HerbalBrewsIdentifier(path), itemSupplier);
     }
 
-    private static FoodProperties createFood(float saturationMod, MobEffect effect, int duration, boolean fast) {
-        FoodProperties.Builder food = new FoodProperties.Builder().nutrition(4).saturationMod(saturationMod);
-        food.alwaysEat();
-        if (fast) food.fast();
-        return food.build();
-    }
-
     private static BlockBehaviour.Properties getTeaSettings() {
         return BlockBehaviour.Properties.copy(Blocks.GLASS).noOcclusion().instabreak();
-    }
-
-    private static <T extends Block> RegistrySupplier<T> registerTea(String name, Supplier<T> block) {
-        RegistrySupplier<T> toReturn = registerWithoutItem(name, block);
-        registerItem(name, () -> new DrinkBlockItem(
-                toReturn.get(),
-                getSettings().food(new FoodProperties.Builder()
-                        .nutrition(Foods.SWEET_BERRIES.getNutrition())
-                        .saturationMod(Foods.SWEET_BERRIES.getSaturationModifier())
-                        .alwaysEat()
-                        .build())
-        ));
-        return toReturn;
     }
 }

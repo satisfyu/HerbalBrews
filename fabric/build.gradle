@@ -7,7 +7,7 @@ architectury {
     fabric()
 }
 
-def jarFileName = 'letsdo-herbalbrews-fabric'
+def jarFileName = 'letsdo-herbalbrews-fabric-alpha'
 
 archivesBaseName = jarFileName
 

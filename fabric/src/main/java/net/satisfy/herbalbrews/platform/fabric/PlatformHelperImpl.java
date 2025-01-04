@@ -34,4 +34,9 @@ public class PlatformHelperImpl extends PlatformHelper {
         HerbalBrewsFabricConfig config = AutoConfig.getConfigHolder(HerbalBrewsFabricConfig.class).getConfig();
         return config.items.hat.damageReductionAmount;
     }
+
+    public static int getJugEffectDuration() {
+        HerbalBrewsFabricConfig config = AutoConfig.getConfigHolder(HerbalBrewsFabricConfig.class).getConfig();
+        return config.blocks.jugEffectDuration;
+    }
 }

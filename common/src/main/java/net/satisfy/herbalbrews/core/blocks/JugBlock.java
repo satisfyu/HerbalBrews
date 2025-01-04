@@ -1,5 +1,3 @@
-// JugBlock.java
-
 package net.satisfy.herbalbrews.core.blocks;
 
 import net.minecraft.core.BlockPos;
@@ -31,6 +29,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.satisfy.herbalbrews.core.blocks.entity.JugBlockEntity;
 import net.satisfy.herbalbrews.core.items.DrinkBlockItem;
+import net.satisfy.herbalbrews.platform.PlatformHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -94,7 +93,8 @@ public class JugBlock extends Block implements EntityBlock {
             }
         } else {
             if (!jug.getDrinks().isEmpty()) {
-                jug.applyEffects(player, 45 * 20);
+                int duration = PlatformHelper.getJugEffectDuration();
+                jug.applyEffects(player, duration);
                 jug.clearDrinks();
                 world.setBlock(pos, state.setValue(FILL_STAGE, 0), 3);
                 world.playSound(null, pos, SoundEvents.HONEY_DRINK, SoundSource.BLOCKS, 1.0f, 1.0f);

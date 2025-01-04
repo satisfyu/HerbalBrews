@@ -32,4 +32,9 @@ public class PlatformHelper {
     public static int getHatDamageReductionAmount() {
         throw new AssertionError();
     }
+
+    @ExpectPlatform
+    public static int getJugEffectDuration() {
+        throw new AssertionError();
+    }
 }

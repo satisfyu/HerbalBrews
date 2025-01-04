@@ -1,11 +1,11 @@
 {
   "parent": "herbalbrews:main/place_cauldron",
   "criteria": {
-    "drink_flask": {
+    "flask": {
       "conditions": {
         "item": {
           "items": [
-            "herbalbrews:armor_flask"
+            "herbalbrews:flask"
           ]
         }
       },
@@ -15,21 +15,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "herbalbrews.advancement.drink_armor_flask.desc"
+      "translate": "herbalbrews.advancement.flask.desc"
     },
     "frame": "goal",
     "hidden": false,
     "icon": {
-      "item": "herbalbrews:armor_flask"
+      "item": "herbalbrews:flask"
     },
     "show_toast": true,
     "title": {
-      "translate": "herbalbrews.advancement.drink_armor_flask"
+      "translate": "herbalbrews.advancement.flask"
     }
   },
   "requirements": [
     [
-      "drink_flask"
+      "flask"
     ]
   ],
   "rewards": {

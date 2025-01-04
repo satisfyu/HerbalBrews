@@ -1,14 +1,14 @@
 {
-  "parent": "herbalbrews:main/find_tea_blossom",
+  "parent": "herbalbrews:main/root",
   "display": {
     "icon": {
-      "item": "herbalbrews:lavender"
+      "item": "herbalbrews:tea_blossom"
     },
     "title": {
-      "translate": "herbalbrews.advancement.find_lavender"
+      "translate": "herbalbrews.advancement.find_tea_blossom"
     },
     "description": {
-      "translate": "herbalbrews.advancement.find_lavender.desc"
+      "translate": "herbalbrews.advancement.find_tea_blossom.desc"
     },
     "frame": "task",
     "show_toast": true,
@@ -16,13 +16,13 @@
     "hidden": false
   },
   "criteria": {
-    "lavender": {
+    "tea_blossom": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "herbalbrews:lavender"
+              "herbalbrews:tea_blossom"
             ]
           }
         ]
@@ -31,7 +31,7 @@
   },
   "requirements": [
     [
-      "lavender"
+      "tea_blossom"
     ]
   ]
 }
