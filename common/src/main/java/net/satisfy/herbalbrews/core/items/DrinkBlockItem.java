@@ -3,8 +3,13 @@ package net.satisfy.herbalbrews.core.items;
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffectUtil;
@@ -21,14 +26,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Map;
+import java.util.UUID;
 
 public class DrinkBlockItem extends BlockItem {
-    private final MobEffectInstance customEffect;
 
-    public DrinkBlockItem(Block block, Properties settings, MobEffectInstance customEffect) {
+    public DrinkBlockItem(Block block, Properties settings) {
         super(block, settings.stacksTo(16));
-        this.customEffect = customEffect;
     }
 
     @Override
@@ -38,94 +41,84 @@ public class DrinkBlockItem extends BlockItem {
 
     @Override
     public @NotNull ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity user) {
-        if (this.getFoodProperties() != null) {
-            for (Pair<MobEffectInstance, Float> effectPair : this.getFoodProperties().getEffects()) {
-                if (world.random.nextFloat() < effectPair.getSecond()) {
-                    user.addEffect(new MobEffectInstance(effectPair.getFirst()));
-                }
+        CompoundTag tag = stack.getTag();
+        if (tag != null && tag.contains("Effect") && tag.contains("EffectDuration")) {
+            ResourceLocation effectId = new ResourceLocation(tag.getString("Effect"));
+            MobEffect effect = BuiltInRegistries.MOB_EFFECT.get(effectId);
+            int duration = tag.getInt("EffectDuration");
+            if (effect != null) {
+                user.addEffect(new MobEffectInstance(effect, duration));
             }
         }
-        if (customEffect != null) {
-            user.addEffect(new MobEffectInstance(customEffect));
+        List<Pair<MobEffectInstance, Float>> effects = getFoodProperties() != null ? getFoodProperties().getEffects() : Lists.newArrayList();
+        for (Pair<MobEffectInstance, Float> effectPair : effects) {
+            if (world.random.nextFloat() < effectPair.getSecond()) {
+                user.addEffect(new MobEffectInstance(effectPair.getFirst()));
+            }
         }
         return super.finishUsingItem(stack, world, user);
     }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag context) {
-        List<Pair<MobEffectInstance, Float>> list2 = getFoodProperties() != null ? getFoodProperties().getEffects() : Lists.newArrayList();
-        List<Pair<Attribute, AttributeModifier>> list3 = Lists.newArrayList();
-
-        if (list2.isEmpty() && customEffect == null) {
-            tooltip.add(Component.translatable("effect.none").withStyle(ChatFormatting.GRAY));
-        } else {
-            if (customEffect != null) {
-                addEffectToTooltip(customEffect, tooltip, list3);
+        CompoundTag tag = stack.getTag();
+        if (tag != null && tag.contains("Effect") && tag.contains("EffectDuration")) {
+            ResourceLocation effectId = new ResourceLocation(tag.getString("Effect"));
+            MobEffect effect = BuiltInRegistries.MOB_EFFECT.get(effectId);
+            int duration = tag.getInt("EffectDuration");
+            if (effect != null) {
+                MobEffectInstance effectInstance = new MobEffectInstance(effect, duration);
+                MutableComponent effectName = Component.translatable(effect.getDescriptionId());
+                if (effectInstance.getDuration() > 20) {
+                    effectName = Component.translatable("potion.withDuration", effectName, MobEffectUtil.formatDuration(effectInstance, 1.0f));
+                }
+                tooltip.add(effectName.withStyle(effect.getCategory().getTooltipFormatting()));
             }
-            for (Pair<MobEffectInstance, Float> statusEffectInstance : list2) {
-                addEffectToTooltip(statusEffectInstance.getFirst(), tooltip, list3);
+        } else {
+            tooltip.add(Component.translatable("effect.none").withStyle(ChatFormatting.GRAY));
+        }
+
+        List<Pair<Attribute, AttributeModifier>> attributeModifiers = Lists.newArrayList();
+        if (tag != null && tag.contains("AttributeModifiers")) {
+            ListTag modifiers = tag.getList("AttributeModifiers", 10);
+            for (int i = 0; i < modifiers.size(); i++) {
+                CompoundTag modifierTag = modifiers.getCompound(i);
+                String attributeName = modifierTag.getString("AttributeName");
+                Attribute attribute = BuiltInRegistries.ATTRIBUTE.get(new ResourceLocation(attributeName));
+                if (attribute != null) {
+                    AttributeModifier.Operation operation = AttributeModifier.Operation.values()[modifierTag.getByte("Operation")];
+                    double amount = modifierTag.getDouble("Amount");
+                    UUID uuid = UUID.fromString(modifierTag.getString("UUID"));
+                    AttributeModifier modifier = new AttributeModifier(uuid, modifierTag.getString("Name"), amount, operation);
+                    attributeModifiers.add(new Pair<>(attribute, modifier));
+                }
             }
         }
 
-        if (!list3.isEmpty()) {
+        if (!attributeModifiers.isEmpty()) {
             tooltip.add(Component.empty());
             tooltip.add(Component.translatable("potion.whenDrank").withStyle(ChatFormatting.DARK_PURPLE));
-
-            for (Pair<Attribute, AttributeModifier> pair : list3) {
-                AttributeModifier entityAttributeModifier3 = pair.getSecond();
-                double d = entityAttributeModifier3.getAmount();
-                double e;
-                if (entityAttributeModifier3.getOperation() != AttributeModifier.Operation.MULTIPLY_BASE && entityAttributeModifier3.getOperation() != AttributeModifier.Operation.MULTIPLY_TOTAL) {
-                    e = entityAttributeModifier3.getAmount();
-                } else {
-                    e = entityAttributeModifier3.getAmount() * 100.0;
-                }
-
-                if (d > 0.0) {
-                    tooltip.add(
-                            Component.translatable(
-                                            "attribute.modifier.plus." + entityAttributeModifier3.getOperation().toValue(),
-                                            ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(e), Component.translatable(pair.getFirst().getDescriptionId()))
-                                    .withStyle(ChatFormatting.BLUE)
-                    );
-                } else if (d < 0.0) {
-                    e *= -1.0;
-                    tooltip.add(
-                            Component.translatable(
-                                            "attribute.modifier.take." + entityAttributeModifier3.getOperation().toValue(),
-                                            ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(e), Component.translatable(pair.getFirst().getDescriptionId()))
-                                    .withStyle(ChatFormatting.RED)
-                    );
+            for (Pair<Attribute, AttributeModifier> pair : attributeModifiers) {
+                AttributeModifier modifier = pair.getSecond();
+                double amount = modifier.getAmount();
+                double displayAmount = (modifier.getOperation() == AttributeModifier.Operation.MULTIPLY_BASE || modifier.getOperation() == AttributeModifier.Operation.MULTIPLY_TOTAL)
+                        ? amount * 100.0
+                        : amount;
+                if (amount > 0.0) {
+                    tooltip.add(Component.translatable(
+                                    "attribute.modifier.plus." + modifier.getOperation().toValue(),
+                                    ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(displayAmount),
+                                    Component.translatable(pair.getFirst().getDescriptionId()))
+                            .withStyle(ChatFormatting.BLUE));
+                } else if (amount < 0.0) {
+                    tooltip.add(Component.translatable(
+                                    "attribute.modifier.take." + modifier.getOperation().toValue(),
+                                    ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(-displayAmount),
+                                    Component.translatable(pair.getFirst().getDescriptionId()))
+                            .withStyle(ChatFormatting.RED));
                 }
             }
         }
-        tooltip.add(Component.translatable("tooltip.herbalbrews.canbeplaced").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
-    }
-
-    private void addEffectToTooltip(MobEffectInstance effectInstance, List<Component> tooltip, List<Pair<Attribute, AttributeModifier>> attributeModifiers) {
-        MutableComponent mutableText = Component.translatable(effectInstance.getDescriptionId());
-        MobEffect statusEffect = effectInstance.getEffect();
-        Map<Attribute, AttributeModifier> map = statusEffect.getAttributeModifiers();
-
-        if (!map.isEmpty()) {
-            for (Map.Entry<Attribute, AttributeModifier> entry : map.entrySet()) {
-                AttributeModifier entityAttributeModifier = entry.getValue();
-                AttributeModifier entityAttributeModifier2 = new AttributeModifier(
-                        entityAttributeModifier.getName(),
-                        statusEffect.getAttributeModifierValue(effectInstance.getAmplifier(), entityAttributeModifier),
-                        entityAttributeModifier.getOperation()
-                );
-                attributeModifiers.add(new Pair<>(entry.getKey(), entityAttributeModifier2));
-            }
-        }
-
-        if (effectInstance.getDuration() > 20) {
-            mutableText = Component.translatable(
-                    "potion.withDuration",
-                    mutableText, MobEffectUtil.formatDuration(effectInstance, 1.0f)
-            );
-        }
-
-        tooltip.add(mutableText.withStyle(statusEffect.getCategory().getTooltipFormatting()));
+        tooltip.add(Component.translatable("tooltip.herbalbrews.canbeplaced").withStyle(style -> style.withColor(TextColor.fromRgb(0xCD7F32)).withItalic(true)));
     }
 }

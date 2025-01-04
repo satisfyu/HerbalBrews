@@ -13,12 +13,12 @@ public class SoundEventRegistry {
 
     private static final Registrar<SoundEvent> SOUND_EVENTS = DeferredRegister.create(HerbalBrews.MOD_ID, Registries.SOUND_EVENT).getRegistrar();
 
-    public static final RegistrySupplier<SoundEvent> TEA_KETTLE_BOILING = create("tea_kettle_boiling");
+    public static final RegistrySupplier<SoundEvent> TEA_KETTLE_BOILING = create();
 
     public static void init() {}
 
-    private static RegistrySupplier<SoundEvent> create(String name) {
-        ResourceLocation id = new HerbalBrewsIdentifier(name);
+    private static RegistrySupplier<SoundEvent> create() {
+        ResourceLocation id = new HerbalBrewsIdentifier("tea_kettle_boiling");
         return SOUND_EVENTS.register(id, () -> SoundEvent.createVariableRangeEvent(id));
     }
 }

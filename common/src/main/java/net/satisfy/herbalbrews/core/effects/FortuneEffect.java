@@ -3,17 +3,18 @@ package net.satisfy.herbalbrews.core.effects;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 public class FortuneEffect extends MobEffect {
     private static final UUID FORTUNE_EFFECT_UUID = UUID.fromString("d699bf1f-74a3-4b1d-a5f2-ccaa49d6d873");
+    private static final String MODIFIER_NAME = "Fortune Effect";
 
     public FortuneEffect() {
         super(MobEffectCategory.BENEFICIAL, 0x00FF00);
@@ -30,9 +31,24 @@ public class FortuneEffect extends MobEffect {
             int finalAmplifier = calculateFinalAmplifier(playerCount);
             if (finalAmplifier > 0) {
                 double fortuneModifierValue = 1.0 * (finalAmplifier + 1);
-                AttributeModifier fortuneModifier = new AttributeModifier(FORTUNE_EFFECT_UUID, "Fortune Effect", fortuneModifierValue, AttributeModifier.Operation.ADDITION);
-                if (player.getAttribute(Attributes.LUCK) != null) {
-                    Objects.requireNonNull(player.getAttribute(Attributes.LUCK)).addPermanentModifier(fortuneModifier);
+                AttributeInstance luckAttr = player.getAttribute(Attributes.LUCK);
+                if (luckAttr != null) {
+                    AttributeModifier existingModifier = luckAttr.getModifier(FORTUNE_EFFECT_UUID);
+                    if (existingModifier != null) {
+                        if (existingModifier.getAmount() != fortuneModifierValue) {
+                            luckAttr.removeModifier(FORTUNE_EFFECT_UUID);
+                            AttributeModifier fortuneModifier = new AttributeModifier(FORTUNE_EFFECT_UUID, MODIFIER_NAME, fortuneModifierValue, AttributeModifier.Operation.ADDITION);
+                            luckAttr.addPermanentModifier(fortuneModifier);
+                        }
+                    } else {
+                        AttributeModifier fortuneModifier = new AttributeModifier(FORTUNE_EFFECT_UUID, MODIFIER_NAME, fortuneModifierValue, AttributeModifier.Operation.ADDITION);
+                        luckAttr.addPermanentModifier(fortuneModifier);
+                    }
+                }
+            } else {
+                AttributeInstance luckAttr = player.getAttribute(Attributes.LUCK);
+                if (luckAttr != null) {
+                    luckAttr.removeModifier(FORTUNE_EFFECT_UUID);
                 }
             }
         }

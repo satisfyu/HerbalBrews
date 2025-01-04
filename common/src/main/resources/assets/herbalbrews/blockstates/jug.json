@@ -1,19 +1,64 @@
 {
   "variants": {
-    "facing=east": [
-      { "model": "herbalbrews:block/jug", "weight":1, "y": 90}
-
-    ],
-    "facing=north": [
-      { "model": "herbalbrews:block/jug", "weight":1 }
-
-    ],
-    "facing=south": [
-      { "model": "herbalbrews:block/jug", "weight":1, "y": 180}
-
-    ],
-    "facing=west": [
-      { "model": "herbalbrews:block/jug", "weight":1, "y": 270}
-    ]
+    "facing=east,fill_stage=0": {
+      "model": "herbalbrews:block/jug_0",
+      "y": 90
+    },
+    "facing=east,fill_stage=1": {
+      "model": "herbalbrews:block/jug_1",
+      "y": 90
+    },
+    "facing=east,fill_stage=2": {
+      "model": "herbalbrews:block/jug_2",
+      "y": 90
+    },
+    "facing=east,fill_stage=3": {
+      "model": "herbalbrews:block/jug_3",
+      "y": 90
+    },
+    "facing=north,fill_stage=0": {
+      "model": "herbalbrews:block/jug_0"
+    },
+    "facing=north,fill_stage=1": {
+      "model": "herbalbrews:block/jug_1"
+    },
+    "facing=north,fill_stage=2": {
+      "model": "herbalbrews:block/jug_2"
+    },
+    "facing=north,fill_stage=3": {
+      "model": "herbalbrews:block/jug_3"
+    },
+    "facing=south,fill_stage=0": {
+      "model": "herbalbrews:block/jug_0",
+      "y": 180
+    },
+    "facing=south,fill_stage=1": {
+      "model": "herbalbrews:block/jug_1",
+      "y": 180
+    },
+    "facing=south,fill_stage=2": {
+      "model": "herbalbrews:block/jug_2",
+      "y": 180
+    },
+    "facing=south,fill_stage=3": {
+      "model": "herbalbrews:block/jug_3",
+      "y": 180
+    },
+    "facing=west,fill_stage=0": {
+      "model": "herbalbrews:block/jug_0",
+      "y": 270
+    },
+    "facing=west,fill_stage=1": {
+      "model": "herbalbrews:block/jug_1",
+      "y": 270
+    },
+    "facing=west,fill_stage=2": {
+      "model": "herbalbrews:block/jug_2",
+      "y": 270
+    },
+    "facing=west,fill_stage=3": {
+      "model": "herbalbrews:block/jug_3",
+      "y": 270
+    }
   }
 }

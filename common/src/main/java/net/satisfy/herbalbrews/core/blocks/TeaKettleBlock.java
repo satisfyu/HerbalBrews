@@ -1,6 +1,5 @@
 package net.satisfy.herbalbrews.core.blocks;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -8,6 +7,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -190,6 +190,6 @@ public class TeaKettleBlock extends BaseEntityBlock {
 
     @Override
     public void appendHoverText(ItemStack itemStack, BlockGetter world, List<Component> tooltip, TooltipFlag tooltipContext) {
-        tooltip.add(Component.translatable("tooltip.herbalbrews.canbeplaced").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("tooltip.herbalbrews.canbeplaced").withStyle(style -> style.withColor(TextColor.fromRgb(0xCD7F32)).withItalic(true)));
     }
 }

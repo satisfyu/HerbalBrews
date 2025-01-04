@@ -19,6 +19,7 @@ public class EntityTypeRegistry {
     public static final RegistrySupplier<BlockEntityType<TeaLeafBlockEntity>> TEA_LEAF_BLOCK_ENTITY = registerBlockEntity("tea_leaf", () -> BlockEntityType.Builder.of(TeaLeafBlockEntity::new, ObjectRegistry.GREEN_TEA_LEAF_BLOCK.get(), ObjectRegistry.MIXED_TEA_LEAF_BLOCK.get(), ObjectRegistry.DRIED_GREEN_TEA_LEAF_BLOCK.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<CompletionistBannerEntity>> HERBALBREWS_BANNER = registerBlockEntity("herbalbrews_banner", () -> BlockEntityType.Builder.of(CompletionistBannerEntity::new, ObjectRegistry.HERBALBREWS_BANNER.get(), ObjectRegistry.HERBALBREWS_WALL_BANNER.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<StoveBlockEntity>> STOVE_BLOCK_ENTITY = registerBlockEntity("stove_block_entity", () -> BlockEntityType.Builder.of(StoveBlockEntity::new, ObjectRegistry.STOVE.get()).build(null));
+    public static final RegistrySupplier<BlockEntityType<JugBlockEntity>> JUG_BLOCK_ENTITY = registerBlockEntity("jug_block_entity", () -> BlockEntityType.Builder.of(JugBlockEntity::new, ObjectRegistry.JUG.get()).build(null));
 
     private static <T extends BlockEntityType<?>> RegistrySupplier<T> registerBlockEntity(String name, final Supplier<T> type) {
         return BLOCK_ENTITY_TYPES.register(new HerbalBrewsIdentifier(name), type);

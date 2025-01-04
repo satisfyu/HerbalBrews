@@ -1,38 +1,56 @@
+// JugBlock.java
+
 package net.satisfy.herbalbrews.core.blocks;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.satisfy.herbalbrews.core.blocks.entity.JugBlockEntity;
+import net.satisfy.herbalbrews.core.items.DrinkBlockItem;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 @SuppressWarnings("deprecation")
-public class JugBlock extends Block {
-    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
+public class JugBlock extends Block implements EntityBlock {
+    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final IntegerProperty FILL_STAGE = IntegerProperty.create("fill_stage", 0, 3);
     private static final VoxelShape SHAPE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.875, 0.8125);
 
     public JugBlock(Properties settings) {
         super(settings);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any()
+                .setValue(FACING, Direction.NORTH)
+                .setValue(FILL_STAGE, 0));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
+        builder.add(FACING, FILL_STAGE);
     }
 
     @Override
@@ -42,11 +60,67 @@ public class JugBlock extends Block {
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
+        return this.defaultBlockState()
+                .setValue(FACING, ctx.getHorizontalDirection().getOpposite())
+                .setValue(FILL_STAGE, 0);
+    }
+
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new JugBlockEntity(pos, state);
+    }
+
+    @Override
+    public @NotNull InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (world.isClientSide) {
+            return InteractionResult.SUCCESS;
+        }
+        ItemStack heldItem = player.getItemInHand(hand);
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (!(blockEntity instanceof JugBlockEntity jug)) {
+            return InteractionResult.PASS;
+        }
+
+        if (heldItem.getItem() instanceof DrinkBlockItem) {
+            if (jug.getDrinks().size() < 3) {
+                jug.addDrink(heldItem);
+                heldItem.shrink(1);
+                int fillStage = jug.getDrinks().size();
+                world.setBlock(pos, state.setValue(FILL_STAGE, fillStage), 3);
+                world.playSound(null, pos, SoundEvents.BOTTLE_FILL, SoundSource.BLOCKS, 1.0f, 1.0f);
+                return InteractionResult.SUCCESS;
+            } else {
+                return InteractionResult.FAIL;
+            }
+        } else {
+            if (!jug.getDrinks().isEmpty()) {
+                jug.applyEffects(player, 45 * 20);
+                jug.clearDrinks();
+                world.setBlock(pos, state.setValue(FILL_STAGE, 0), 3);
+                world.playSound(null, pos, SoundEvents.HONEY_DRINK, SoundSource.BLOCKS, 1.0f, 1.0f);
+                return InteractionResult.SUCCESS;
+            } else {
+                return InteractionResult.FAIL;
+            }
+        }
     }
 
     @Override
     public void appendHoverText(ItemStack itemStack, BlockGetter world, List<Component> tooltip, TooltipFlag tooltipContext) {
-        tooltip.add(Component.translatable("tooltip.herbalbrews.canbeplaced").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("tooltip.herbalbrews.canbeplaced")
+                .withStyle(style -> style.withColor(TextColor.fromRgb(0xCD7F32)).withItalic(true)));
+    }
+
+    @Override
+    public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (!state.is(newState.getBlock())) {
+            BlockEntity blockEntity = world.getBlockEntity(pos);
+            if (blockEntity instanceof JugBlockEntity jug) {
+                for (ItemStack drink : jug.getDrinks()) {
+                    Containers.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), drink);
+                }
+            }
+            super.onRemove(state, world, pos, newState, isMoving);
+        }
     }
 }
