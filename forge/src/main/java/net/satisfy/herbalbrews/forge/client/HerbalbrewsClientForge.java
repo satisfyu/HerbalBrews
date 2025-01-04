@@ -11,12 +11,12 @@ import net.satisfy.herbalbrews.client.HerbalbrewsClient;
 @Mod.EventBusSubscriber(modid = HerbalBrews.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class HerbalbrewsClientForge {
     @SubscribeEvent
-    public static void beforeClientSetup(RegisterEvent event) {
+    public static void onClientSetup(RegisterEvent event) {
         HerbalbrewsClient.preInitClient();
     }
 
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
-        HerbalbrewsClient.initClient();
+        HerbalbrewsClient.onInitializeClient();
     }
 }

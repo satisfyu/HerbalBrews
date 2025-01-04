@@ -3,13 +3,16 @@
   "id": "herbalbrews",
   "version": "${version}",
   "name": "[Let's Do] HerbalBrews",
-  "description": "New Flowers, new crafting Stations, Tea",
+  "description": "Brew your bliss – discover new flowers, craft unique stations, and master the art of tea-making.",
   "authors": [
     "satisfy"
   ],
+  "contributors": [
+    "MissLilitu"
+  ],
   "contact": {
     "sources": "https://github.com/satisfyu/HerbalBrews",
-    "homepage": "https://legacy.curseforge.com/minecraft/mc-mods/lets-do-herbal-brews"
+    "issues": "https://github.com/satisfyu/Let-s-Do-Hub"
   },
   "license": "Custom",
   "icon": "pack.png",

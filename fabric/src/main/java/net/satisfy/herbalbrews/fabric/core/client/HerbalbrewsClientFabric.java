@@ -9,7 +9,7 @@ public class HerbalbrewsClientFabric implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         HerbalbrewsClient.preInitClient();
-        HerbalbrewsClient.initClient();
+        HerbalbrewsClient.onInitializeClient();
 
         ArmorRenderer.register(new HatArmorRenderer(), ObjectRegistry.TOP_HAT.get(), ObjectRegistry.WITCH_HAT.get());
     }

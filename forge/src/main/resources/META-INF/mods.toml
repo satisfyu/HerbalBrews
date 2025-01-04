@@ -1,14 +1,19 @@
 modLoader = "javafml"
 loaderVersion = "[47,)"
+source = "https://github.com/satisfyu/HerbalBrews"
+issueTrackerURL = "https://github.com/satisfyu/Let-s-Do-Hub"
 license = "Custom"
 
 [[mods]]
 modId = "herbalbrews"
+
 version = "${version}"
 displayName = "[Let's Do] HerbalBrews"
+
+credits = "MissLilitu"
 authors = "satisfy"
 description = '''
-New Flowers, new crafting Stations, Tea
+Brew your bliss – discover new flowers, craft unique stations, and master the art of tea-making.
 '''
 logoFile = "pack.png"
 

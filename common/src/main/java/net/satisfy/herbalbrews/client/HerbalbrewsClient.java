@@ -18,7 +18,7 @@ import net.satisfy.herbalbrews.core.registry.ScreenHandlerTypeRegistry;
 
 @Environment(EnvType.CLIENT)
 public class HerbalbrewsClient {
-    public static void initClient() {
+    public static void onInitializeClient() {
         RenderTypeRegistry.register(RenderType.cutout(),
                 ObjectRegistry.LAVENDER.get(), ObjectRegistry.WILD_COFFEE_PLANT.get(),
                 ObjectRegistry.WILD_ROOIBOS_PLANT.get(), ObjectRegistry.WILD_YERBA_MATE_PLANT.get(), ObjectRegistry.HIBISCUS.get(),
@@ -33,16 +33,12 @@ public class HerbalbrewsClient {
         MenuRegistry.registerScreenFactory(ScreenHandlerTypeRegistry.TEA_KETTLE_SCREEN_HANDLER.get(), TeaKettleGui::new);
         MenuRegistry.registerScreenFactory(ScreenHandlerTypeRegistry.CAULDRON_SCREEN_HANDLER.get(), CauldronGui::new);
         BlockEntityRendererRegistry.register(EntityTypeRegistry.HERBALBREWS_BANNER.get(), CompletionistBannerRenderer::new);
-        EntityModelLayerRegistry.register(CompletionistBannerRenderer.LAYER_LOCATION, CompletionistBannerRenderer::createBodyLayer);
-    }
-    
-    public static void preInitClient() {
-        registerEntityModelLayer();
     }
 
-    public static void registerEntityModelLayer() {
+    public static void preInitClient() {
         EntityModelLayerRegistry.register(TopHatModel.LAYER_LOCATION, TopHatModel::createBodyLayer);
         EntityModelLayerRegistry.register(WitchHatModel.LAYER_LOCATION, WitchHatModel::createBodyLayer);
+        EntityModelLayerRegistry.register(CompletionistBannerRenderer.LAYER_LOCATION, CompletionistBannerRenderer::createBodyLayer);
     }
 }
 

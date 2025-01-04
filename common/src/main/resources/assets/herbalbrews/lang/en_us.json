@@ -57,14 +57,11 @@
   "herbalbrews.advancement.find_lavender.desc": "Seek out the soothing scent of lavender in the cool embrace of the mountains.",
   "herbalbrews.advancement.stove": "A Warm Start",
   "herbalbrews.advancement.stove.desc": "Prepare the perfect heat for your brewing adventures with a Stove.",
-
   "herbalbrews.advancement.root": "Welcome to HerbalBrews!",
   "herbalbrews.advancement.root.desc": "Thank you for downloading HerbalBrews",
-
   "herbalbrews.advancement.craft_everything": "A Hug in a Cup",
   "herbalbrews.advancement.tea_kettle": "Tea Time",
   "herbalbrews.advancement.witching_time": "Witching Time",
-
   "herbalbrews.advancement.craft_everything.desc": "Savor the joy of brewing by crafting every tea and coffee blend—become the ultimate brewer!",
   "herbalbrews.advancement.tea_kettle.desc": "Set the stage for the perfect brew with a Tea Kettle.",
   "herbalbrews.advancement.witching_time.desc": "Channel your inner witch by finding or crafting a Witch Hat.",
@@ -91,6 +88,7 @@
   "text.autoconfig.herbalbrews.option.blocks.brewingDuration": "Brewing Duration in Ticks:",
   "text.autoconfig.herbalbrews.option.blocks.brewingDuration.@PrefixText": "Note: Only affects Cauldron brewing. Tea Kettle Recipe Duration must be adjusted in the Recipe .json file.",
   "text.autoconfig.herbalbrews.option.blocks.dryingDuration": "Drying Duration in Ticks:",
+  "text.autoconfig.herbalbrews.option.blocks.jugEffectDuration": "Jug Effect Duration:",
   "text.autoconfig.herbalbrews.option.items": "Items",
   "text.autoconfig.herbalbrews.option.items.banner": "Completionist Banner Settings",
   "text.autoconfig.herbalbrews.option.items.banner.giveEffect": "Apply Effect When Placed:",
@@ -98,6 +96,7 @@
   "text.autoconfig.herbalbrews.option.items.hat": "Hat Settings",
   "text.autoconfig.herbalbrews.option.items.hat.damageReductionAmount": "Damage Reduction Amount:",
   "text.autoconfig.herbalbrews.option.items.hat.damageReductionEnabled": "Damage Reduction Enabled:",
+  "text.autoconfig.herbalbrews.title": "HerbalBrews",
   "tooltip.herbalbrews.banner.thankyou_1": "A reward for crafting all Tea Variants",
   "tooltip.herbalbrews.banner.thankyou_2": "When placed:",
   "tooltip.herbalbrews.banner.thankyou_3": "Thank you for playing Herbal Brews!",

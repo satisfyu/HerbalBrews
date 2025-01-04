@@ -15,6 +15,7 @@ public class HerbalBrewsForgeConfig {
     public static final ForgeConfigSpec.BooleanValue ITEMS_BANNER_SHOW_TOOLTIP;
     public static final ForgeConfigSpec.BooleanValue ITEMS_HAT_DAMAGE_REDUCTION_ENABLED;
     public static final ForgeConfigSpec.IntValue ITEMS_HAT_DAMAGE_REDUCTION_AMOUNT;
+    
     public static final ForgeConfigSpec.IntValue BLOCKS_DRYING_DURATION;
     public static final ForgeConfigSpec.IntValue BLOCKS_BREWING_DURATION;
     public static final ForgeConfigSpec.IntValue BLOCKS_JUG_EFFECT_DURATION;
@@ -22,7 +23,9 @@ public class HerbalBrewsForgeConfig {
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
 
-        builder.push("items.banner");
+        builder.push("items");
+
+        builder.push("banner");
         ITEMS_BANNER_GIVE_EFFECT = builder
                 .comment("Enable or disable the effect granted by banners.")
                 .define("giveEffect", true);
@@ -31,7 +34,7 @@ public class HerbalBrewsForgeConfig {
                 .define("showTooltip", true);
         builder.pop();
 
-        builder.push("items.hat");
+        builder.push("hat");
         ITEMS_HAT_DAMAGE_REDUCTION_ENABLED = builder
                 .comment("Enable or disable magic damage reduction provided by the hat.")
                 .define("damageReductionEnabled", true);
@@ -39,6 +42,8 @@ public class HerbalBrewsForgeConfig {
                 .comment("Percentage of magic damage reduction provided by the hat (0-100).")
                 .defineInRange("damageReductionAmount", 40, 0, 100);
         builder.pop();
+
+        builder.pop(); 
 
         builder.push("blocks");
         BLOCKS_DRYING_DURATION = builder
