@@ -55,6 +55,7 @@ public class TabRegistry {
                 out.accept(ObjectRegistry.OOLONG_TEA.get());
                 out.accept(ObjectRegistry.YERBA_MATE_TEA.get());
                 out.accept(ObjectRegistry.FLASK.get());
+                out.accept(ObjectRegistry.HERBAL_INFUSION.get());
                 out.accept(ObjectRegistry.HERBALBREWS_BANNER.get());
             })
             .build());

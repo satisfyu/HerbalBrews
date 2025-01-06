@@ -9,16 +9,18 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.PotionItem;
+import net.satisfy.herbalbrews.core.registry.ObjectRegistry;
 import net.satisfy.herbalbrews.core.registry.ScreenHandlerTypeRegistry;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector2i;
 
 public class CauldronGuiHandler extends AbstractContainerMenu {
     private final Container container;
     private final ContainerData data;
+    private final Vector2i screenPos = new Vector2i();
 
     public CauldronGuiHandler(int syncId, Inventory playerInventory) {
-        this(syncId, playerInventory, new SimpleContainer(4), new SimpleContainerData(2));
+        this(syncId, playerInventory, new SimpleContainer(5), new SimpleContainerData(2));
     }
 
     public CauldronGuiHandler(int syncId, Inventory playerInventory, Container container, ContainerData data) {
@@ -29,25 +31,31 @@ public class CauldronGuiHandler extends AbstractContainerMenu {
         addSlot(new Slot(container, 0, 57, 16) {
             @Override
             public boolean mayPlace(ItemStack stack) {
-                return stack.getItem() instanceof PotionItem;
+                return stack.getItem() instanceof net.minecraft.world.item.PotionItem;
             }
         });
         addSlot(new Slot(container, 1, 79, 22) {
             @Override
             public boolean mayPlace(ItemStack stack) {
-                return stack.getItem() instanceof PotionItem;
+                return stack.getItem() instanceof net.minecraft.world.item.PotionItem;
             }
         });
         addSlot(new Slot(container, 2, 101, 16) {
             @Override
             public boolean mayPlace(ItemStack stack) {
-                return stack.getItem() instanceof PotionItem;
+                return stack.getItem() instanceof net.minecraft.world.item.PotionItem;
             }
         });
         addSlot(new Slot(container, 3, 79, 58) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return false;
+            }
+        });
+        addSlot(new Slot(container, 4, 148, 42) {
+            @Override
+            public boolean mayPlace(ItemStack stack) {
+                return stack.getItem() == ObjectRegistry.HERBAL_INFUSION.get();
             }
         });
         for (int i = 0; i < 3; i++) {
@@ -63,7 +71,7 @@ public class CauldronGuiHandler extends AbstractContainerMenu {
     public int getScaledProgress(int maxHeight) {
         int progress = data.get(0);
         int total = data.get(1);
-        if (progress == 0) {
+        if (progress == 0 || total == 0) {
             return 0;
         }
         return progress * maxHeight / total;
@@ -76,12 +84,25 @@ public class CauldronGuiHandler extends AbstractContainerMenu {
         if (slot.hasItem()) {
             ItemStack originalStack = slot.getItem();
             stack = originalStack.copy();
-            if (index < 4) {
-                if (!this.moveItemStackTo(originalStack, 4, this.slots.size(), true)) {
+            if (index < 5) { 
+                if (!this.moveItemStackTo(originalStack, 5, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.moveItemStackTo(originalStack, 0, 4, false)) {
-                return ItemStack.EMPTY;
+            } else {
+                if (originalStack.getItem() == ObjectRegistry.HERBAL_INFUSION.get()) {
+                    if (!this.moveItemStackTo(originalStack, 4, 5, false)) {
+                        return ItemStack.EMPTY;
+                    }
+            } else {
+                    for (int i = 0; i < 3; i++) {
+                        Slot inputSlot = this.slots.get(i);
+                        if (!inputSlot.hasItem()) {
+                            if (!this.moveItemStackTo(originalStack, i, i + 1, false)) {
+                                return ItemStack.EMPTY;
+                            }
+                        }
+                    }
+                }
             }
             if (originalStack.isEmpty()) {
                 slot.set(ItemStack.EMPTY);

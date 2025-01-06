@@ -43,17 +43,20 @@ public class CauldronCategory implements DisplayCategory<CauldronDisplay> {
                 .entries(display.getOutputEntries().get(0))
                 .disableBackground()
                 .markOutput());
-
-        widgets.add(Widgets.createSlot(new Point(startPoint.x + 53 - 40, startPoint.y +11))
+        widgets.add(Widgets.createSlot(new Point(startPoint.x + 13, startPoint.y + 11))
                 .entries(display.getInputEntries().get(0))
                 .markInput());
-        widgets.add(Widgets.createSlot(new Point(startPoint.x + 31 - 40, startPoint.y - 6))
+        widgets.add(Widgets.createSlot(new Point(startPoint.x - 9, startPoint.y - 6))
                 .entries(display.getInputEntries().get(1))
                 .markInput());
-        widgets.add(Widgets.createSlot(new Point(startPoint.x + 75 - 40, startPoint.y - 6))
+        widgets.add(Widgets.createSlot(new Point(startPoint.x + 35, startPoint.y - 6))
                 .entries(display.getInputEntries().get(2))
                 .markInput());
 
+        widgets.add(Widgets.createSlot(new Point(startPoint.x + 40, startPoint.y + 23))
+                .entry(EntryStacks.of(ObjectRegistry.HERBAL_INFUSION.get()))
+                .markInput());
         return widgets;
     }
+
 }

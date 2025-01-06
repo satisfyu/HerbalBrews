@@ -109,11 +109,13 @@
   "tooltip.herbalbrews.tea_kettle.heat_level": "Hitzelevel: %d%%",
   "tooltip.herbalbrews.tea_kettle.remaining_time": "Verbleibende Zeit: %s",
   "tooltip.herbalbrews.tea_kettle.water_level": "Wasserstand: %d%%",
+  "tooltip.herbalbrews.cauldron.input_slot": "Füge \u00a7e[Botanische Melange]\u00a7r als Katalysator hinzu.",
   "tooltip.herbalbrews.tea_kettle.water_slot": "Füge \u00a7e[Wasser]\u00a7r hinzu, um den Wasserstand zu erhöhen",
   "herbalbrews.advancement.drink_milk_coffee": "Milchige Momente",
   "herbalbrews.advancement.drink_milk_coffee.desc": "Kombiniere eine Tasse Kaffee mit einem Milcheimer, um das perfekte Getränk zu brauen.",
   "text.autoconfig.herbalbrews.option.blocks.jugEffectDuration": "Krug Effekt Dauer:",
   "text.autoconfig.herbalbrews.title": "HerbalBrews",
   "advancements.herbalbrews.all_effects.desc": "Erlebe die Wirkungen aller Gebräue auf einmal.",
-  "advancements.herbalbrews.all_effects": "Ein Schluck Unendlichkeit"
+  "advancements.herbalbrews.all_effects": "Ein Schluck Unendlichkeit",
+  "item.herbalbrews.herbal_infusion": "Botanische Melange"
 }

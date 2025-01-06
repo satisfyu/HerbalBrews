@@ -4,33 +4,39 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.satisfy.herbalbrews.HerbalBrews;
-import net.satisfy.herbalbrews.core.registry.ObjectRegistry;
 import net.satisfy.herbalbrews.core.recipe.CauldronRecipe;
+import net.satisfy.herbalbrews.core.registry.ObjectRegistry;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@SuppressWarnings("all")
 public class CauldronDisplay extends BasicDisplay {
 
     public static final CategoryIdentifier<CauldronDisplay> CAULDRON_DISPLAY = CategoryIdentifier.of(HerbalBrews.MOD_ID, "cauldron_display");
 
     public CauldronDisplay(CauldronRecipe recipe) {
-        this(List.of(
-                EntryIngredients.of(createPotionStack("minecraft:swiftness")),
-                EntryIngredients.of(createPotionStack("minecraft:healing")),
-                EntryIngredients.of(createPotionStack("minecraft:strength"))
-        ), List.of(
-                EntryIngredients.of(new ItemStack(ObjectRegistry.FLASK.get()))
-        ), Optional.ofNullable(recipe.getId()));
+        super(createInputs(), createOutputs(), Optional.of(recipe.getId()));
     }
 
-    public CauldronDisplay(List<EntryIngredient> inputs, List<EntryIngredient> outputs, Optional<ResourceLocation> location) {
-        super(inputs, outputs, location);
+    private static List<EntryIngredient> createInputs() {
+        List<EntryIngredient> inputs = new ArrayList<>();
+        inputs.add(EntryIngredients.of(createPotionStack("minecraft:swiftness")));
+        inputs.add(EntryIngredients.of(createPotionStack("minecraft:healing")));
+        inputs.add(EntryIngredients.of(createPotionStack("minecraft:strength")));
+        inputs.add(EntryIngredients.of(new ItemStack(ObjectRegistry.HERBAL_INFUSION.get())));
+
+        return inputs;
+    }
+
+
+    private static List<EntryIngredient> createOutputs() {
+        List<EntryIngredient> outputs = new ArrayList<>();
+        outputs.add(EntryIngredients.of(new ItemStack(ObjectRegistry.FLASK.get())));
+        return outputs;
     }
 
     private static ItemStack createPotionStack(String potionType) {

@@ -78,5 +78,10 @@ public class CauldronCategory implements IRecipeCategory<CauldronRecipe> {
         outputFlask.getOrCreateTag().putString("Effect", "minecraft:regeneration");
         builder.addSlot(RecipeIngredientRole.OUTPUT, 79 - X_OFFSET, 58 - Y_OFFSET)
                 .addItemStack(outputFlask);
+
+        ItemStack herbalInfusion = new ItemStack(ObjectRegistry.HERBAL_INFUSION.get());
+        builder.addSlot(RecipeIngredientRole.INPUT, 84 - X_OFFSET, 56 - Y_OFFSET)
+                .addItemStack(herbalInfusion);
     }
+
 }

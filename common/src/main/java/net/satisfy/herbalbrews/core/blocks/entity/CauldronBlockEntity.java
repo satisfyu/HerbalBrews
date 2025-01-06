@@ -37,8 +37,8 @@ import java.util.List;
 import java.util.Map;
 
 public class CauldronBlockEntity extends BlockEntity implements ImplementedInventory, BlockEntityTicker<CauldronBlockEntity>, MenuProvider {
-    public static final int CAPACITY = 4;
-    private static final int[] SLOTS_FOR_SIDE = new int[]{0};
+    public static final int CAPACITY = 5;
+    private static final int[] SLOTS_FOR_SIDE = new int[]{0, 4};
     private static final int[] SLOTS_FOR_UP = new int[]{1, 2};
     private static final int[] SLOTS_FOR_DOWN = new int[]{3};
     private NonNullList<ItemStack> inventory;
@@ -115,6 +115,10 @@ public class CauldronBlockEntity extends BlockEntity implements ImplementedInven
                 return false;
             }
         }
+        ItemStack catalyst = this.getItem(4);
+        if (catalyst.isEmpty() || catalyst.getItem() != ObjectRegistry.HERBAL_INFUSION.get()) {
+            return false;
+        }
         ItemStack output = this.getItem(3);
         return output.isEmpty();
     }
@@ -164,6 +168,7 @@ public class CauldronBlockEntity extends BlockEntity implements ImplementedInven
         for (int i = 0; i < 3; i++) {
             this.removeItem(i, 1);
         }
+        this.removeItem(4, 1);
     }
 
     @Override
@@ -194,6 +199,11 @@ public class CauldronBlockEntity extends BlockEntity implements ImplementedInven
             if (!dirty) {
                 this.totalBrewingTime = PlatformHelper.getBrewingDuration();
                 this.brewingTime = 0;
+                setChanged();
+            }
+        }
+        if (slot == 4) {
+            if (!dirty) {
                 setChanged();
             }
         }
