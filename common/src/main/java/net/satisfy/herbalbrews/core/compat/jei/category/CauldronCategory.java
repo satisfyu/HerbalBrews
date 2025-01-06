@@ -17,8 +17,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class CauldronCategory implements IRecipeCategory<CauldronRecipe> {
     public static final RecipeType<CauldronRecipe> CAULDRON_TYPE = RecipeType.create("herbalbrews", "cauldron_brewing", CauldronRecipe.class);
-    private static final int BACKGROUND_WIDTH = 124;
-    private static final int BACKGROUND_HEIGHT = 60;
+    private static final int BACKGROUND_WIDTH = 147;
+    private static final int BACKGROUND_HEIGHT = 64;
     private static final int X_OFFSET = 26;
     private static final int Y_OFFSET = 13;
     private final IDrawable background;
@@ -80,7 +80,7 @@ public class CauldronCategory implements IRecipeCategory<CauldronRecipe> {
                 .addItemStack(outputFlask);
 
         ItemStack herbalInfusion = new ItemStack(ObjectRegistry.HERBAL_INFUSION.get());
-        builder.addSlot(RecipeIngredientRole.INPUT, 84 - X_OFFSET, 56 - Y_OFFSET)
+        builder.addSlot(RecipeIngredientRole.INPUT, 148 - X_OFFSET, 42 - Y_OFFSET)
                 .addItemStack(herbalInfusion);
     }
 
