@@ -1,0 +1,48 @@
+{
+  "parent": "herbalbrews:main/place_jug",
+  "criteria": {
+    "all_effects": {
+      "conditions": {
+        "effects": {
+          "herbalbrews:deeprush": {},
+          "herbalbrews:fortune": {},
+          "herbalbrews:balanced": {},
+          "herbalbrews:lifeleech": {},
+          "herbalbrews:bonding": {},
+          "herbalbrews:feral": {},
+          "herbalbrews:tough": {}
+        }
+      },
+      "trigger": "minecraft:effects_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.herbalbrews.all_effects.desc"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "herbalbrews:flask",
+      "nbt": "{CustomModelData: 2}"
+  },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.herbalbrews.all_effects"
+    }
+  },
+
+  "requirements": [
+    [
+      "all_effects"
+    ]
+  ],
+  "rewards": {
+    "experience": 500,
+    "loot": [
+      "herbalbrews:advancements/lilitus_coffee"
+    ]
+  },
+  "sends_telemetry_event": true
+}

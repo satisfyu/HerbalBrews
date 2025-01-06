@@ -79,10 +79,11 @@ public class JugBlock extends Block implements EntityBlock {
         if (!(blockEntity instanceof JugBlockEntity jug)) {
             return InteractionResult.PASS;
         }
-
         if (heldItem.getItem() instanceof DrinkBlockItem) {
             if (jug.getDrinks().size() < 3) {
-                jug.addDrink(heldItem);
+                ItemStack drinkToAdd = heldItem.copy();
+                drinkToAdd.setCount(1);
+                jug.addDrink(drinkToAdd);
                 heldItem.shrink(1);
                 int fillStage = jug.getDrinks().size();
                 world.setBlock(pos, state.setValue(FILL_STAGE, fillStage), 3);

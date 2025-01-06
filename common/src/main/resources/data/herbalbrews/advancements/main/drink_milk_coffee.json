@@ -1,0 +1,40 @@
+{
+  "parent": "herbalbrews:main/drink_coffee",
+  "criteria": {
+    "milk_coffee": {
+      "conditions": {
+        "item": {
+          "items": [
+            "herbalbrews:milk_coffee"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "herbalbrews.advancement.drink_milk_coffee.desc"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "herbalbrews:milk_coffee"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "herbalbrews.advancement.drink_milk_coffee"
+    }
+  },
+
+  "requirements": [
+    [
+      "milk_coffee"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+},
+  "sends_telemetry_event": true
+}

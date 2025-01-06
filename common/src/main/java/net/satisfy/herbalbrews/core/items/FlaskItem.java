@@ -115,6 +115,9 @@ public class FlaskItem extends Item {
                     int amplifier = effectTag.getByte("Amplifier");
                     MobEffectInstance effectInstance = new MobEffectInstance(effect, duration, amplifier);
                     MutableComponent effectName = Component.translatable(effect.getDescriptionId());
+                    if (amplifier >= 0) {
+                        effectName = effectName.append(" " + toRomanNumerals(amplifier + 1));
+                    }
                     if (effectInstance.getDuration() > 20) {
                         effectName = Component.translatable("potion.withDuration", effectName, MobEffectUtil.formatDuration(effectInstance, 1.0f));
                     }
@@ -162,6 +165,20 @@ public class FlaskItem extends Item {
                 }
             }
         }
+    }
+
+    private String toRomanNumerals(int number) {
+        if (number < 1 || number > 3999) return String.valueOf(number);
+        StringBuilder sb = new StringBuilder();
+        int[] values = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        String[] numerals = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        for (int i = 0; i < values.length; i++) {
+            while (number >= values[i]) {
+                number -= values[i];
+                sb.append(numerals[i]);
+            }
+        }
+        return sb.toString();
     }
 
     @Override

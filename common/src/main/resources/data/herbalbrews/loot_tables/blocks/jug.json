@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "herbalbrews:yerba_mate_tea"
+          "name": "herbalbrews:jug"
         }
       ],
       "rolls": 1.0

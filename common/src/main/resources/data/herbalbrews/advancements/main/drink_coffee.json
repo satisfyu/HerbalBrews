@@ -1,0 +1,43 @@
+{
+  "parent": "herbalbrews:main/place_tea_kettle",
+  "criteria": {
+    "coffee": {
+      "conditions": {
+        "item": {
+          "items": [
+            "herbalbrews:coffee"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "herbalbrews.advancement.coffee.desc"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "herbalbrews:coffee"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "herbalbrews.advancement.coffee"
+    }
+  },
+
+  "requirements": [
+    [
+      "coffee"
+    ]
+  ],
+  "rewards": {
+    "experience": 50,
+    "loot": [
+      "herbalbrews:advancements/coffee_beans"
+    ]
+},
+  "sends_telemetry_event": true
+}
