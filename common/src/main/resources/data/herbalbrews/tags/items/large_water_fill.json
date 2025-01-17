@@ -1,5 +1,10 @@
 {
+  "replace": false,
   "values": [
-    "minecraft:water_bucket"
+    "minecraft:water_bucket",
+    {
+      "id": "meadow:wooden_water_bucket",
+      "required": false
+    }
   ]
 }

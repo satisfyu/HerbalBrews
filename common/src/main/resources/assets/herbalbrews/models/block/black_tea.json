@@ -1,8 +1,8 @@
 {
 	"credit": "Made by Satisfy",
 	"textures": {
-		"1": "herbalbrews:block/hibiscus_tea",
-		"particle": "herbalbrews:block/hibiscus_tea"
+		"1": "herbalbrews:block/black_tea",
+		"particle": "herbalbrews:block/black_tea"
 	},
 	"elements": [
 		{

@@ -13,22 +13,25 @@ import net.satisfy.herbalbrews.client.model.TopHatModel;
 import net.satisfy.herbalbrews.client.model.WitchHatModel;
 import net.satisfy.herbalbrews.client.renderer.CompletionistBannerRenderer;
 import net.satisfy.herbalbrews.core.registry.EntityTypeRegistry;
-import net.satisfy.herbalbrews.core.registry.ObjectRegistry;
 import net.satisfy.herbalbrews.core.registry.ScreenHandlerTypeRegistry;
+
+import static net.satisfy.herbalbrews.core.registry.ObjectRegistry.*;
 
 @Environment(EnvType.CLIENT)
 public class HerbalbrewsClient {
     public static void onInitializeClient() {
         RenderTypeRegistry.register(RenderType.cutout(),
-                ObjectRegistry.LAVENDER.get(), ObjectRegistry.WILD_COFFEE_PLANT.get(),
-                ObjectRegistry.WILD_ROOIBOS_PLANT.get(), ObjectRegistry.WILD_YERBA_MATE_PLANT.get(), ObjectRegistry.HIBISCUS.get(),
-                ObjectRegistry.HIBISCUS_TEA_BLOCK.get(), ObjectRegistry.MILK_COFFEE_BLOCK.get(), ObjectRegistry.POTTED_HIBISCUS.get(),
-                ObjectRegistry.POTTED_LAVENDER.get(), ObjectRegistry.WILD_ROOIBOS_PLANT.get(), ObjectRegistry.POTTED_WILD_COFFEE.get(),
-                ObjectRegistry.POTTED_WILD_YERBA_MATE.get(), ObjectRegistry.COFFEE_PLANT.get(), ObjectRegistry.TEA_PLANT.get(),
-                ObjectRegistry.YERBA_MATE_PLANT.get(), ObjectRegistry.ROOIBOS_PLANT.get(), ObjectRegistry.POTTED_WILD_ROOIBOS.get(),
-                ObjectRegistry.COPPER_TEA_KETTLE.get(), ObjectRegistry.COPPER_TEA_KETTLE.get(), ObjectRegistry.TEA_KETTLE.get(),
-                ObjectRegistry.CAULDRON.get(), ObjectRegistry.JUG.get()
+                LAVENDER.get(), WILD_COFFEE_PLANT.get(), WILD_ROOIBOS_PLANT.get(),
+                WILD_YERBA_MATE_PLANT.get(), HIBISCUS.get(), HIBISCUS_TEA_BLOCK.get(),
+                MILK_COFFEE_BLOCK.get(), POTTED_HIBISCUS.get(), POTTED_LAVENDER.get(),
+                POTTED_WILD_COFFEE.get(), POTTED_WILD_YERBA_MATE.get(),
+                COFFEE_PLANT.get(), TEA_PLANT.get(), YERBA_MATE_PLANT.get(),
+                ROOIBOS_PLANT.get(), POTTED_WILD_ROOIBOS.get(), COPPER_TEA_KETTLE.get(),
+                TEA_KETTLE.get(), CAULDRON.get(), JUG.get(), GREEN_TEA_BLOCK.get(),
+                BLACK_TEA_BLOCK.get(), LAVENDER_TEA_BLOCK.get(), COFFEE_BLOCK.get(), ROOIBOS_TEA_BLOCK.get(),
+                YERBA_MATE_TEA_BLOCK.get()
         );
+
 
         MenuRegistry.registerScreenFactory(ScreenHandlerTypeRegistry.TEA_KETTLE_SCREEN_HANDLER.get(), TeaKettleGui::new);
         MenuRegistry.registerScreenFactory(ScreenHandlerTypeRegistry.CAULDRON_SCREEN_HANDLER.get(), CauldronGui::new);

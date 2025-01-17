@@ -117,5 +117,9 @@
   "text.autoconfig.herbalbrews.title": "HerbalBrews",
   "advancements.herbalbrews.all_effects.desc": "Erlebe die Wirkungen aller Gebräue auf einmal.",
   "advancements.herbalbrews.all_effects": "Ein Schluck Unendlichkeit",
-  "item.herbalbrews.herbal_infusion": "Botanische Melange"
+  "item.herbalbrews.herbal_infusion": "Botanische Melange",
+  "tooltip.herbalbrews.description.title": "Benutzung:",
+  "tooltip.herbalbrews.description.jug_1": "Du kannst den Krug mit bis zu drei verschiedenen §6[Tees]§r füllen.",
+  "tooltip.herbalbrews.description.jug_2": "§e[Rechts-Klick]§r, um aus dem Krug zu trinken. Du erhältst alle §6[Effekte]§r der eingefüllten §6[Tees]§r."
+
 }

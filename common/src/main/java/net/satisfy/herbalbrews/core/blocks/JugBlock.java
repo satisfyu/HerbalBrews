@@ -1,5 +1,6 @@
 package net.satisfy.herbalbrews.core.blocks;
 
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -108,9 +109,17 @@ public class JugBlock extends Block implements EntityBlock {
 
     @Override
     public void appendHoverText(ItemStack itemStack, BlockGetter world, List<Component> tooltip, TooltipFlag tooltipContext) {
-        tooltip.add(Component.translatable("tooltip.herbalbrews.canbeplaced")
-                .withStyle(style -> style.withColor(TextColor.fromRgb(0xCD7F32)).withItalic(true)));
+        if (Screen.hasShiftDown()) {
+            tooltip.add(Component.translatable("tooltip.herbalbrews.description.title").withStyle(style -> style.withColor(TextColor.fromRgb(0x4CAF50)).withBold(true)));
+            tooltip.add(Component.translatable("tooltip.herbalbrews.description.jug_1").withStyle(style -> style.withColor(TextColor.fromRgb(0x4CAF50)).withItalic(false)));
+            tooltip.add(Component.empty());
+            tooltip.add(Component.translatable("tooltip.herbalbrews.description.jug_2").withStyle(style -> style.withColor(TextColor.fromRgb(0x4CAF50)).withItalic(false)));
+
+        } else {
+            tooltip.add(Component.translatable("tooltip.herbalbrews.canbeplaced").withStyle(style -> style.withColor(TextColor.fromRgb(0xCD7F32)).withItalic(true)));
+        }
     }
+
 
     @Override
     public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
