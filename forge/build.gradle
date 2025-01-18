@@ -7,7 +7,7 @@ architectury {
     forge()
 }
 
-def jarFileName = 'letsdo-herbalbrews-forge-alpha'
+def jarFileName = 'letsdo-herbalbrews-forge'
 
 archivesBaseName = jarFileName
 

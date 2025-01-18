@@ -99,21 +99,27 @@ public class TeaKettleGuiHandler extends AbstractContainerMenu {
         ItemStack item = slot.getItem();
         ItemStack copy = item.copy();
 
-        if (index < 8) { 
+        if (index < 8) {
             if (!this.moveItemStackTo(item, 8, this.slots.size(), true)) {
                 return ItemStack.EMPTY;
             }
             slot.onQuickCraft(item, copy);
-        } else { 
+        } else {
             if (index < this.slots.size()) {
-                if (!this.moveItemStackTo(item, 1, 5, false)) { 
-                    if (!this.moveItemStackTo(item, 6, 7, false)) { 
-                        if (!this.moveItemStackTo(item, 7, 8, false)) { 
-                            if (!this.moveItemStackTo(item, 0, 1, false)) { 
-                                return ItemStack.EMPTY;
-                            }
-                        }
+                if (item.is(TagsRegistry.CONTAINER_ITEMS)) {
+                    if (!this.moveItemStackTo(item, 5, 6, false)) {
+                        return ItemStack.EMPTY;
                     }
+                } else if (item.is(TagsRegistry.HEAT_ITEMS)) {
+                    if (!this.moveItemStackTo(item, 7, 8, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if (item.is(TagsRegistry.SMALL_WATER_FILL) || item.is(TagsRegistry.LARGE_WATER_FILL)) {
+                    if (!this.moveItemStackTo(item, 6, 7, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if (!this.moveItemStackTo(item, 0, 5, false)) {
+                    return ItemStack.EMPTY;
                 }
             }
         }
@@ -126,7 +132,6 @@ public class TeaKettleGuiHandler extends AbstractContainerMenu {
         slot.onTake(player, item);
         return copy;
     }
-
 
     @Override
     public boolean stillValid(Player player) {

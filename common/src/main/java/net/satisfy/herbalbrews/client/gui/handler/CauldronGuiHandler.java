@@ -9,15 +9,14 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.PotionItem;
 import net.satisfy.herbalbrews.core.registry.ObjectRegistry;
 import net.satisfy.herbalbrews.core.registry.ScreenHandlerTypeRegistry;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Vector2i;
 
 public class CauldronGuiHandler extends AbstractContainerMenu {
     private final Container container;
     private final ContainerData data;
-    private final Vector2i screenPos = new Vector2i();
 
     public CauldronGuiHandler(int syncId, Inventory playerInventory) {
         this(syncId, playerInventory, new SimpleContainer(5), new SimpleContainerData(2));
@@ -31,19 +30,19 @@ public class CauldronGuiHandler extends AbstractContainerMenu {
         addSlot(new Slot(container, 0, 57, 16) {
             @Override
             public boolean mayPlace(ItemStack stack) {
-                return stack.getItem() instanceof net.minecraft.world.item.PotionItem;
+                return stack.getItem() instanceof PotionItem;
             }
         });
         addSlot(new Slot(container, 1, 79, 22) {
             @Override
             public boolean mayPlace(ItemStack stack) {
-                return stack.getItem() instanceof net.minecraft.world.item.PotionItem;
+                return stack.getItem() instanceof PotionItem;
             }
         });
         addSlot(new Slot(container, 2, 101, 16) {
             @Override
             public boolean mayPlace(ItemStack stack) {
-                return stack.getItem() instanceof net.minecraft.world.item.PotionItem;
+                return stack.getItem() instanceof PotionItem;
             }
         });
         addSlot(new Slot(container, 3, 79, 58) {
