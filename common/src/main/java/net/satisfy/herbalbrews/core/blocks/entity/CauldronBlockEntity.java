@@ -79,14 +79,16 @@ public class CauldronBlockEntity extends BlockEntity implements ImplementedInven
         super.load(nbt);
         this.inventory = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(nbt, this.inventory);
-        this.brewingTime = nbt.getShort("BrewingTime");
+        this.brewingTime = nbt.getInt("BrewingTime");
+        this.totalBrewingTime = nbt.getInt("TotalBrewingTime");
     }
 
     @Override
     protected void saveAdditional(CompoundTag nbt) {
         super.saveAdditional(nbt);
         ContainerHelper.saveAllItems(nbt, this.inventory);
-        nbt.putShort("BrewingTime", (short) this.brewingTime);
+        nbt.putInt("BrewingTime", this.brewingTime);
+        nbt.putInt("TotalBrewingTime", this.totalBrewingTime);
     }
 
     @Override

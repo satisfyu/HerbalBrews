@@ -120,6 +120,8 @@
   "item.herbalbrews.herbal_infusion": "Botanische Melange",
   "tooltip.herbalbrews.description.title": "Benutzung:",
   "tooltip.herbalbrews.description.jug_1": "Du kannst den Krug mit bis zu drei verschiedenen §6[Tees]§r füllen.",
-  "tooltip.herbalbrews.description.jug_2": "§e[Rechts-Klick]§r, um aus dem Krug zu trinken. Du erhältst alle §6[Effekte]§r der eingefüllten §6[Tees]§r."
+  "tooltip.herbalbrews.description.jug_2": "§e[Rechts-Klick]§r, um aus dem Krug zu trinken. Du erhältst alle §6[Effekte]§r der eingefüllten §6[Tees]§r.",
+  "tooltip.herbalbrews.magic_damage": "[Magischer Schaden]",
+  "tooltip.herbalbrews.damage_reduction": "Wenn getragen: Reduziert %s um %s"
 
 }

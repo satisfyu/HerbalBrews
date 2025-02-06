@@ -49,8 +49,9 @@ public class HatItem extends ArmorItem {
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
         if (PlatformHelper.isHatDamageReductionEnabled()) {
             int reductionAmount = PlatformHelper.getHatDamageReductionAmount();
-            Component magicDamage = Component.literal("[Magical Damage]").setStyle(Style.EMPTY.withColor(TextColor.parseColor("#AA00FF")));
-            Component damageReduction = Component.literal("When worn: Reduces ").append(magicDamage).append(" by ").append(Component.literal(reductionAmount + "%"));
+            Component magicDamage = Component.translatable("tooltip.herbalbrews.magic_damage")
+                    .setStyle(Style.EMPTY.withColor(TextColor.parseColor("#AA00FF")));
+            Component damageReduction = Component.translatable("tooltip.herbalbrews.damage_reduction", magicDamage, reductionAmount + "%");
             tooltip.add(damageReduction);
         }
     }

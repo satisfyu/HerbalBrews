@@ -1,0 +1,37 @@
+{
+  "parent": "herbalbrews:main/place_cauldron",
+  "display": {
+    "icon": {
+      "item": "herbalbrews:flask"
+    },
+    "title": {
+      "translate": "herbalbrews.advancement.flask"
+    },
+    "description": {
+      "translate": "herbalbrews.advancement.flask.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "flask": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "herbalbrews:flask"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "flask"
+    ]
+  ]
+}
