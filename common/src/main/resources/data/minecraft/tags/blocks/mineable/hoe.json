@@ -7,6 +7,8 @@
     "herbalbrews:black_tea_leaf_block",
     "herbalbrews:mixed_tea_leaf_block",
     "herbalbrews:oolong_tea_leaf_block",
-    "herbalbrews:tea_leaf_crate"
+    "herbalbrews:tea_leaf_crate",
+    "herbalbrews:dried_green_tea_leaf_block",
+    "herbalbrews:dried_out_green_tea_leaf_block"
   ]
 }
